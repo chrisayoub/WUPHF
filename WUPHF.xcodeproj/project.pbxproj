@@ -16,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44DB93FB1F8B0FA500C449FA /* twitter_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitter_login.png; sourceTree = "<group>"; };
+		44DB93FC1F8B0FA600C449FA /* facebook_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_login.png; sourceTree = "<group>"; };
 		8341A7761F8AEECF00497C0C /* WUPHF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUPHF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8341A7791F8AEECF00497C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8341A77B1F8AEECF00497C0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,8 @@
 		8341A7781F8AEECF00497C0C /* WUPHF */ = {
 			isa = PBXGroup;
 			children = (
+				44DB93FC1F8B0FA600C449FA /* facebook_login.png */,
+				44DB93FB1F8B0FA500C449FA /* twitter_login.png */,
 				8341A7791F8AEECF00497C0C /* AppDelegate.swift */,
 				8341A77B1F8AEECF00497C0C /* ViewController.swift */,
 				8341A77D1F8AEECF00497C0C /* Main.storyboard */,
