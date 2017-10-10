@@ -214,7 +214,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nh4-ig-Zvh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1682" y="-1012"/>
+            <point key="canvasLocation" x="1713" y="-687"/>
         </scene>
         <!--Feed-->
         <scene sceneID="hAV-tS-wYU">
@@ -611,7 +611,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5c8-tl-AFF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2358" y="-687"/>
+            <point key="canvasLocation" x="2498" y="-688"/>
         </scene>
         <!--My Packs-->
         <scene sceneID="8oS-h1-MmY">
@@ -1123,6 +1123,6 @@
         <image name="twitter_login.png" width="158" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UPo-mg-wsd"/>
+        <segue reference="3FC-DU-MtH"/>
     </inferredMetricsTieBreakers>
 </document>
