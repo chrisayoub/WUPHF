@@ -219,4 +219,4 @@ api.add_resource(AddMemberToPack, '/pack/addMember')
 api.add_resource(RemoveMemberFromPack, '/pack/removeMember')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=80)
