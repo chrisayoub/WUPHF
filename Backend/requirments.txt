@@ -1,0 +1,11 @@
+Python 3.4
+MySQL Python connector
+MySQL 5.7
+SQLAlchemy
+
+from pip:
+
+flask
+flask_restful
+tweepy
+twilio
