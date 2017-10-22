@@ -49,8 +49,7 @@ class UpdateUser(Resource):
 
 class SearchUsers(Resource):
 	def get(self):
-		# Search for users given the search query
-		# Return array of users
+		
 		return ''
 
 api.add_resource(NewUser, '/user/new')
@@ -68,7 +67,9 @@ class SendFriendRequest(Resource):
 class GetFriendRequests(Resource):
 	def get(self):
 		# Get friend requests for user with given ID
-		return ''
+        id = request.form['id']
+        requests = session.query(User.requestsRecieved).filter_by(id=id).all()
+		return requests
 
 class AcceptFriendRequest(Resource):
 	def post(self):
@@ -83,7 +84,9 @@ class DeclineFriendRequest(Resource):
 class GetFriends(Resource):
 	def get(self):
 		# Get friends for user with given ID
-		return ''
+        id = request.form['id']
+        friends = session.query(User.friends).filter_by(id=id).all()
+		return friends
 
 class RemoveFriend(Resource):
 	def post(self):
@@ -184,7 +187,9 @@ api.add_resource(Feed, '/feed')
 class GetPacks(Resource):
 	def get(self):
 		# Get packs for user with given ID
-		return ''
+        userId = request.form['userId']
+        packs = session.query(Pack).filter_by(members.any(User == userId)).all()
+		return packs
 
 class CreatePack(Resource):
 	def post(self):
