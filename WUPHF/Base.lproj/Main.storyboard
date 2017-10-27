@@ -56,7 +56,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arK-8b-2gi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1535.2" y="35.532233883058474"/>
+            <point key="canvasLocation" x="-1650" y="36"/>
         </scene>
         <!--Login-->
         <scene sceneID="tne-QT-ifu">
@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188" y="45.42728635682159"/>
+            <point key="canvasLocation" x="-135" y="36"/>
         </scene>
         <!--My Contacts-->
         <scene sceneID="AOF-eL-ykR">
@@ -240,7 +240,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nh4-ig-Zvh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1713" y="-687"/>
+            <point key="canvasLocation" x="1700" y="-689"/>
         </scene>
         <!--Feed-->
         <scene sceneID="hAV-tS-wYU">
@@ -404,7 +404,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSR-0m-KUK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-444" y="1569.265367316342"/>
+            <point key="canvasLocation" x="-554" y="1505"/>
         </scene>
         <!--Create Account-->
         <scene sceneID="T8H-RM-Nky">
@@ -1215,6 +1215,6 @@
         <image name="twitter_login" width="158" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3FC-DU-MtH"/>
+        <segue reference="UPo-mg-wsd"/>
     </inferredMetricsTieBreakers>
 </document>
