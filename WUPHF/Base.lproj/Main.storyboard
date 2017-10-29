@@ -384,7 +384,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y29-Ic-INh">
                                 <rect key="frame" x="167" y="284" width="40" height="30"/>
                                 <state key="normal" title="Verify">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.98995523842965472" green="0.98869979323160906" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
@@ -982,7 +982,7 @@
                                 <state key="normal" backgroundImage="facebook_login"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="gbx-3s-fh3"/>
                     </view>
                     <navigationItem key="navigationItem" title="Link Accounts" id="UOa-u6-L3O"/>
@@ -1101,7 +1101,7 @@
                                 <textInputTraits key="textInputTraits" textContentType="username"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="GHu-JF-lIB" firstAttribute="leading" secondItem="v3p-vt-D8p" secondAttribute="leading" constant="30" id="25L-Dx-DUs"/>
                             <constraint firstItem="wlU-OE-444" firstAttribute="leading" secondItem="v3p-vt-D8p" secondAttribute="leading" constant="30" id="BYu-xs-LW2"/>
@@ -1215,6 +1215,6 @@
         <image name="twitter_login" width="158" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3FC-DU-MtH"/>
+        <segue reference="UPo-mg-wsd"/>
     </inferredMetricsTieBreakers>
 </document>
