@@ -29,6 +29,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func LoginBrn(_ sender: Any) {
+       
         guard let mail = email.text else{
             loginCheck.text = "No Email"
             return
@@ -37,8 +38,7 @@ class LoginViewController: UIViewController {
             loginCheck.text = "No Password"
             return
         }
-        print(mail)
-        guard let keyPass:String = keychain.get(mail) else{
+               guard let keyPass:String = keychain.get(mail) else{
             loginCheck.text = "Login Failed"
             return
         }

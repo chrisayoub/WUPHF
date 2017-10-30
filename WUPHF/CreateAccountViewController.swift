@@ -50,6 +50,10 @@ class CreateAccountViewController: UIViewController {
             passwordCheck.text = "No Email"
             return
         }
+        if(!isValidEmail(testStr: email)){
+            passwordCheck.text = "Invalid Email"
+            return
+        }
         guard let pass = password.text else{
             passwordCheck.text = "No Password"
             return
@@ -70,6 +74,14 @@ class CreateAccountViewController: UIViewController {
         }
        
     }
+    //Credit to https://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
     func verifyPassword() -> Bool{
         print("\(password.text!) \(confirmPass.text!)")
         if((password.text!) == (confirmPass.text!)){
