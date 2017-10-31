@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class EditProfileViewController: CommonVC {
+class EditProfileViewController: UIViewController {
 
     let keychain = KeychainSwift()
     @IBOutlet weak var fName: UITextField!
@@ -19,33 +19,32 @@ class EditProfileViewController: CommonVC {
     @IBOutlet weak var confirmPass: UITextField!
     @IBAction func saveBtn(_ sender: Any) {
             guard let first = fName.text else{
-                //passwordCheck.text = "No First Name"
-                alertPopUp(warning: "No First Name entered.")
+                Common.alertPopUp(warning: "No First Name entered.", vc: self)
                 return
             }
             guard let last = lName.text else{
                 //passwordCheck.text = "No Last Name"
-                alertPopUp(warning: "No First Name entered.")
+                Common.alertPopUp(warning: "No First Name entered.", vc: self)
                 return
             }
             guard let email = email.text else{
                 // passwordCheck.text = "No Email"
-                alertPopUp(warning: "No First Name entered.")
+                Common.alertPopUp(warning: "No First Name entered.", vc: self)
                 return
             }
-            if(!isValidEmail(testStr: email)){
+            if !Common.isValidEmail(testStr: email) {
                 //passwordCheck.text = "Invalid Email"
-                alertPopUp(warning: "No First Name entered.")
+                Common.alertPopUp(warning: "No First Name entered.", vc: self)
                 return
             }
             guard let pass = pass.text else{
                 //passwordCheck.text = "No Password"
-                alertPopUp(warning: "No Password.")
+                Common.alertPopUp(warning: "No Password.", vc: self)
                 return
             }
             guard let confPass = confirmPass.text else{
                 //passwordCheck.text = "No Password to confirm"
-                alertPopUp(warning: "No Password to confirm")
+                Common.alertPopUp(warning: "No Password to confirm", vc: self)
                 return
             }
             
@@ -57,7 +56,7 @@ class EditProfileViewController: CommonVC {
             } else {
                 print("passFailed")
                 //passwordCheck.text = "Passwords did not match"
-                alertPopUp(warning: "Passwords did not match")
+                Common.alertPopUp(warning: "Passwords did not match", vc: self)
             }
             
     }
@@ -83,11 +82,11 @@ class EditProfileViewController: CommonVC {
          */
         
         // Set textfield delegates for RemoveKeyboardViewController
-        fName.delegate = self
-        lName.delegate = self
-        email.delegate = self
-        pass.delegate = self
-        confirmPass.delegate = self
+        fName.delegate = KeyboardReturn.shared
+        lName.delegate = KeyboardReturn.shared
+        email.delegate = KeyboardReturn.shared
+        pass.delegate = KeyboardReturn.shared
+        confirmPass.delegate = KeyboardReturn.shared
         
         // Do any additional setup after loading the view.
     }

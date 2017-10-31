@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateAccountViewController: CommonVC {
+class CreateAccountViewController: UIViewController {
     
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var fName: UITextField!
@@ -21,48 +21,48 @@ class CreateAccountViewController: CommonVC {
         super.viewDidLoad()
         
         // Set texfield delegates for keyboard removal in superclass
-        fName.delegate = self
-        lName.delegate = self
-        email.delegate = self
-        password.delegate = self
-        confirmPass.delegate = self
+        fName.delegate = KeyboardReturn.shared
+        lName.delegate = KeyboardReturn.shared
+        email.delegate = KeyboardReturn.shared
+        password.delegate = KeyboardReturn.shared
+        confirmPass.delegate = KeyboardReturn.shared
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
         guard let first = fName.text else {
-            alertPopUp(warning: "Please enter your first name.")
+            Common.alertPopUp(warning: "Please enter your first name.", vc: self)
             return
         }
         guard let last = lName.text else {
-            alertPopUp(warning: "Please enter your last name.")
+            Common.alertPopUp(warning: "Please enter your last name.", vc: self)
             return
         }
         guard let email = email.text else {
-            alertPopUp(warning: "Please enter your email.")
+            Common.alertPopUp(warning: "Please enter your email.", vc: self)
             return
         }
-        if !isValidEmail(testStr: email) {
-            alertPopUp(warning: "Please enter a valid email.")
+        if !Common.isValidEmail(testStr: email) {
+            Common.alertPopUp(warning: "Please enter a valid email.", vc: self)
             return
         }
         guard let pass = password.text else {
-            alertPopUp(warning: "Please enter a password.")
+            Common.alertPopUp(warning: "Please enter a password.", vc: self)
             return
         }
         guard let confPass = confirmPass.text else {
-            alertPopUp(warning: "Please enter a password confirmation.")
+            Common.alertPopUp(warning: "Please enter a password confirmation.", vc: self)
             return
         }
         if pass == confPass {
             // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
-            let activityView = getLoadingAnimation()
+            let activityView = Common.getLoadingAnimation(view: self.view)
             activityView.startAnimating()
             
             // Check email not already used
             APIHandler.shared.getUserByEmail(email: email, completionHandler: { user in
                 if user == nil {
                     // Save password
-                    CommonVC.keychain.set(pass, forKey: email)
+                    Common.keychain.set(pass, forKey: email)
                     
                     // Post user to server, save mapping of email to ID
                     APIHandler.shared.createUser(firstName: first, lastName: last, email: email, completionHandler: { id in
@@ -79,16 +79,20 @@ class CreateAccountViewController: CommonVC {
                     self.performSegue(withIdentifier: "accountCreated", sender: self)
                 } else {
                     // User already exists
-                    self.alertPopUp(warning: "User with given email already exists")
+                    Common.alertPopUp(warning: "User with given email already exists", vc: self)
                 }
                 // Stop pinwheel
                 activityView.stopAnimating()
             })
         } else {
-            alertPopUp(warning: "Passwords do not match, please ensure your password matches your confirmation.")
+            Common.alertPopUp(warning: "Passwords do not match, please ensure your password matches your confirmation.", vc: self)
         }
     }
-   
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     /*
     // MARK: - Navigation
 
