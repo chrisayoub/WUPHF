@@ -45,44 +45,38 @@ class CreateAccountViewController: RemoveKeyboardViewController {
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
-        // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
-        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        activityView.center = self.view.center
-        activityView.startAnimating()
-        self.view.addSubview(activityView)
-        
-        guard let first = fName.text else{
-            //passwordCheck.text = "No First Name"
-            alertPopUp(warning: "No First Name entered.")
+        guard let first = fName.text else {
+            alertPopUp(warning: "Please enter your first name.")
             return
         }
-        guard let last = lName.text else{
-            //passwordCheck.text = "No Last Name"
-            alertPopUp(warning: "No First Name entered.")
+        guard let last = lName.text else {
+            alertPopUp(warning: "Please enter your last name.")
             return
         }
-        guard let email = email.text else{
-           // passwordCheck.text = "No Email"
-            alertPopUp(warning: "No First Name entered.")
+        guard let email = email.text else {
+            alertPopUp(warning: "Please enter your email.")
             return
         }
-        if(!isValidEmail(testStr: email)){
-            //passwordCheck.text = "Invalid Email"
-            alertPopUp(warning: "No First Name entered.")
+        if(!isValidEmail(testStr: email)) {
+            alertPopUp(warning: "Please enter a valid email.")
             return
         }
-        guard let pass = password.text else{
-            //passwordCheck.text = "No Password"
-            alertPopUp(warning: "No Password.")
+        guard let pass = password.text else {
+            alertPopUp(warning: "Please enter a password.")
             return
         }
-        guard let confPass = confirmPass.text else{
-            //passwordCheck.text = "No Password to confirm"
-            alertPopUp(warning: "No Password to confirm")
+        guard let confPass = confirmPass.text else {
+            alertPopUp(warning: "Please enter a password confirmation.")
             return
         }
         
         if (verifyPassword()) {
+            // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
+            let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+            activityView.center = self.view.center
+            activityView.startAnimating()
+            self.view.addSubview(activityView)
+            
             // Check email not already used
             APIHandler.shared.getUserByEmail(email: email, completionHandler: { user in
                 if user == nil {
@@ -109,12 +103,8 @@ class CreateAccountViewController: RemoveKeyboardViewController {
                 // Stop pinwheel
                 activityView.stopAnimating()
             })
-            
-
         } else {
-            print("passFailed")
-            //passwordCheck.text = "Passwords did not match"
-            alertPopUp(warning: "Passwords did not match")
+            alertPopUp(warning: "Passwords do not match, please ensure your password matches your confirmation.")
         }
        
     }

@@ -10,8 +10,6 @@ import UIKit
 import FacebookCore
 import FacebookLogin
 
-
-
 class LinkAccountsViewController: UIViewController {
 
     @IBOutlet weak var facebookBtn: UIButton!

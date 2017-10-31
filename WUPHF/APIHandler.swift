@@ -14,7 +14,7 @@ class APIHandler {
     static let shared = APIHandler()
     
     // Default value in case of failure to read current IP
-    var server: String = "54.209.75.152"
+    var server: String = "http://18.216.122.103"
     
     private init() {
         if let path = Bundle.main.path(forResource: "App", ofType: "plist") {
@@ -25,19 +25,29 @@ class APIHandler {
     }
     
     func getUser(id: Int, completionHandler: @escaping (_ user: User?) -> Void) {
-        Alamofire.request("\(server)/user/get?id=\(id)").responseJSON { response in
-            if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
-                let user = self.parseJsonToUser(json: jsonDecode)
-                completionHandler(user)
+        Alamofire.request("\(server)/user/get?id=\(id)").validate().responseJSON { response in
+            switch response.result {
+                case .success:
+                    if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
+                        let user = self.parseJsonToUser(json: jsonDecode)
+                        completionHandler(user)
+                    }
+                case .failure( _):
+                    completionHandler(nil)
             }
         }
     }
     
     func getUserByEmail(email: String, completionHandler: @escaping (_ user: User?) -> Void) {
-        Alamofire.request("\(server)/user/get/byEmail?email=\(email)").responseJSON { response in
-            if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
-                let user = self.parseJsonToUser(json: jsonDecode)
-                completionHandler(user)
+        Alamofire.request("\(server)/user/get/byEmail?email=\(email)").validate().responseJSON { response in
+             switch response.result {
+                 case .success:
+                    if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
+                        let user = self.parseJsonToUser(json: jsonDecode)
+                        completionHandler(user)
+                    }
+                 case .failure( _):
+                    completionHandler(nil)
             }
         }
     }
