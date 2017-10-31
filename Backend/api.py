@@ -29,6 +29,12 @@ class GetUser(Resource):
 		user = session.query(User).filter_by(id=id).all()[0]
 		return user.as_dict()
 
+class GetUserByEmail(Resource):
+	def get(self):
+		email = request.args['email']
+		user = session.query(User).filter_by(email=email).all()[0]
+		return user.as_dict()
+
 class UpdateUser(Resource):
 	def post(self):
 		id = request.form['id']
@@ -56,6 +62,7 @@ api.add_resource(NewUser, '/user/new')
 api.add_resource(GetUser, '/user/get')
 api.add_resource(UpdateUser, '/user/update')
 api.add_resource(SearchUsers, '/user/search')
+api.add_resource(GetUserByEmail, '/user/get/byEmail')
 
 # Friends
 
@@ -67,8 +74,8 @@ class SendFriendRequest(Resource):
 class GetFriendRequests(Resource):
 	def get(self):
 		# Get friend requests for user with given ID
-        id = request.form['id']
-        requests = session.query(User.requestsRecieved).filter_by(id=id).all()
+		id = request.form['id']
+		requests = session.query(User.requestsRecieved).filter_by(id=id).all()
 		return requests
 
 class AcceptFriendRequest(Resource):
@@ -84,8 +91,8 @@ class DeclineFriendRequest(Resource):
 class GetFriends(Resource):
 	def get(self):
 		# Get friends for user with given ID
-        id = request.form['id']
-        friends = session.query(User.friends).filter_by(id=id).all()
+		id = request.form['id']
+		friends = session.query(User.friends).filter_by(id=id).all()
 		return friends
 
 class RemoveFriend(Resource):
@@ -187,8 +194,8 @@ api.add_resource(Feed, '/feed')
 class GetPacks(Resource):
 	def get(self):
 		# Get packs for user with given ID
-        userId = request.form['userId']
-        packs = session.query(Pack).filter_by(members.any(User == userId)).all()
+		userId = request.form['userId']
+		packs = session.query(Pack).filter_by(members.any(User == userId)).all()
 		return packs
 
 class CreatePack(Resource):
@@ -224,4 +231,4 @@ api.add_resource(AddMemberToPack, '/pack/addMember')
 api.add_resource(RemoveMemberFromPack, '/pack/removeMember')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=80)
+	app.run(debug=True, host='0.0.0.0', port=80)
