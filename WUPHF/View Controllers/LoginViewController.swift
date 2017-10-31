@@ -7,11 +7,8 @@
 //
 
 import UIKit
-import KeychainSwift
 
-class LoginViewController: CommonViewController {
-
-    let keychain = KeychainSwift()
+class LoginViewController: CommonVC {
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -38,7 +35,7 @@ class LoginViewController: CommonViewController {
             return
         }
         
-        guard let keyPass: String = keychain.get(mail) else {
+        guard let keyPass: String = CommonVC.keychain.get(mail) else {
             alertPopUp(warning: "Account does not exist.")
             return
         }
@@ -55,20 +52,11 @@ class LoginViewController: CommonViewController {
                 self.alertPopUp(warning: "Account does not exist.")
             } else {
                 // Save the user
-                self.loggedInUser = user
+                CommonVC.loggedInUser = user
                 // Go to next screen
                 self.performSegue(withIdentifier: "login", sender: self)
             }
             loading.stopAnimating()
         })
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "login" {
-            let destVC = segue.destination as! CommonViewController
-            destVC.loggedInUser = self.loggedInUser
-        }
     }
 }

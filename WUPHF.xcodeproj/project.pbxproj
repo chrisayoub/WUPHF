@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		242254A1D92B1E16649BB78C /* Pods_WUPHF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 889762957542608E55FD90EE /* Pods_WUPHF.framework */; };
-		4466B3E51FA8050B00ED1310 /* CommonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E41FA8050B00ED1310 /* CommonViewController.swift */; };
+		4466B3E51FA8050B00ED1310 /* CommonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E41FA8050B00ED1310 /* CommonVC.swift */; };
 		4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */; };
 		4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48C1FA814DB00417602 /* EditProfileViewController.swift */; };
 		4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */; };
@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		137DD445024253F5B7245463 /* Pods-WUPHF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.release.xcconfig"; sourceTree = "<group>"; };
 		149E08DD5BE60B7512985E33 /* Pods-WUPHF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.debug.xcconfig"; sourceTree = "<group>"; };
-		4466B3E41FA8050B00ED1310 /* CommonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewController.swift; sourceTree = "<group>"; };
+		4466B3E41FA8050B00ED1310 /* CommonVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonVC.swift; sourceTree = "<group>"; };
 		4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		4491C48C1FA814DB00417602 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePhoneViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				8341A7881F8AEECF00497C0C /* Info.plist */,
 				8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */,
 				83EFCF2E1FA83C0500B16B97 /* App.plist */,
-				4466B3E41FA8050B00ED1310 /* CommonViewController.swift */,
+				4466B3E41FA8050B00ED1310 /* CommonVC.swift */,
 			);
 			path = WUPHF;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
 				830198AB1FA857CF00A05206 /* LinkAccountsViewController.swift in Sources */,
 				4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */,
-				4466B3E51FA8050B00ED1310 /* CommonViewController.swift in Sources */,
+				4466B3E51FA8050B00ED1310 /* CommonVC.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,

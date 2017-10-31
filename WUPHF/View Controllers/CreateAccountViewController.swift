@@ -7,18 +7,12 @@
 //
 
 import UIKit
-import Alamofire
-import Security
-import KeychainSwift
 
-class CreateAccountViewController: CommonViewController {
-    
-    let keychain = KeychainSwift()
+class CreateAccountViewController: CommonVC {
     
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var fName: UITextField!
     @IBOutlet weak var email: UITextField!
-    
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPass: UITextField!
     @IBOutlet weak var smsSwitch: UISwitch!
@@ -26,17 +20,12 @@ class CreateAccountViewController: CommonViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set texfield delegates for keyboard removal in superclass
+        // Set texfield delegates for keyboard removal in superclass
         fName.delegate = self
         lName.delegate = self
         email.delegate = self
         password.delegate = self
         confirmPass.delegate = self
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
@@ -52,12 +41,10 @@ class CreateAccountViewController: CommonViewController {
             alertPopUp(warning: "Please enter your email.")
             return
         }
-        
-        if (!isValidEmail(testStr: email)) {
+        if !isValidEmail(testStr: email) {
             alertPopUp(warning: "Please enter a valid email.")
             return
         }
-        
         guard let pass = password.text else {
             alertPopUp(warning: "Please enter a password.")
             return
@@ -66,8 +53,7 @@ class CreateAccountViewController: CommonViewController {
             alertPopUp(warning: "Please enter a password confirmation.")
             return
         }
-        
-        if (pass == confPass) {
+        if pass == confPass {
             // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
             let activityView = getLoadingAnimation()
             activityView.startAnimating()
@@ -76,7 +62,7 @@ class CreateAccountViewController: CommonViewController {
             APIHandler.shared.getUserByEmail(email: email, completionHandler: { user in
                 if user == nil {
                     // Save password
-                    self.keychain.set(pass, forKey: email)
+                    CommonVC.keychain.set(pass, forKey: email)
                     
                     // Post user to server, save mapping of email to ID
                     APIHandler.shared.createUser(firstName: first, lastName: last, email: email, completionHandler: { id in
@@ -101,7 +87,6 @@ class CreateAccountViewController: CommonViewController {
         } else {
             alertPopUp(warning: "Passwords do not match, please ensure your password matches your confirmation.")
         }
-       
     }
    
     /*

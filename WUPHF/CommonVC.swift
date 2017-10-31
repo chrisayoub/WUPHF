@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import KeychainSwift
+import Security
 
-class CommonViewController: UIViewController, UITextFieldDelegate {
-
-    var loggedInUser: User?
+class CommonVC: UIViewController, UITextFieldDelegate {
+    
+    static let keychain = KeychainSwift()
+    static var loggedInUser: User?
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

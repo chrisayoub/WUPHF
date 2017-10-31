@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class EditProfileViewController: CommonViewController {
+class EditProfileViewController: CommonVC {
 
     let keychain = KeychainSwift()
     @IBOutlet weak var fName: UITextField!
