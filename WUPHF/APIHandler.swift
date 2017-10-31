@@ -26,8 +26,8 @@ class APIHandler {
     
     func getUser(id: Int, completionHandler: @escaping (_ user: User?) -> Void) {
         Alamofire.request("\(server)/user/get?id=\(id)").responseJSON { response in
-            if let json = response.result.value {
-                let user = self.parseJsonToUser(json: json as! Dictionary<String,AnyObject>)
+            if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
+                let user = self.parseJsonToUser(json: jsonDecode)
                 completionHandler(user)
             }
         }
@@ -35,14 +35,14 @@ class APIHandler {
     
     func getUserByEmail(email: String, completionHandler: @escaping (_ user: User?) -> Void) {
         Alamofire.request("\(server)/user/get/byEmail?email=\(email)").responseJSON { response in
-            if let json = response.result.value {
-                let user = self.parseJsonToUser(json: json as! Dictionary<String,AnyObject>)
+            if let json = response.result.value, let jsonDecode = json as? Dictionary<String,AnyObject> {
+                let user = self.parseJsonToUser(json: jsonDecode)
                 completionHandler(user)
             }
         }
     }
     
-    func createUser(firstName: String, lastName: String, email: String, completionHandler: ((_ id: Int) -> Void)?) {
+    func createUser(firstName: String, lastName: String, email: String, completionHandler: ((_ id: Int?) -> Void)?) {
         let parameters: Parameters = [
             "firstName": firstName,
             "lastName": lastName,
@@ -51,9 +51,9 @@ class APIHandler {
 
         Alamofire.request("\(server)/user/new", method: .post, parameters: parameters).responseJSON { response in
             if let json = response.result.value {
-                let data = json as! Dictionary<String,AnyObject>
-                let id = data["id"] as! Int
-                completionHandler?(id)
+                if let data = json as? Dictionary<String,AnyObject>, let id = data["id"] as? Int {
+                    completionHandler?(id)
+                }
             }
         }
     }

@@ -45,6 +45,11 @@ class CreateAccountViewController: RemoveKeyboardViewController {
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
+        // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
+        let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityView.center = self.view.center
+        activityView.startAnimating()
+        self.view.addSubview(activityView)
         
         guard let first = fName.text else{
             //passwordCheck.text = "No First Name"
@@ -99,7 +104,10 @@ class CreateAccountViewController: RemoveKeyboardViewController {
                     self.performSegue(withIdentifier: "accountCreated", sender: self)
                 } else {
                     // User already exists
+                    self.alertPopUp(warning: "User with given email already exists")
                 }
+                // Stop pinwheel
+                activityView.stopAnimating()
             })
             
 
@@ -112,13 +120,7 @@ class CreateAccountViewController: RemoveKeyboardViewController {
     }
    
     func verifyPassword() -> Bool{
-        print("\(password.text!) \(confirmPass.text!)")
-        if((password.text!) == (confirmPass.text!)){
-            return true;
-        }
-        print("in failed pass")
-        return false;
-        
+        return (password.text!) == (confirmPass.text!)
     }
     /*func alertPopUp(warning: String){
         let alert = UIAlertController(title: "Error", message: warning, preferredStyle: UIAlertControllerStyle.alert)
