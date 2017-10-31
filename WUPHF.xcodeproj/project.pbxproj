@@ -8,7 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		242254A1D92B1E16649BB78C /* Pods_WUPHF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 889762957542608E55FD90EE /* Pods_WUPHF.framework */; };
+		4466B3E31FA801EE00ED1310 /* LinkAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E21FA801EE00ED1310 /* LinkAccountsViewController.swift */; };
+		4466B3E51FA8050B00ED1310 /* RemoveKeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E41FA8050B00ED1310 /* RemoveKeyboardViewController.swift */; };
+		4466B3E91FA80CA900ED1310 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4466B3E61FA80CA800ED1310 /* FBSDKLoginKit.framework */; };
+		4466B3EA1FA80CA900ED1310 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4466B3E71FA80CA800ED1310 /* FBSDKShareKit.framework */; };
+		4466B3EB1FA80CA900ED1310 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4466B3E81FA80CA900ED1310 /* FBSDKCoreKit.framework */; };
 		4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */; };
+		4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48C1FA814DB00417602 /* EditProfileViewController.swift */; };
+		4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */; };
 		44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B4428B1FA6A79400D9F58E /* LoginViewController.swift */; };
 		8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A7791F8AEECF00497C0C /* AppDelegate.swift */; };
 		8341A77C1F8AEECF00497C0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A77B1F8AEECF00497C0C /* ViewController.swift */; };
@@ -21,7 +28,14 @@
 /* Begin PBXFileReference section */
 		137DD445024253F5B7245463 /* Pods-WUPHF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.release.xcconfig"; sourceTree = "<group>"; };
 		149E08DD5BE60B7512985E33 /* Pods-WUPHF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.debug.xcconfig"; sourceTree = "<group>"; };
+		4466B3E21FA801EE00ED1310 /* LinkAccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAccountsViewController.swift; sourceTree = "<group>"; };
+		4466B3E41FA8050B00ED1310 /* RemoveKeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveKeyboardViewController.swift; sourceTree = "<group>"; };
+		4466B3E61FA80CA800ED1310 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		4466B3E71FA80CA800ED1310 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		4466B3E81FA80CA900ED1310 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		4491C48C1FA814DB00417602 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePhoneViewController.swift; sourceTree = "<group>"; };
 		44B4428B1FA6A79400D9F58E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8341A7761F8AEECF00497C0C /* WUPHF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUPHF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8341A7791F8AEECF00497C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,7 +53,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4466B3E91FA80CA900ED1310 /* FBSDKLoginKit.framework in Frameworks */,
+				4466B3EB1FA80CA900ED1310 /* FBSDKCoreKit.framework in Frameworks */,
 				242254A1D92B1E16649BB78C /* Pods_WUPHF.framework in Frameworks */,
+				4466B3EA1FA80CA900ED1310 /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +84,9 @@
 		8341A7781F8AEECF00497C0C /* WUPHF */ = {
 			isa = PBXGroup;
 			children = (
+				4466B3E81FA80CA900ED1310 /* FBSDKCoreKit.framework */,
+				4466B3E61FA80CA800ED1310 /* FBSDKLoginKit.framework */,
+				4466B3E71FA80CA800ED1310 /* FBSDKShareKit.framework */,
 				8341A7791F8AEECF00497C0C /* AppDelegate.swift */,
 				8341A77B1F8AEECF00497C0C /* ViewController.swift */,
 				8341A77D1F8AEECF00497C0C /* Main.storyboard */,
@@ -76,6 +96,10 @@
 				8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */,
 				4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */,
 				44B4428B1FA6A79400D9F58E /* LoginViewController.swift */,
+				4466B3E21FA801EE00ED1310 /* LinkAccountsViewController.swift */,
+				4466B3E41FA8050B00ED1310 /* RemoveKeyboardViewController.swift */,
+				4491C48C1FA814DB00417602 /* EditProfileViewController.swift */,
+				4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */,
 			);
 			path = WUPHF;
 			sourceTree = "<group>";
@@ -191,11 +215,21 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift/KeychainSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,10 +262,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */,
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
+				4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */,
+				4466B3E51FA8050B00ED1310 /* RemoveKeyboardViewController.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				8341A77C1F8AEECF00497C0C /* ViewController.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,
+				4466B3E31FA801EE00ED1310 /* LinkAccountsViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +409,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WUPHF",
+				);
 				INFOPLIST_FILE = WUPHF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WUPHF;
@@ -386,6 +428,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/WUPHF",
+				);
 				INFOPLIST_FILE = WUPHF/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.WUPHF;

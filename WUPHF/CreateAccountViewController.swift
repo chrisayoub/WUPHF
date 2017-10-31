@@ -11,7 +11,7 @@ import Alamofire
 import Security
 import KeychainSwift
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: RemoveKeyboardViewController {
     
     let keychain = KeychainSwift()
     
@@ -27,8 +27,16 @@ class CreateAccountViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set texfield delegates for keyboard removal in superclass
+        fName.delegate = self
+        lName.delegate = self
+        email.delegate = self
+        password.delegate = self
+        confirmPass.delegate = self
+        
+        // hide password Check label on load
         passwordCheck.text = ""
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,27 +47,33 @@ class CreateAccountViewController: UIViewController {
     @IBAction func createAccountBtn(_ sender: Any) {
         
         guard let first = fName.text else{
-            passwordCheck.text = "No First Name"
+            //passwordCheck.text = "No First Name"
+            alertPopUp(warning: "No First Name entered.")
             return
         }
         guard let last = lName.text else{
-            passwordCheck.text = "No Last Name"
+            //passwordCheck.text = "No Last Name"
+            alertPopUp(warning: "No First Name entered.")
             return
         }
         guard let email = email.text else{
-            passwordCheck.text = "No Email"
+           // passwordCheck.text = "No Email"
+            alertPopUp(warning: "No First Name entered.")
             return
         }
         if(!isValidEmail(testStr: email)){
-            passwordCheck.text = "Invalid Email"
+            //passwordCheck.text = "Invalid Email"
+            alertPopUp(warning: "No First Name entered.")
             return
         }
         guard let pass = password.text else{
-            passwordCheck.text = "No Password"
+            //passwordCheck.text = "No Password"
+            alertPopUp(warning: "No Password.")
             return
         }
         guard let confPass = confirmPass.text else{
-            passwordCheck.text = "No Password to confirm"
+            //passwordCheck.text = "No Password to confirm"
+            alertPopUp(warning: "No Password to confirm")
             return
         }
         
@@ -70,18 +84,12 @@ class CreateAccountViewController: UIViewController {
 
         } else {
             print("passFailed")
-            passwordCheck.text = "Passwords did not match"
+            //passwordCheck.text = "Passwords did not match"
+            alertPopUp(warning: "Passwords did not match")
         }
        
     }
-    //Credit to https://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift
-    func isValidEmail(testStr:String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: testStr)
-    }
-    
+   
     func verifyPassword() -> Bool{
         print("\(password.text!) \(confirmPass.text!)")
         if((password.text!) == (confirmPass.text!)){
@@ -90,9 +98,13 @@ class CreateAccountViewController: UIViewController {
         print("in failed pass")
         return false;
         
-        
     }
-    
+    /*func alertPopUp(warning: String){
+        let alert = UIAlertController(title: "Error", message: warning, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert,animated: true, completion: nil)
+        
+    }*/
     /*
     // MARK: - Navigation
 

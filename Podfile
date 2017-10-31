@@ -5,5 +5,6 @@ use_frameworks!
 target 'WUPHF' do
     pod 'Alamofire', '~> 4.5'
     pod 'KeychainSwift', '~> 9.0'
+    pod 'FacebookLogin'
 end
 

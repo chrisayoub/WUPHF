@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class LoginViewController: UIViewController {
+class LoginViewController: RemoveKeyboardViewController {
 
     let keychain = KeychainSwift()
     @IBOutlet weak var email: UITextField!
@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        email.delegate = self
+        password.delegate = self
         loginCheck.text = ""
         // Do any additional setup after loading the view.
     }
@@ -31,21 +33,25 @@ class LoginViewController: UIViewController {
     @IBAction func LoginBrn(_ sender: Any) {
        
         guard let mail = email.text else{
-            loginCheck.text = "No Email"
+            //loginCheck.text = "No Email"
+            alertPopUp(warning: "Login Failed.")
             return
         }
         guard let pass = password.text else{
-            loginCheck.text = "No Password"
+            //loginCheck.text = "No Password"
+            alertPopUp(warning: "Login Failed.")
             return
         }
                guard let keyPass:String = keychain.get(mail) else{
-            loginCheck.text = "Login Failed"
+            //loginCheck.text = "Login Failed"
+                alertPopUp(warning: "Login Failed.")
             return
         }
         if(keyPass == pass){
             self.performSegue(withIdentifier: "login", sender: self)
         } else {
-            loginCheck.text = "Login Failed"
+            //loginCheck.text = "Login Failed"
+            alertPopUp(warning: "Login Failed.")
         }
         
         
