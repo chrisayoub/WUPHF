@@ -11,14 +11,14 @@
 		4466B3E51FA8050B00ED1310 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E41FA8050B00ED1310 /* Common.swift */; };
 		4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */; };
 		4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48C1FA814DB00417602 /* EditProfileViewController.swift */; };
-		4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */; };
 		44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B4428B1FA6A79400D9F58E /* LoginViewController.swift */; };
 		830198AB1FA857CF00A05206 /* LinkAccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830198AA1FA857CF00A05206 /* LinkAccountsViewController.swift */; };
 		830198AF1FA857EB00A05206 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830198AC1FA857EB00A05206 /* FBSDKShareKit.framework */; };
 		830198B01FA857EB00A05206 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830198AD1FA857EB00A05206 /* FBSDKLoginKit.framework */; };
 		830198B11FA857EB00A05206 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830198AE1FA857EB00A05206 /* FBSDKCoreKit.framework */; };
-		830198B61FA91EBE00A05206 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830198B51FA91EBE00A05206 /* SettingsViewController.swift */; };
+		830198B61FA91EBE00A05206 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830198B51FA91EBE00A05206 /* SettingsTableViewController.swift */; };
 		830198B81FA9235D00A05206 /* KeyboardReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830198B71FA9235D00A05206 /* KeyboardReturn.swift */; };
+		830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830198B91FA9353000A05206 /* VerifySMSViewController.swift */; };
 		8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8341A7791F8AEECF00497C0C /* AppDelegate.swift */; };
 		8341A77F1F8AEECF00497C0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8341A77D1F8AEECF00497C0C /* Main.storyboard */; };
 		8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */; };
@@ -35,14 +35,14 @@
 		4466B3E41FA8050B00ED1310 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		4491C48C1FA814DB00417602 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
-		4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePhoneViewController.swift; sourceTree = "<group>"; };
 		44B4428B1FA6A79400D9F58E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		830198AA1FA857CF00A05206 /* LinkAccountsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkAccountsViewController.swift; sourceTree = "<group>"; };
 		830198AC1FA857EB00A05206 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = WUPHF/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		830198AD1FA857EB00A05206 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = WUPHF/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		830198AE1FA857EB00A05206 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = WUPHF/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		830198B51FA91EBE00A05206 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		830198B51FA91EBE00A05206 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		830198B71FA9235D00A05206 /* KeyboardReturn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardReturn.swift; sourceTree = "<group>"; };
+		830198B91FA9353000A05206 /* VerifySMSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifySMSViewController.swift; sourceTree = "<group>"; };
 		8341A7761F8AEECF00497C0C /* WUPHF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WUPHF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8341A7791F8AEECF00497C0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8341A77E1F8AEECF00497C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,9 +100,9 @@
 				4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */,
 				44B4428B1FA6A79400D9F58E /* LoginViewController.swift */,
 				4491C48C1FA814DB00417602 /* EditProfileViewController.swift */,
-				4491C48E1FA817BC00417602 /* UpdatePhoneViewController.swift */,
 				830198AA1FA857CF00A05206 /* LinkAccountsViewController.swift */,
-				830198B51FA91EBE00A05206 /* SettingsViewController.swift */,
+				830198B51FA91EBE00A05206 /* SettingsTableViewController.swift */,
+				830198B91FA9353000A05206 /* VerifySMSViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -310,14 +310,14 @@
 				4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */,
 				830198B81FA9235D00A05206 /* KeyboardReturn.swift in Sources */,
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
-				830198B61FA91EBE00A05206 /* SettingsViewController.swift in Sources */,
+				830198B61FA91EBE00A05206 /* SettingsTableViewController.swift in Sources */,
 				830198AB1FA857CF00A05206 /* LinkAccountsViewController.swift in Sources */,
-				4491C48F1FA817BC00417602 /* UpdatePhoneViewController.swift in Sources */,
 				4466B3E51FA8050B00ED1310 /* Common.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
+				830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */,
 				83EFCF351FA83C0500B16B97 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

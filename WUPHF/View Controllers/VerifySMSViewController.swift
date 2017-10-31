@@ -1,17 +1,17 @@
 //
-//  UpdatePhoneViewController.swift
+//  VerifySMSViewController.swift
 //  WUPHF
 //
-//  Created by Matthew Savignano on 10/30/17.
+//  Created by Chris on 10/31/17.
 //  Copyright © 2017 Group13. All rights reserved.
 //
 
 import UIKit
 
-class UpdatePhoneViewController: UIViewController {
+class VerifySMSViewController: UIViewController {
 
-    @IBOutlet weak var phoneNumber: UITextField!
-   
+    @IBOutlet weak var phone: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,12 +23,10 @@ class UpdatePhoneViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func saveBtn(_ sender: Any) {
-        //fill with call
-        guard let num = phoneNumber else {
-            return
-        }
-        //updatePhone(phoneNumber.text)
+    @IBAction func verify(_ sender: Any) {
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
     }
     /*
     // MARK: - Navigation
