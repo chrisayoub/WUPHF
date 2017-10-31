@@ -26,14 +26,18 @@ class NewUser(Resource):
 class GetUser(Resource):
 	def get(self):
 		id = request.args['id']
-		user = session.query(User).filter_by(id=id).all()[0]
-		return getUserFullProperties(user)
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'status':'error'}, 422
+		return getUserFullProperties(users[0])
 
 class GetUserByEmail(Resource):
 	def get(self):
 		email = request.args['email']
-		user = session.query(User).filter_by(email=email).all()[0]
-		return getUserFullProperties(user)
+		users = session.query(User).filter_by(email=email).all()[0]
+		if len(users) == 0:
+			return {'status':'error'}, 422
+		return getUserFullProperties(users[0])
 
 def getUserFullProperties(user):
 	result = user.as_dict()
