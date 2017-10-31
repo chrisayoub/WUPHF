@@ -15,10 +15,10 @@ class NewUser(Resource):
 		email = request.form['email']
 		firstName = request.form['firstName']
 		lastName = request.form['lastName']
-		phone = request.form['phone']
-		enableSMS = request.form['enableSMS'] == 'true'
+		# phone = request.form['phone']
+		# enableSMS = request.form['enableSMS'] == 'true'
 		# Add to DB
-		user = User(email=email, firstName=firstName, lastName=lastName, phoneNumber=phone, enableSMS=enableSMS)
+		user = User(email=email, firstName=firstName, lastName=lastName, phoneNumber='', enableSMS=False)
 		session.add(user)
 		session.commit()
 		return {'id' : user.id}
@@ -27,13 +27,28 @@ class GetUser(Resource):
 	def get(self):
 		id = request.args['id']
 		user = session.query(User).filter_by(id=id).all()[0]
-		return user.as_dict()
+		return getUserFullProperties(user)
 
 class GetUserByEmail(Resource):
 	def get(self):
 		email = request.args['email']
 		user = session.query(User).filter_by(email=email).all()[0]
-		return user.as_dict()
+		return getUserFullProperties(user)
+
+def getUserFullProperties(user):
+	result = user.as_dict()
+
+	if user.facebookAccount == None:
+			result['facebookLinked'] = False
+	else:
+		result['facebookLinked'] = True
+
+	if user.twitterAccount == None:
+		result['twitterLinked'] = False
+	else:
+		result['twitterLinked'] = True
+
+	return result
 
 class UpdateUser(Resource):
 	def post(self):
