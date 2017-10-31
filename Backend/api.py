@@ -34,7 +34,7 @@ class GetUser(Resource):
 class GetUserByEmail(Resource):
 	def get(self):
 		email = request.args['email']
-		users = session.query(User).filter_by(email=email).all()[0]
+		users = session.query(User).filter_by(email=email).all()
 		if len(users) == 0:
 			return {'status':'error'}, 422
 		return getUserFullProperties(users[0])
