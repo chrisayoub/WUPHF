@@ -16,6 +16,9 @@
 		8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */; };
 		8341A7841F8AEECF00497C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8341A7831F8AEECF00497C0C /* Assets.xcassets */; };
 		8341A7871F8AEECF00497C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8341A7851F8AEECF00497C0C /* LaunchScreen.storyboard */; };
+		83EFCF2F1FA83C0500B16B97 /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83EFCF2E1FA83C0500B16B97 /* App.plist */; };
+		83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF321FA83C0500B16B97 /* APIHandler.swift */; };
+		83EFCF351FA83C0500B16B97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF341FA83C0500B16B97 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,9 @@
 		8341A7831F8AEECF00497C0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8341A7861F8AEECF00497C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8341A7881F8AEECF00497C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83EFCF2E1FA83C0500B16B97 /* App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
+		83EFCF321FA83C0500B16B97 /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		83EFCF341FA83C0500B16B97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		889762957542608E55FD90EE /* Pods_WUPHF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUPHF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,6 +73,7 @@
 		8341A7781F8AEECF00497C0C /* WUPHF */ = {
 			isa = PBXGroup;
 			children = (
+				83EFCF321FA83C0500B16B97 /* APIHandler.swift */,
 				8341A7791F8AEECF00497C0C /* AppDelegate.swift */,
 				8341A77B1F8AEECF00497C0C /* ViewController.swift */,
 				8341A77D1F8AEECF00497C0C /* Main.storyboard */,
@@ -76,6 +83,8 @@
 				8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */,
 				4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */,
 				44B4428B1FA6A79400D9F58E /* LoginViewController.swift */,
+				83EFCF2E1FA83C0500B16B97 /* App.plist */,
+				83EFCF341FA83C0500B16B97 /* User.swift */,
 			);
 			path = WUPHF;
 			sourceTree = "<group>";
@@ -159,6 +168,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83EFCF2F1FA83C0500B16B97 /* App.plist in Resources */,
 				8341A7871F8AEECF00497C0C /* LaunchScreen.storyboard in Resources */,
 				8341A7841F8AEECF00497C0C /* Assets.xcassets in Resources */,
 				8341A77F1F8AEECF00497C0C /* Main.storyboard in Resources */,
@@ -231,8 +241,10 @@
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				8341A77C1F8AEECF00497C0C /* ViewController.swift in Sources */,
+				83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
+				83EFCF351FA83C0500B16B97 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

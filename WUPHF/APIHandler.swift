@@ -1,0 +1,76 @@
+//
+//  APIHandler.swift
+//  WUPHF
+//
+//  Created by Chris on 10/30/17.
+//  Copyright © 2017 Group13. All rights reserved.
+//
+
+import Foundation
+import Alamofire
+
+class APIHandler {
+    
+    static let shared = APIHandler()
+    
+    // Default value in case of failure to read current IP
+    var server: String = "54.209.75.152"
+    
+    private init() {
+        if let path = Bundle.main.path(forResource: "App", ofType: "plist") {
+            if let dic = NSDictionary(contentsOfFile: path) as? [String: Any] {
+                server = dic["server"] as! String
+            }
+        }
+    }
+    
+    func getUser(id: Int, completionHandler: @escaping (_ user: User?) -> Void) {
+        Alamofire.request("\(server)/user/get?id=\(id)").responseJSON { response in
+            if let json = response.result.value {
+                let user = self.parseJsonToUser(json: json as! Dictionary<String,AnyObject>)
+                completionHandler(user)
+            }
+        }
+    }
+    
+    func getUserByEmail(email: String, completionHandler: @escaping (_ user: User?) -> Void) {
+        Alamofire.request("\(server)/user/get/byEmail?email=\(email)").responseJSON { response in
+            if let json = response.result.value {
+                let user = self.parseJsonToUser(json: json as! Dictionary<String,AnyObject>)
+                completionHandler(user)
+            }
+        }
+    }
+    
+    func createUser(firstName: String, lastName: String, email: String, completionHandler: ((_ id: Int) -> Void)?) {
+        let parameters: Parameters = [
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email
+        ]
+
+        Alamofire.request("\(server)/user/new", method: .post, parameters: parameters).responseJSON { response in
+            if let json = response.result.value {
+                let data = json as! Dictionary<String,AnyObject>
+                let id = data["id"] as! Int
+                completionHandler?(id)
+            }
+        }
+    }
+    
+    fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
+        if let id = json["id"] as? Int,
+        let firstName = json["firstName"] as? String,
+        let lastName = json["lastName"] as? String,
+        let email = json["email"] as? String,
+        let phone = json["phone"] as? String,
+        let enableSMS = json["enableSMS"] as? Bool,
+        let facebookLinked = json["facebookLinked"] as? Bool,
+        let twitterLinked = json["twitterLinked"] as? Bool {
+            return User(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone,
+                        enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked)
+        }
+        return nil
+    }
+}
+

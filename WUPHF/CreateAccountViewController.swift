@@ -63,10 +63,31 @@ class CreateAccountViewController: UIViewController {
             return
         }
         
-        if(verifyPassword()){
-            keychain.set(pass, forKey: email)
-            //post user to server
-            self.performSegue(withIdentifier: "accountCreated", sender: self)
+        if (verifyPassword()) {
+            // Check email not already used
+            APIHandler.shared.getUserByEmail(email: email, completionHandler: { user in
+                if user == nil {
+                    // Save password
+                    self.keychain.set(pass, forKey: email)
+                    
+                    // Post user to server, save mapping of email to ID
+                    APIHandler.shared.createUser(firstName: first, lastName: last, email: email, completionHandler: { id in
+                        var userIds = UserDefaults.standard.dictionary(forKey: "userIds")
+                        if (userIds == nil) {
+                            userIds = Dictionary()
+                            UserDefaults.standard.set(userIds, forKey: "userIds")
+                        }
+                        userIds?["email"] = id
+                        UserDefaults.standard.synchronize()
+                    })
+                    
+                    // Make the segue
+                    self.performSegue(withIdentifier: "accountCreated", sender: self)
+                } else {
+                    // User already exists
+                }
+            })
+            
 
         } else {
             print("passFailed")
