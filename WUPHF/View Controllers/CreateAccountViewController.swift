@@ -11,7 +11,7 @@ import Alamofire
 import Security
 import KeychainSwift
 
-class CreateAccountViewController: RemoveKeyboardViewController {
+class CreateAccountViewController: CommonViewController {
     
     let keychain = KeychainSwift()
     
@@ -23,8 +23,6 @@ class CreateAccountViewController: RemoveKeyboardViewController {
     @IBOutlet weak var confirmPass: UITextField!
     @IBOutlet weak var smsSwitch: UISwitch!
     
-    @IBOutlet weak var passwordCheck: UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,9 +32,6 @@ class CreateAccountViewController: RemoveKeyboardViewController {
         email.delegate = self
         password.delegate = self
         confirmPass.delegate = self
-        
-        // hide password Check label on load
-        passwordCheck.text = ""
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,10 +52,12 @@ class CreateAccountViewController: RemoveKeyboardViewController {
             alertPopUp(warning: "Please enter your email.")
             return
         }
-        if(!isValidEmail(testStr: email)) {
+        
+        if (!isValidEmail(testStr: email)) {
             alertPopUp(warning: "Please enter a valid email.")
             return
         }
+        
         guard let pass = password.text else {
             alertPopUp(warning: "Please enter a password.")
             return
@@ -70,12 +67,10 @@ class CreateAccountViewController: RemoveKeyboardViewController {
             return
         }
         
-        if (verifyPassword()) {
+        if (pass == confPass) {
             // https://stackoverflow.com/questions/8090579/how-to-display-activity-indicator-in-middle-of-the-iphone-screen
-            let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-            activityView.center = self.view.center
+            let activityView = getLoadingAnimation()
             activityView.startAnimating()
-            self.view.addSubview(activityView)
             
             // Check email not already used
             APIHandler.shared.getUserByEmail(email: email, completionHandler: { user in
@@ -86,7 +81,7 @@ class CreateAccountViewController: RemoveKeyboardViewController {
                     // Post user to server, save mapping of email to ID
                     APIHandler.shared.createUser(firstName: first, lastName: last, email: email, completionHandler: { id in
                         var userIds = UserDefaults.standard.dictionary(forKey: "userIds")
-                        if (userIds == nil) {
+                        if userIds == nil {
                             userIds = Dictionary()
                             UserDefaults.standard.set(userIds, forKey: "userIds")
                         }
@@ -109,15 +104,6 @@ class CreateAccountViewController: RemoveKeyboardViewController {
        
     }
    
-    func verifyPassword() -> Bool{
-        return (password.text!) == (confirmPass.text!)
-    }
-    /*func alertPopUp(warning: String){
-        let alert = UIAlertController(title: "Error", message: warning, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert,animated: true, completion: nil)
-        
-    }*/
     /*
     // MARK: - Navigation
 
