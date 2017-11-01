@@ -68,12 +68,43 @@ class APIHandler {
         }
     }
     
+    func linkSms(id: Int, number: String, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+            "phone": number
+        ]
+        
+        Alamofire.request("\(server)/sms/link", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result {
+                case .success:
+                    completionHandler?(true)
+                case .failure( _):
+                    completionHandler?(false)
+            }
+        }
+    }
+    
+    func unlinkSms(id: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+        ]
+        
+        Alamofire.request("\(server)/sms/unlink", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result {
+                case .success:
+                    completionHandler?(true)
+                case .failure( _):
+                    completionHandler?(false)
+            }
+        }
+    }
+    
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
         if let id = json["id"] as? Int,
         let firstName = json["firstName"] as? String,
         let lastName = json["lastName"] as? String,
         let email = json["email"] as? String,
-        let phone = json["phone"] as? String,
+        let phone = json["phoneNumber"] as? String,
         let enableSMS = json["enableSMS"] as? Bool,
         let facebookLinked = json["facebookLinked"] as? Bool,
         let twitterLinked = json["twitterLinked"] as? Bool {
