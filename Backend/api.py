@@ -60,17 +60,16 @@ class UpdateUser(Resource):
 		email = request.form['email']
 		firstName = request.form['firstName']
 		lastName = request.form['lastName']
-		phone = request.form['phone']
-		enableSMS = request.form['enableSMS'] == 'true'
 		# Modify DB entry
-		user = session.query(User).filter_by(id=id).all()[0]
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
 		user.email = email
 		user.firstName = firstName
 		user.lastName = lastName
-		user.phoneNumber = phone
-		user.enableSMS = enableSMS
 		session.commit()
-		return user.as_dict()
+		return {'success' : True}
 
 class SearchUsers(Resource):
 	def get(self):
