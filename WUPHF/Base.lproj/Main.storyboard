@@ -650,7 +650,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="logout" modalPresentationStyle="overCurrentContext" id="bfb-ix-fsB"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="logout" id="bfb-ix-fsB"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
