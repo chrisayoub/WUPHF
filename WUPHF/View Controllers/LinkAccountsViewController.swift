@@ -21,6 +21,8 @@ class LinkAccountsViewController: UIViewController {
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         fbLoginButton.frame = facebookBtn.frame
         view.addSubview(fbLoginButton)
+       // fbLoginButton.addConstraints(facebookBtn.constraints)
+        //view.addSubview(fbLoginButton)
        
         // Twitter
         twitterBtn.isUserInteractionEnabled = false
@@ -35,7 +37,13 @@ class LinkAccountsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let fbToken = AccessToken.current {
             print(fbToken.userId!)
-            // fbToken.
+            APIHandler.shared.linkFacebook(id: (Common.loggedInUser?.id)!, fbId: fbToken.userId!, token: fbToken.authenticationToken, completionHandler: {user in  guard user != nil else {
+                    Common.alertPopUp(warning: "Cannot send to server.", vc: self)
+                    return
+                }
+                
+                Common.loggedInUser?.facebookLinked = true;
+            })
            // Common.loggedInUser?.fbAccessToken = fbToken
         }
     }
