@@ -69,6 +69,24 @@ class APIHandler {
         }
     }
     
+    func updateUser(id: Int, firstName: String, lastName: String, email: String, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email
+        ]
+        
+        Alamofire.request("\(server)/user/update", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result {
+                case .success:
+                    completionHandler?(true)
+                case .failure( _):
+                    completionHandler?(false)
+            }
+        }
+    }
+    
     func linkSms(id: Int, number: String, completionHandler: ((_ success: Bool) -> Void)?) {
         let parameters: Parameters = [
             "id": id,
