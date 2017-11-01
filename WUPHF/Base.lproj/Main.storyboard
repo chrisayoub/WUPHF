@@ -381,8 +381,7 @@
                                     <color key="titleColor" red="0.98995523842965472" green="0.98869979323160906" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveBtn:" destination="Ctt-Zt-Zta" eventType="touchUpInside" id="nBz-mr-eTy"/>
-                                    <action selector="verify:" destination="Ctt-Zt-Zta" eventType="touchUpInside" id="p5l-hZ-uV2"/>
+                                    <action selector="verify:" destination="Ctt-Zt-Zta" eventType="touchUpInside" id="rVJ-AB-a7m"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="465-19-GUd">
@@ -460,7 +459,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="OdZ-h9-WeM">
                                 <rect key="frame" x="298" y="299" width="51" height="31"/>
                                 <connections>
-                                    <segue destination="Ctt-Zt-Zta" kind="showDetail" id="H9C-bM-Tdf"/>
+                                    <action selector="smsSwitchToggled:forEvent:" destination="eA0-pd-G1O" eventType="valueChanged" id="w4i-B8-Jha"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-Ln-4kT">
@@ -556,6 +555,7 @@
                         <outlet property="password" destination="6Aw-ez-OBJ" id="6aI-BD-BGz"/>
                         <outlet property="smsSwitch" destination="OdZ-h9-WeM" id="Vd4-Ad-AQ4"/>
                         <segue destination="tjk-Te-x6T" kind="presentation" identifier="accountCreated" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="PpI-i7-HYy"/>
+                        <segue destination="Ctt-Zt-Zta" kind="presentation" identifier="verifySms" id="ayo-xT-YL9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ymn-l0-BEy" userLabel="First Responder" sceneMemberID="firstResponder"/>

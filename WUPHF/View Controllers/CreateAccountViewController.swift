@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: UIViewController, ModalViewControllerDelegate {
     
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var fName: UITextField!
@@ -16,6 +16,8 @@ class CreateAccountViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPass: UITextField!
     @IBOutlet weak var smsSwitch: UISwitch!
+    
+    var smsNumber: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +68,11 @@ class CreateAccountViewController: UIViewController {
                     
                     // Post user to server, save mapping of email to ID
                     APIHandler.shared.createUser(firstName: first, lastName: last, email: email, completionHandler: { id in
+                        guard id != nil else {
+                            Common.alertPopUp(warning: "Cannot create user on server.", vc: self)
+                            return
+                        }
+                        
                         var userIds = UserDefaults.standard.dictionary(forKey: "userIds")
                         if userIds == nil {
                             userIds = Dictionary()
@@ -73,34 +80,74 @@ class CreateAccountViewController: UIViewController {
                         }
                         userIds?["email"] = id
                         UserDefaults.standard.synchronize()
+                        
+                        // Get user from server
+                        APIHandler.shared.getUser(id: id!, completionHandler: { user in
+                            guard user != nil else {
+                                Common.alertPopUp(warning: "Cannot get user from server.", vc: self)
+                                return
+                            }
+                            
+                            Common.loggedInUser = user
+                            
+                            // Add SMS to user if present
+                            if let phoneNumber = self.smsNumber {
+                                APIHandler.shared.linkSms(id: id!, number: phoneNumber, completionHandler: nil)
+                            }
+                            
+                            // Add FB to user if present
+                            
+                            // Add TW to user if present
+                            
+                            // Make the segue
+                            self.accountCreated(pinwheel: activityView)
+                        })
                     })
-                    
-                    // Make the segue
-                    self.performSegue(withIdentifier: "accountCreated", sender: self)
                 } else {
                     // User already exists
                     Common.alertPopUp(warning: "User with given email already exists", vc: self)
                 }
-                // Stop pinwheel
-                activityView.stopAnimating()
             })
         } else {
             Common.alertPopUp(warning: "Passwords do not match, please ensure your password matches your confirmation.", vc: self)
         }
     }
     
+    // Segues past account creation, stopping the activity indicator
+    fileprivate func accountCreated(pinwheel: UIActivityIndicatorView?) {
+        pinwheel?.stopAnimating()
+        self.performSegue(withIdentifier: "accountCreated", sender: self)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    /*
+    @IBAction func smsSwitchToggled(_ sender: Any, forEvent event: UIEvent) {
+        if smsSwitch.isOn {
+            // Link SMS
+            self.performSegue(withIdentifier: "verifySms", sender: self)
+        } else {
+            // Unlink SMS
+            smsNumber = nil
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "verifySms" {
+            let destVC = segue.destination as! VerifySMSViewController
+            destVC.smsSwitch = smsSwitch
+            destVC.delegate = self
+        }
     }
-    */
-
+    
+    // Gets value from SMS verify screen
+    func sendValue(value: String?) {
+        smsNumber = value
+    }
 }
