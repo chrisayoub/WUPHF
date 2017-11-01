@@ -131,13 +131,32 @@ api.add_resource(RemoveFriend, '/friend/remove')
 class LinkFacebookAccount(Resource):
 	def post(self):
 		# Link FB account for given user ID
-		# Need FB account username and PW
-		return ''
+		id = request.form['id']
+		fbId = request.form['fbId']
+		token = request.form['token']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		fb = FacebookAccount(userId=id, fbId=fbId, token=token)
+		session.add(fb)
+		session.commit()
+		return {'success' : True}
 
 class UnlinkFacebookAccount(Resource):
 	def post(self):
 		# Unlink FB account for given user ID
-		return ''
+		id = request.form['id']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		fb = user.facebookAccount
+		if fb == None:
+			return {'success' : False}, 422
+		session.delete(fb)
+		session.commit()
+		return {'success' : True}
 
 api.add_resource(LinkFacebookAccount, '/facebook/link')
 api.add_resource(UnlinkFacebookAccount, '/facebook/unlink')		

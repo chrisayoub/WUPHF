@@ -73,9 +73,8 @@ class FacebookAccount(Base, JsonifyClass):
 	__tablename__ = 'facebook'
 	id = Column(Integer, primary_key=True)
 	userId = Column(Integer, ForeignKey('user.id'))
-	email  = Column(String(255))
-	password = Column(String(255))
-	fullName = Column(String(255))
+	fbId = Column(Text)
+	token = Column(Text)
 
 class TwitterAccount(Base, JsonifyClass):
 	__tablename__ = 'twitter'
