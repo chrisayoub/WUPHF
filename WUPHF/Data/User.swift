@@ -19,10 +19,9 @@ class User {
     private var _enableSMS: Bool
     private var _facebookLinked: Bool
     private var _twitterLinked: Bool
-    private var _fbAccessToken: AccessToken
     
     init(id: Int, firstName: String, lastName: String, email: String, phone: String,
-         enableSMS: Bool, facebookLinked: Bool, twitterLinked: Bool, fbAccessToken: AccessToken) {
+         enableSMS: Bool, facebookLinked: Bool, twitterLinked: Bool) {
         _id = id
         _firstName = firstName
         _lastName = lastName
@@ -31,7 +30,7 @@ class User {
         _enableSMS = enableSMS
         _facebookLinked = facebookLinked
         _twitterLinked = twitterLinked
-        _fbAccessToken = fbAccessToken
+        //_fbAccessToken = fbAccessToken
     }
     
     var id: Int {
@@ -73,9 +72,6 @@ class User {
         get { return _twitterLinked }
         set(data) { _twitterLinked = data }
     }
-    var fbAccessToken: AccessToken {
-        get { return _fbAccessToken }
-        set(data) { _facebookLinked = true; _fbAccessToken = data}
-    }
+   
 
 }

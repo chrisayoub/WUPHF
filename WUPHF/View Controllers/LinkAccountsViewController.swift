@@ -23,7 +23,7 @@ class LinkAccountsViewController: UIViewController {
         view.addSubview(fbLoginButton)
        // Do any additional setup after loading the view.
         //Twitter
-        let tLoginButton = TWTRLogInButton(logInCompletion: { session, error in
+       /* let tLoginButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 //print("signed in as \(session.userName!)");
             } else {
@@ -31,7 +31,7 @@ class LinkAccountsViewController: UIViewController {
             }
         })
         tLoginButton.frame = twitterBtn.frame
-        self.view.addSubview(tLoginButton)
+        self.view.addSubview(tLoginButton)*/
         
     }
 
@@ -44,7 +44,7 @@ class LinkAccountsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         if let fbToken = AccessToken.current{
             print(fbToken.userId!)
-            Common.loggedInUser?.fbAccessToken = fbToken
+           // Common.loggedInUser?.fbAccessToken = fbToken
         }
     }
     

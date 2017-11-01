@@ -108,10 +108,9 @@ class APIHandler {
         let phone = json["phoneNumber"] as? String,
         let enableSMS = json["enableSMS"] as? Bool,
         let facebookLinked = json["facebookLinked"] as? Bool,
-        let twitterLinked = json["twitterLinked"] as? Bool,
-        let fbAccessToken = json["fbAccessToken"] as? AccessToken{
+        let twitterLinked = json["twitterLinked"] as? Bool {
             return User(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone,
-                        enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked, fbAccessToken: fbAccessToken)
+                        enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked)
         }
         return nil
     }
