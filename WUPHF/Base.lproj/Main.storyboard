@@ -1020,6 +1020,7 @@
                     <navigationItem key="navigationItem" title="Link Accounts" id="UOa-u6-L3O"/>
                     <connections>
                         <outlet property="facebookBtn" destination="dK2-SD-glp" id="RfG-nv-Esi"/>
+                        <outlet property="twitterBtn" destination="5Cz-xL-2UT" id="rte-io-sjN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBI-2w-5KR" userLabel="First Responder" sceneMemberID="firstResponder"/>

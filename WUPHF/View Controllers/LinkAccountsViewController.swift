@@ -15,6 +15,7 @@ class LinkAccountsViewController: UIViewController {
 
     @IBOutlet weak var facebookBtn: UIButton!
     @IBOutlet weak var twitterBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
@@ -23,15 +24,14 @@ class LinkAccountsViewController: UIViewController {
         view.addSubview(fbLoginButton)
        // Do any additional setup after loading the view.
         //Twitter
-       /* let tLoginButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                //print("signed in as \(session.userName!)");
-            } else {
-                //print("error: \(error.localizedDescription!)");
+        let tLoginButton = TWTRLogInButton { (session, error) in
+            guard let unwrappedSession = session else {//early return if error
+                print("Login error: %@", error!.localizedDescription);
+                return
             }
-        })
+        }
         tLoginButton.frame = twitterBtn.frame
-        self.view.addSubview(tLoginButton)*/
+        self.view.addSubview(tLoginButton)
         
     }
 
