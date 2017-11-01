@@ -982,28 +982,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SMS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLJ-kD-cuP">
-                                <rect key="frame" x="16" y="48.5" width="43.5" height="25.5"/>
+                                <rect key="frame" x="16" y="92.5" width="43.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3cM-k8-550">
-                                <rect key="frame" x="310" y="43" width="51" height="31"/>
+                                <rect key="frame" x="310" y="87" width="51" height="31"/>
+                                <connections>
+                                    <action selector="switchToggle:" destination="Hob-az-33n" eventType="valueChanged" id="SVO-CW-BVH"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Twitter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCQ-xI-Iyl">
-                                <rect key="frame" x="16" y="134" width="61.5" height="132"/>
+                                <rect key="frame" x="16" y="178" width="61.5" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8J-SR-mw0">
-                                <rect key="frame" x="16" y="86" width="89.5" height="39"/>
+                                <rect key="frame" x="16" y="130" width="89.5" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Cz-xL-2UT">
-                                <rect key="frame" x="201" y="138" width="158" height="121"/>
+                                <rect key="frame" x="201" y="182" width="158" height="28"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" button="YES" notEnabled="YES"/>
                                 </accessibility>
@@ -1012,7 +1015,7 @@
                                 </constraints>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dK2-SD-glp">
-                                <rect key="frame" x="169" y="91" width="190" height="28"/>
+                                <rect key="frame" x="169" y="135" width="190" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="190" id="Dvh-w5-mYv"/>
                                     <constraint firstAttribute="height" constant="28" id="KTh-Y1-thZ"/>
@@ -1046,7 +1049,9 @@
                     <navigationItem key="navigationItem" title="Link Accounts" id="UOa-u6-L3O"/>
                     <connections>
                         <outlet property="facebookBtn" destination="dK2-SD-glp" id="RfG-nv-Esi"/>
+                        <outlet property="switchSms" destination="3cM-k8-550" id="cu4-n1-tQ2"/>
                         <outlet property="twitterBtn" destination="5Cz-xL-2UT" id="rte-io-sjN"/>
+                        <segue destination="Ctt-Zt-Zta" kind="presentation" identifier="verifySmsSettings" id="FAE-f4-fND"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XBI-2w-5KR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1291,6 +1296,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="PpI-i7-HYy"/>
+        <segue reference="FAE-f4-fND"/>
         <segue reference="bfb-ix-fsB"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -11,10 +11,11 @@ import FacebookLogin
 import FacebookCore
 import TwitterKit
 
-class LinkAccountsViewController: UIViewController {
+class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate {
 
     @IBOutlet weak var facebookBtn: UIButton!
     @IBOutlet weak var twitterBtn: UIButton!
+    @IBOutlet weak var switchSms: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,14 +41,37 @@ class LinkAccountsViewController: UIViewController {
         }
     }
     
-    /*
+    @IBAction func switchToggle(_ sender: Any) {
+        if switchSms.isOn {
+            // Link SMS
+            self.performSegue(withIdentifier: "verifySmsSettings", sender: self)
+        } else {
+            // Unlink SMS
+            APIHandler.shared.unlinkSms(id: Common.loggedInUser!.id, completionHandler: { success in
+                let user = Common.loggedInUser!
+                user.enableSMS = false
+                user.phone = ""
+            })
+        }
+    }
+    
+    // Gets value from SMS verify screen
+    func sendValue(value: String?) {
+        let user = Common.loggedInUser!
+        APIHandler.shared.linkSms(id: user.id, number: value!, completionHandler: { success in
+            user.enableSMS = true
+            user.phone = value!
+        })
+    }
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "verifySmsSettings" {
+             let destVC = segue.destination as! VerifySMSViewController
+             destVC.smsSwitch = switchSms
+             destVC.delegate = self
+         }
+     }
 
 }

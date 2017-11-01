@@ -12,7 +12,6 @@ import FacebookCore
 
 class CreateAccountViewController: UIViewController, ModalViewControllerDelegate {
     
-    
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var fName: UITextField!
     @IBOutlet weak var email: UITextField!
