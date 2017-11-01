@@ -28,7 +28,7 @@ class GetUser(Resource):
 		id = request.args['id']
 		users = session.query(User).filter_by(id=id).all()
 		if len(users) == 0:
-			return {'status':'error'}, 422
+			return {'success' : False}, 422
 		return getUserFullProperties(users[0])
 
 class GetUserByEmail(Resource):
@@ -36,7 +36,7 @@ class GetUserByEmail(Resource):
 		email = request.args['email']
 		users = session.query(User).filter_by(email=email).all()
 		if len(users) == 0:
-			return {'status':'error'}, 422
+			return {'success' : False}, 422
 		return getUserFullProperties(users[0])
 
 def getUserFullProperties(user):
@@ -157,6 +157,38 @@ class UnlinkTwitterAccount(Resource):
 
 api.add_resource(LinkTwitterAccount, '/twitter/link')
 api.add_resource(UnlinkTwitterAccount, '/twitter/unlink')
+
+# SMS
+
+class LinkSMS(Resource):
+	def post(self):
+		# Link SMS for given user ID and given phone number
+		id = request.form['id']
+		phone = request.form['phone']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		user.enableSMS = True
+		user.phoneNumber = phone
+		session.commit()
+		return {'success' : True}
+
+class UnlinkSMS(Resource):
+	def post(self):
+		# Unlink SMS for given user ID
+		id = request.form['id']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		user.enableSMS = False
+		user.phoneNumber = ''
+		session.commit()
+		return {'success' : True}
+
+api.add_resource(LinkSMS, '/sms/link')
+api.add_resource(UnlinkSMS, '/sms/unlink')
 
 # WUPHF and Bark
 
