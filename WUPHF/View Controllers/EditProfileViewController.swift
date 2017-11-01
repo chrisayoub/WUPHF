@@ -75,7 +75,7 @@ class EditProfileViewController: UIViewController {
                 user.email = email
                 
                 // Post update to server
-                
+                APIHandler.shared.updateUser(id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, completionHandler: nil)
                 
                 // Update email to ID mapping
                 var userIds = UserDefaults.standard.dictionary(forKey: "userIds")
