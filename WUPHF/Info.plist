@@ -46,25 +46,40 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb367277900388188</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>367277900388188</string>
-	<key>FacebookDisplayName</key>
-	<string>WUPHF</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
+	
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb367277900388188</string>
+            </array>
+        </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>367277900388188</string>
+    <key>FacebookDisplayName</key>
+    <string>WUPHF</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
+    </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>twitterkit-Vh94imsURbZM08DPsPj9wR7gN</string>
+                </array>
+            </dict>
+        </array>
+        <key>LSApplicationQueriesSchemes</key>
+        <array>
+            <string>twitter</string>
+            <string>twitterauth</string>
+        </array>
 </dict>
 </plist>

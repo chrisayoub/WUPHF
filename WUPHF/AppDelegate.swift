@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        Twitter.sharedInstance().start(withConsumerKey:"Vh94imsURbZM08DPsPj9wR7gN", consumerSecret:"zNwnTAmK1VGLazspa0J8hDmLBeaozbDD9tRq2rVwgWsoBiEi7o")
         return true    }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -42,7 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
+    
 
+    
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import FacebookCore
 
 class APIHandler {
     
@@ -76,9 +77,10 @@ class APIHandler {
         let phone = json["phone"] as? String,
         let enableSMS = json["enableSMS"] as? Bool,
         let facebookLinked = json["facebookLinked"] as? Bool,
-        let twitterLinked = json["twitterLinked"] as? Bool {
+        let twitterLinked = json["twitterLinked"] as? Bool,
+        let fbAccessToken = json["fbAccessToken"] as? AccessToken{
             return User(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone,
-                        enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked)
+                        enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked, fbAccessToken: fbAccessToken)
         }
         return nil
     }

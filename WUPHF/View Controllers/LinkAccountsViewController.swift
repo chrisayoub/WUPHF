@@ -7,25 +7,46 @@
 //
 
 import UIKit
-import FacebookCore
 import FacebookLogin
+import FacebookCore
+import TwitterKit
 
 class LinkAccountsViewController: UIViewController {
 
     @IBOutlet weak var facebookBtn: UIButton!
+    @IBOutlet weak var twitterBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loginButton = LoginButton(readPermissions: [ .publicProfile ])
+        let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         //loginButton.center = CGPointMake(facebookBtn.frame.midX, facebookBtn.frame.midY)
-        loginButton.center = view.center
-        view.addSubview(loginButton)        // Do any additional setup after loading the view.
+        fbLoginButton.frame = facebookBtn.frame
+        view.addSubview(fbLoginButton)
+       // Do any additional setup after loading the view.
+        //Twitter
+        let tLoginButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                //print("signed in as \(session.userName!)");
+            } else {
+                //print("error: \(error.localizedDescription!)");
+            }
+        })
+        tLoginButton.frame = twitterBtn.frame
+        self.view.addSubview(tLoginButton)
+        
     }
 
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if let fbToken = AccessToken.current{
+            print(fbToken.userId!)
+            Common.loggedInUser?.fbAccessToken = fbToken
+        }
+    }
     
     
     /*
