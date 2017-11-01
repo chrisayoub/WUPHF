@@ -24,14 +24,7 @@ class LinkAccountsViewController: UIViewController {
         view.addSubview(fbLoginButton)
        // Do any additional setup after loading the view.
         //Twitter
-        let tLoginButton = TWTRLogInButton { (session, error) in
-            guard let unwrappedSession = session else {//early return if error
-                print("Login error: %@", error!.localizedDescription);
-                return
-            }
-        }
-        tLoginButton.frame = twitterBtn.frame
-        self.view.addSubview(tLoginButton)
+        
         
     }
 
