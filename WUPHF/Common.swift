@@ -16,8 +16,12 @@ class Common {
     static var loggedInUser: User?
 
     static func alertPopUp(warning: String, vc: UIViewController) {
-        let alert = UIAlertController(title: "Error", message: warning, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        Common.alertPopUp(warning: warning, vc: vc, completion: nil)
+    }
+    
+    static func alertPopUp(warning: String, vc: UIViewController, completion: ((_ : UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: "Notice", message: warning, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: completion))
         vc.present(alert,animated: true, completion: nil)
     }
     

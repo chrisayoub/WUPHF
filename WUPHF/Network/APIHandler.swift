@@ -100,6 +100,38 @@ class APIHandler {
         }
     }
     
+    func linkFacebook(id: Int, fbId: String, token: String, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+            "fbId": fbId,
+            "token": token
+        ]
+        
+        Alamofire.request("\(server)/facebook/link", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure( _):
+                completionHandler?(false)
+            }
+        }
+    }
+    
+    func unlinkFacebook(id: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+        ]
+        
+        Alamofire.request("\(server)/facebook/unlink", method: .post, parameters: parameters).responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure( _):
+                completionHandler?(false)
+            }
+        }
+    }
+    
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
         
         print (json)

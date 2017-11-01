@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import FacebookLogin
+import FacebookCore
 
 class CreateAccountViewController: UIViewController, ModalViewControllerDelegate {
+    
     
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var fName: UITextField!
@@ -16,6 +19,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var confirmPass: UITextField!
     @IBOutlet weak var smsSwitch: UISwitch!
+    
+    @IBOutlet weak var fbBtn: UIButton!
+    @IBOutlet weak var twBtn: UIButton!
     
     var smsNumber: String?
     
@@ -28,6 +34,12 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         email.delegate = KeyboardReturn.shared
         password.delegate = KeyboardReturn.shared
         confirmPass.delegate = KeyboardReturn.shared
+        
+        let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
+        fbLoginButton.frame = fbBtn.frame
+        view.addSubview(fbLoginButton)
+        
+        twBtn.isUserInteractionEnabled = false
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
@@ -78,7 +90,7 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                             userIds = Dictionary()
                             UserDefaults.standard.set(userIds, forKey: "userIds")
                         }
-                        userIds?["email"] = id
+                        userIds?[email] = id
                         UserDefaults.standard.synchronize()
                         
                         // Get user from server

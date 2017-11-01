@@ -19,13 +19,11 @@ class LinkAccountsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
-        //loginButton.center = CGPointMake(facebookBtn.frame.midX, facebookBtn.frame.midY)
         fbLoginButton.frame = facebookBtn.frame
         view.addSubview(fbLoginButton)
-       // Do any additional setup after loading the view.
-        //Twitter
-        
-        
+       
+        // Twitter
+        twitterBtn.isUserInteractionEnabled = false
     }
 
     

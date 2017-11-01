@@ -11,100 +11,88 @@ import KeychainSwift
 
 class EditProfileViewController: UIViewController {
 
-    let keychain = KeychainSwift()
     @IBOutlet weak var fName: UITextField!
     @IBOutlet weak var lName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var pass: UITextField!
     @IBOutlet weak var confirmPass: UITextField!
-    @IBAction func saveBtn(_ sender: Any) {
-            guard let first = fName.text else{
-                Common.alertPopUp(warning: "No First Name entered.", vc: self)
-                return
-            }
-            guard let last = lName.text else{
-                //passwordCheck.text = "No Last Name"
-                Common.alertPopUp(warning: "No First Name entered.", vc: self)
-                return
-            }
-            guard let email = email.text else{
-                // passwordCheck.text = "No Email"
-                Common.alertPopUp(warning: "No First Name entered.", vc: self)
-                return
-            }
-            if !Common.isValidEmail(testStr: email) {
-                //passwordCheck.text = "Invalid Email"
-                Common.alertPopUp(warning: "No First Name entered.", vc: self)
-                return
-            }
-            guard let pass = pass.text else{
-                //passwordCheck.text = "No Password"
-                Common.alertPopUp(warning: "No Password.", vc: self)
-                return
-            }
-            guard let confPass = confirmPass.text else{
-                //passwordCheck.text = "No Password to confirm"
-                Common.alertPopUp(warning: "No Password to confirm", vc: self)
-                return
-            }
-            
-            if(verifyPassword()){
-                keychain.set(pass, forKey: email)
-                //post user to server
-                self.performSegue(withIdentifier: "accountCreated", sender: self)
-                
-            } else {
-                print("passFailed")
-                //passwordCheck.text = "Passwords did not match"
-                Common.alertPopUp(warning: "Passwords did not match", vc: self)
-            }
-            
-    }
-        
-    func verifyPassword() -> Bool{
-        print("\(pass.text!) \(confirmPass.text!)")
-        if((pass.text!) == (confirmPass.text!)){
-            return true;
-        }
-        print("in failed pass")
-        return false;
-        
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Populate textfields with backend user values
-        /*
-         fName.text =
-         lName.text =
-         email.text =
-         */
-        
+        fName.text = Common.loggedInUser?.firstName
+        lName.text = Common.loggedInUser?.lastName
+        email.text = Common.loggedInUser?.email
+ 
         // Set textfield delegates for RemoveKeyboardViewController
         fName.delegate = KeyboardReturn.shared
         lName.delegate = KeyboardReturn.shared
         email.delegate = KeyboardReturn.shared
         pass.delegate = KeyboardReturn.shared
         confirmPass.delegate = KeyboardReturn.shared
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func saveBtn(_ sender: Any) {
+            guard let first = fName.text else{
+                Common.alertPopUp(warning: "Please enter your first name.", vc: self)
+                return
+            }
+        
+            guard let last = lName.text else{
+                Common.alertPopUp(warning: "Please enter your last name.", vc: self)
+                return
+            }
+        
+            guard let email = email.text else{
+                Common.alertPopUp(warning: "Please enter your email.", vc: self)
+                return
+            }
+        
+            if !Common.isValidEmail(testStr: email) {
+                Common.alertPopUp(warning: "Please enter a valid email.", vc: self)
+                return
+            }
+        
+            guard let pass = pass.text, pass != "" else {
+                Common.alertPopUp(warning: "Please enter a password.", vc: self)
+                return
+            }
+        
+            guard let confPass = confirmPass.text, confPass != "" else {
+                Common.alertPopUp(warning: "Please enter a password confirmation.", vc: self)
+                return
+            }
+            
+            if pass == confPass {
+                // Update password locally
+                Common.keychain.set(pass, forKey: email)
+                
+                // Update logged-in user
+                let user = Common.loggedInUser!
+                user.firstName = first
+                user.lastName = last
+                user.email = email
+                
+                // Post update to server
+                
+                
+                // Update email to ID mapping
+                var userIds = UserDefaults.standard.dictionary(forKey: "userIds")
+                let currentEmail = user.email
+                let id = user.id
+                userIds?.removeValue(forKey: currentEmail)
+                userIds?[email] = id
+                UserDefaults.standard.synchronize()
+                
+                // Tell user it worked
+                Common.alertPopUp(warning: "Your profile has been updated.", vc: self, completion: { alert in
+                    // Go back
+                    self.navigationController?.popViewController(animated: true)
+                })
+            } else {
+                Common.alertPopUp(warning: "Passwords do not match.", vc: self)
+            }
     }
-    */
 
 }
