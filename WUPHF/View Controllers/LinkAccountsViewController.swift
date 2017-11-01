@@ -42,12 +42,12 @@ class LinkAccountsViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if let fbToken = AccessToken.current{
+        if let fbToken = AccessToken.current {
             print(fbToken.userId!)
+            // fbToken.
            // Common.loggedInUser?.fbAccessToken = fbToken
         }
     }
-    
     
     /*
     // MARK: - Navigation

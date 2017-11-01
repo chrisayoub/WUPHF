@@ -28,7 +28,10 @@ class VerifySMSViewController: UIViewController {
         smsSwitch?.setOn(false, animated: true)
         dismiss(animated: true, completion: nil)
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
 // https://stackoverflow.com/questions/28502653/passing-data-from-modal-segue-to-parent
