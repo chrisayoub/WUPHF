@@ -42,6 +42,7 @@ class User(Base, JsonifyClass):
 	email = Column(String(255))
 	firstName = Column(String(255))
 	lastName = Column(String(255))
+	fullName = Column(Text)
 	phoneNumber = Column(String(255))
 	enableSMS = Column(Boolean)
 	facebookAccount = relationship("FacebookAccount", uselist=False, backref="user")

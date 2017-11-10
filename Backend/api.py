@@ -1,6 +1,8 @@
 from db import DB, User, Pack, FacebookAccount, TwitterAccount, Message, Bark
+from sqlalchemy import or_
 from flask import Flask, request
 from flask_restful import Resource, Api
+import json
 
 app = Flask("WUPHF")
 api = Api(app)
@@ -15,10 +17,9 @@ class NewUser(Resource):
 		email = request.form['email']
 		firstName = request.form['firstName']
 		lastName = request.form['lastName']
-		# phone = request.form['phone']
-		# enableSMS = request.form['enableSMS'] == 'true'
+		fullName = firstName + ' ' + lastName
 		# Add to DB
-		user = User(email=email, firstName=firstName, lastName=lastName, phoneNumber='', enableSMS=False)
+		user = User(email=email, firstName=firstName, lastName=lastName, fullName=fullName, phoneNumber='', enableSMS=False)
 		session.add(user)
 		session.commit()
 		return {'id' : user.id}
@@ -54,6 +55,15 @@ def getUserFullProperties(user):
 
 	return result
 
+def usersToJson(users):
+	result = '['
+	for user in users:
+		result += str(json.dumps(getUserFullProperties(user))) + ','
+	if len(users) > 0:
+		result = result[:-1]
+	result += ']'
+	return json.loads(result)
+
 class UpdateUser(Resource):
 	def post(self):
 		id = request.form['id']
@@ -68,13 +78,17 @@ class UpdateUser(Resource):
 		user.email = email
 		user.firstName = firstName
 		user.lastName = lastName
+		user.fullName = firstName + ' ' + lastName
 		session.commit()
 		return {'success' : True}
 
 class SearchUsers(Resource):
 	def get(self):
-		
-		return ''
+		query = request.args['query']
+		queryLike = '%' + query + '%'
+		# Full name or email like the query
+		users = session.query(User).filter(or_(User.fullName.like(queryLike), User.email.like(queryLike))).all()
+		return usersToJson(users)
 
 api.add_resource(NewUser, '/user/new')
 api.add_resource(GetUser, '/user/get')
@@ -87,31 +101,75 @@ api.add_resource(GetUserByEmail, '/user/get/byEmail')
 class SendFriendRequest(Resource):
 	def post(self):
 		# Send friend request to user with ID from user with ID
-		return ''
+		senderId = request.form['senderId']
+		requestId = request.form['requestId']
+
+		senderList = session.query(User).filter_by(id=senderId).all()
+		requestedList = session.query(User).filter_by(id=requestId).all()
+		if len(senderList) != 1 or len(requestedList) != 1:
+			return {'success' : False}, 422
+
+		sender = senderList[0]
+		requested = requestedList[0]
+		sender.requestsSent.append(requested)
+		session.commit()
+		return {'success' : True}
 
 class GetFriendRequests(Resource):
 	def get(self):
 		# Get friend requests for user with given ID
-		id = request.form['id']
-		requests = session.query(User.requestsRecieved).filter_by(id=id).all()
-		return requests
+		id = request.args['id']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) != 1:
+			return []
+		return usersToJson(users[0].requestsRecieved)
 
 class AcceptFriendRequest(Resource):
 	def post(self):
-		# Accept friend request with given request ID
-		return ''
+		# Accept friend request sent to user with ID from user with ID
+		senderId = request.form['senderId']
+		requestId = request.form['requestId']
+
+		senderList = session.query(User).filter_by(id=senderId).all()
+		requestedList = session.query(User).filter_by(id=requestId).all()
+		if len(senderList) != 1 or len(requestedList) != 1:
+			return {'success' : False}, 422
+
+		sender = senderList[0]
+		requested = requestedList[0]
+
+		sender.requestsSent.remove(requested)
+		sender.friends.append(requested)
+		requested.friends.append(sender)
+		session.commit()
+		return {'success' : True}
 
 class DeclineFriendRequest(Resource):
 	def post(self):
-		# Decline friend request with given request ID
-		return ''
+		# Decline friend request sent to user with ID from user with ID
+		senderId = request.form['senderId']
+		requestId = request.form['requestId']
+
+		senderList = session.query(User).filter_by(id=senderId).all()
+		requestedList = session.query(User).filter_by(id=requestId).all()
+		if len(senderList) != 1 or len(requestedList) != 1:
+			return {'success' : False}, 422
+
+		sender = senderList[0]
+		requested = requestedList[0]
+
+		sender.requestsSent.remove(requested)
+		session.commit()
+		return {'success' : True}
 
 class GetFriends(Resource):
 	def get(self):
 		# Get friends for user with given ID
-		id = request.form['id']
-		friends = session.query(User.friends).filter_by(id=id).all()
-		return friends
+		id = request.args['id']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) != 1:
+			return []
+		return usersToJson(users[0].friends)
 
 class RemoveFriend(Resource):
 	def post(self):
