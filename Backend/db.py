@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, String, Text, Table, Float, Boolean, TIM
 from sqlalchemy.dialects.mysql import DOUBLE
 
 # Configure this line for database connection
-engine = create_engine('mysql+mysqlconnector://root:root@localhost/wuphf') #, echo=True)
+engine = create_engine('mysql+mysqlconnector://root:root@localhost/wuphf', pool_recycle=3600) #, echo=True)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
