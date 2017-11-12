@@ -150,6 +150,25 @@ class APIHandler {
         }
     }
     
+    func searchUsers(query: String, completionHandler: @escaping ((_ users: [User]) -> Void)) {
+        Alamofire.request("\(server)/user/search?query=\(query)").validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value, let jsonDecode = json as? Array<Dictionary<String,AnyObject>> {
+                    var users: [User] = []
+                    for userStr in jsonDecode {
+                        if let user = self.parseJsonToUser(json: userStr) {
+                            users.append(user)
+                        }
+                    }
+                    completionHandler(users)
+                }
+            case .failure:
+                completionHandler([])
+            }
+        }
+    }
+    
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
         
         print (json)
