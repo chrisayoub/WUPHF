@@ -60,7 +60,7 @@ class APIHandler {
             "email": email
         ]
 
-        Alamofire.request("\(server)/user/new", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/user/new", method: .post, parameters: parameters).validate().responseJSON { response in
             if let json = response.result.value {
                 if let data = json as? Dictionary<String,AnyObject>, let id = data["id"] as? Int {
                     completionHandler?(id)
@@ -77,7 +77,7 @@ class APIHandler {
             "email": email
         ]
         
-        Alamofire.request("\(server)/user/update", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/user/update", method: .post, parameters: parameters).validate().responseJSON { response in
             switch response.result {
                 case .success:
                     completionHandler?(true)
@@ -93,7 +93,7 @@ class APIHandler {
             "phone": number
         ]
         
-        Alamofire.request("\(server)/sms/link", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/sms/link", method: .post, parameters: parameters).validate().responseJSON { response in
             switch response.result {
                 case .success:
                     completionHandler?(true)
@@ -108,7 +108,7 @@ class APIHandler {
             "id": id,
         ]
         
-        Alamofire.request("\(server)/sms/unlink", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/sms/unlink", method: .post, parameters: parameters).validate().responseJSON { response in
             switch response.result {
                 case .success:
                     completionHandler?(true)
@@ -125,7 +125,7 @@ class APIHandler {
             "token": token
         ]
         
-        Alamofire.request("\(server)/facebook/link", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/facebook/link", method: .post, parameters: parameters).validate().responseJSON { response in
             switch response.result {
             case .success:
                 completionHandler?(true)
@@ -140,7 +140,7 @@ class APIHandler {
             "id": id,
         ]
         
-        Alamofire.request("\(server)/facebook/unlink", method: .post, parameters: parameters).responseJSON { response in
+        Alamofire.request("\(server)/facebook/unlink", method: .post, parameters: parameters).validate().responseJSON { response in
             switch response.result {
             case .success:
                 completionHandler?(true)
@@ -169,6 +169,22 @@ class APIHandler {
         }
     }
     
+    func requestUser(requester: Int, reciever: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "senderId": requester,
+            "requestId": reciever
+        ]
+        
+        Alamofire.request("\(server)/friend/request/send", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure:
+                completionHandler?(false)
+            }
+        }
+    }
+    
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
         if let id = json["id"] as? Int,
         let firstName = json["firstName"] as? String,
@@ -183,6 +199,7 @@ class APIHandler {
             if let requested = json["requested"] as? Bool {
                 user.requested = requested
             }
+            return user
         }
         return nil
     }

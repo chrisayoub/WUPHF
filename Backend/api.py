@@ -101,7 +101,7 @@ class SearchUsers(Resource):
 		# Format return value
 		result = '['
 		for user in users:
-			userDict = user.as_dict()
+			userDict = getUserFullProperties(user)
 			# Add if we requested or not
 			userDict['requested'] = user in searcher.requestsSent
 			result += str(json.dumps(userDict)) + ','

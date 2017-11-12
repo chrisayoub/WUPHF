@@ -39,6 +39,8 @@ class AddContactTableViewCell: UITableViewCell {
 
     @IBAction func add(_ sender: Any) {
         setRequested()
+        user!.requested = true
+        APIHandler.shared.requestUser(requester: Common.loggedInUser!.id, reciever: user!.id, completionHandler: nil)
     }
 }
 
