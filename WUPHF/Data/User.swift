@@ -19,6 +19,7 @@ class User {
     private var _enableSMS: Bool
     private var _facebookLinked: Bool
     private var _twitterLinked: Bool
+    private var _requested: Bool
     
     init(id: Int, firstName: String, lastName: String, email: String, phone: String,
          enableSMS: Bool, facebookLinked: Bool, twitterLinked: Bool) {
@@ -30,6 +31,7 @@ class User {
         _enableSMS = enableSMS
         _facebookLinked = facebookLinked
         _twitterLinked = twitterLinked
+        _requested = false
         //_fbAccessToken = fbAccessToken
     }
     
@@ -73,5 +75,9 @@ class User {
         set(data) { _twitterLinked = data }
     }
    
+    var requested: Bool {
+        get { return _requested }
+        set(data) { _requested = data }
+    }
 
 }

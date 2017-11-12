@@ -34,16 +34,16 @@ class AddContactViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addContact", for: indexPath) as! AddContactTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.setInfo(user: users[indexPath.item])
+        cell.setInfo(user: users[indexPath.item], parent: self)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 62
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        APIHandler.shared.searchUsers(query: searchText) { users in
+        APIHandler.shared.searchUsers(id: Common.loggedInUser!.id, query: searchText) { users in
             self.users = users
             self.table.reloadData()
         }

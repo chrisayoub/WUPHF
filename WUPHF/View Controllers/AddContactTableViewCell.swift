@@ -12,16 +12,33 @@ class AddContactTableViewCell: UITableViewCell {
 
     @IBOutlet weak var fullName: UILabel!
     @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var requested: UILabel!
     
     private var user: User?
+    private var parent: UIViewController?
     
-    func setInfo(user: User) {
+    override func awakeFromNib() {
+        requested.isHidden = true
+    }
+    
+    func setInfo(user: User, parent: UIViewController) {
         self.user = user
+        self.parent = parent
         fullName.text = "\(user.firstName) \(user.lastName)"
         email.text = user.email
+        if user.requested {
+            setRequested()
+        }
+    }
+    
+    func setRequested() {
+        addButton.isHidden = true
+        requested.isHidden = false
     }
 
     @IBAction func add(_ sender: Any) {
-        print("Pressed!")
+        setRequested()
     }
 }
+

@@ -85,12 +85,31 @@ class UpdateUser(Resource):
 class SearchUsers(Resource):
 	def get(self):
 		query = request.args['query']
+		userId = request.args['id']
+
+		users = session.query(User).filter_by(id=userId).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		searcher = users[0]
+
 		queryLike = '%' + query + '%'
 		if query == '':
 			return usersToJson([])
 		# Full name or email like the query
-		users = session.query(User).filter(or_(User.fullName.like(queryLike), User.email.like(queryLike))).all()
-		return usersToJson(users)
+		userList = session.query(User).filter(or_(User.fullName.like(queryLike), User.email.like(queryLike))).all()
+		userList.remove(searcher)
+		# Format return value
+		result = '['
+		for user in users:
+			userDict = user.as_dict()
+			# Add if we requested or not
+			userDict['requested'] = user in searcher.requestsSent
+			result += str(json.dumps(userDict)) + ','
+		# In case empty
+		if len(users) > 0:
+			result = result[:-1]
+		result += ']'
+		return json.loads(result)
 
 api.add_resource(NewUser, '/user/new')
 api.add_resource(GetUser, '/user/get')

@@ -150,8 +150,8 @@ class APIHandler {
         }
     }
     
-    func searchUsers(query: String, completionHandler: @escaping ((_ users: [User]) -> Void)) {
-        Alamofire.request("\(server)/user/search?query=\(query)").validate().responseJSON { response in
+    func searchUsers(id: Int, query: String, completionHandler: @escaping ((_ users: [User]) -> Void)) {
+        Alamofire.request("\(server)/user/search?query=\(query)&id=\(id)").validate().responseJSON { response in
             switch response.result {
             case .success:
                 if let json = response.result.value, let jsonDecode = json as? Array<Dictionary<String,AnyObject>> {
@@ -178,8 +178,11 @@ class APIHandler {
         let enableSMS = json["enableSMS"] as? Bool,
         let facebookLinked = json["facebookLinked"] as? Bool,
         let twitterLinked = json["twitterLinked"] as? Bool {
-            return User(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone,
+            let user = User(id: id, firstName: firstName, lastName: lastName, email: email, phone: phone,
                         enableSMS: enableSMS, facebookLinked: facebookLinked, twitterLinked: twitterLinked)
+            if let requested = json["requested"] as? Bool {
+                user.requested = requested
+            }
         }
         return nil
     }
