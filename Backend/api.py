@@ -101,13 +101,13 @@ class SearchUsers(Resource):
 			userList.remove(searcher)
 		# Format return value
 		result = '['
-		for user in users:
+		for user in userList:
 			userDict = getUserFullProperties(user)
 			# Add if we requested or not
 			userDict['requested'] = user in searcher.requestsSent
 			result += str(json.dumps(userDict)) + ','
 		# In case empty
-		if len(users) > 0:
+		if len(userList) > 0:
 			result = result[:-1]
 		result += ']'
 		return json.loads(result)
