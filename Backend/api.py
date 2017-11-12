@@ -97,7 +97,8 @@ class SearchUsers(Resource):
 			return usersToJson([])
 		# Full name or email like the query
 		userList = session.query(User).filter(or_(User.fullName.like(queryLike), User.email.like(queryLike))).all()
-		userList.remove(searcher)
+		if searcher in userList:
+			userList.remove(searcher)
 		# Format return value
 		result = '['
 		for user in users:
