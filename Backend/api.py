@@ -86,6 +86,8 @@ class SearchUsers(Resource):
 	def get(self):
 		query = request.args['query']
 		queryLike = '%' + query + '%'
+		if query == '':
+			return usersToJson([])
 		# Full name or email like the query
 		users = session.query(User).filter(or_(User.fullName.like(queryLike), User.email.like(queryLike))).all()
 		return usersToJson(users)

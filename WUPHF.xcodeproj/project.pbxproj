@@ -27,6 +27,8 @@
 		83EFCF2F1FA83C0500B16B97 /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83EFCF2E1FA83C0500B16B97 /* App.plist */; };
 		83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF321FA83C0500B16B97 /* APIHandler.swift */; };
 		83EFCF351FA83C0500B16B97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF341FA83C0500B16B97 /* User.swift */; };
+		83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F903451FB813C900F96C76 /* AddContactViewController.swift */; };
+		83F903481FB81B2500F96C76 /* AddContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F903471FB81B2500F96C76 /* AddContactTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		83EFCF2E1FA83C0500B16B97 /* App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
 		83EFCF321FA83C0500B16B97 /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		83EFCF341FA83C0500B16B97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		83F903451FB813C900F96C76 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
+		83F903471FB81B2500F96C76 /* AddContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactTableViewCell.swift; sourceTree = "<group>"; };
 		889762957542608E55FD90EE /* Pods_WUPHF.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WUPHF.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -103,6 +107,8 @@
 				830198AA1FA857CF00A05206 /* LinkAccountsViewController.swift */,
 				830198B51FA91EBE00A05206 /* SettingsTableViewController.swift */,
 				830198B91FA9353000A05206 /* VerifySMSViewController.swift */,
+				83F903451FB813C900F96C76 /* AddContactViewController.swift */,
+				83F903471FB81B2500F96C76 /* AddContactTableViewCell.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -319,8 +325,10 @@
 				4466B3E51FA8050B00ED1310 /* Common.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */,
+				83F903481FB81B2500F96C76 /* AddContactTableViewCell.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
+				83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */,
 				830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */,
 				83EFCF351FA83C0500B16B97 /* User.swift in Sources */,
 			);

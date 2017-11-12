@@ -170,9 +170,6 @@ class APIHandler {
     }
     
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {
-        
-        print (json)
-        
         if let id = json["id"] as? Int,
         let firstName = json["firstName"] as? String,
         let lastName = json["lastName"] as? String,
