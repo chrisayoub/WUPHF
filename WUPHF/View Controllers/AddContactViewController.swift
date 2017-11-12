@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddContactViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class AddContactViewController: UIViewController, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var table: UITableView!
@@ -20,7 +20,7 @@ class AddContactViewController: UIViewController, UITableViewDataSource, UITable
 
         searchBar.delegate = self
         table.dataSource = self
-        table.delegate = self
+        self.table.rowHeight = 62.0;
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,10 +36,6 @@ class AddContactViewController: UIViewController, UITableViewDataSource, UITable
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.setInfo(user: users[indexPath.item], parent: self)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 62
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
