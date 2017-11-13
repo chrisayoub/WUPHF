@@ -40,6 +40,25 @@ class ContactsTableViewController: UITableViewController {
         return cell
     }
     
+    // https://developerslogblog.wordpress.com/2017/06/28/ios-11-swipe-leftright-in-uitableviewcell/
+    override func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.item == 0 {
+            return UISwipeActionsConfiguration(actions: [])
+        }
+        
+        let modifyAction = UIContextualAction(style: .normal, title: "Delete", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+            // TODO: implement user deletion
+            success(true)
+        })
+        modifyAction.title = "Delete"
+        modifyAction.backgroundColor = .red
+        
+        let result = UISwipeActionsConfiguration(actions: [modifyAction])
+        result.performsFirstActionWithFullSwipe = false
+        return result
+    }
+    
     /*
     // MARK: - Navigation
 
