@@ -14,12 +14,9 @@ class PendingRequestsTableViewController: UITableViewController, ModifyRequestDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let loading = Common.getLoadingAnimation(view: self.view)
-        loading.startAnimating()
         APIHandler.shared.getFriendRequests(id: Common.loggedInUser!.id) { (users) in
             self.users = users
             self.tableView.reloadData()
-            loading.stopAnimating()
         }
     }
 
