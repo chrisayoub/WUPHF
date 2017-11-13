@@ -104,6 +104,8 @@ class SearchUsers(Resource):
 		for user in userList:
 			if user in searcher.requestsRecieved:
 				continue
+			if user in searcher.friends:
+				continue
 			userDict = getUserFullProperties(user)
 			# Add if we requested or not
 			userDict['requested'] = user in searcher.requestsSent
