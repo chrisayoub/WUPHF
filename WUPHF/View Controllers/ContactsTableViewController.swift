@@ -13,9 +13,12 @@ class ContactsTableViewController: UITableViewController {
     private var contacts: [User] = []
     
     override func viewDidAppear(_ animated: Bool) {
+        let loading = Common.getLoadingAnimation(view: self.view)
+        loading.startAnimating()
         APIHandler.shared.getFriends(id: Common.loggedInUser!.id) { (users) in
             self.contacts = users
             self.tableView.reloadData()
+            loading.stopAnimating()
         }
     }
 

@@ -220,6 +220,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="My Contacts" id="Eo1-ca-Ndd">
+                        <barButtonItem key="backBarButtonItem" title="Contacts" id="mtK-Io-Hbo"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Kj9-UU-Nt9">
                             <connections>
                                 <segue destination="0Yk-H6-Vwj" kind="show" id="tE5-XE-bvQ"/>
@@ -1355,7 +1356,7 @@
         <scene sceneID="zVA-3o-Zlv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1ou-eA-Gkq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Contacts" selectedImage="Contacts" id="oIM-tL-afR"/>
+                    <tabBarItem key="tabBarItem" title="My Contacts" image="Contacts" id="oIM-tL-afR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nuj-0s-BXB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
