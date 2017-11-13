@@ -25,6 +25,8 @@ class APIHandler {
         }
     }
     
+    // MARK: User operations
+    
     func getUser(id: Int, completionHandler: @escaping (_ user: User?) -> Void) {
         Alamofire.request("\(server)/user/get?id=\(id)").validate().responseJSON { response in
             switch response.result {
@@ -86,6 +88,8 @@ class APIHandler {
             }
         }
     }
+    
+    // MARK: Account linking
     
     func linkSms(id: Int, number: String, completionHandler: ((_ success: Bool) -> Void)?) {
         let parameters: Parameters = [
@@ -150,17 +154,14 @@ class APIHandler {
         }
     }
     
+    // MARK: Friend requests
+    
     func searchUsers(id: Int, query: String, completionHandler: @escaping ((_ users: [User]) -> Void)) {
         Alamofire.request("\(server)/user/search?query=\(query)&id=\(id)").validate().responseJSON { response in
             switch response.result {
             case .success:
                 if let json = response.result.value, let jsonDecode = json as? Array<Dictionary<String,AnyObject>> {
-                    var users: [User] = []
-                    for userStr in jsonDecode {
-                        if let user = self.parseJsonToUser(json: userStr) {
-                            users.append(user)
-                        }
-                    }
+                    let users = self.parseUsers(json: jsonDecode)
                     completionHandler(users)
                 }
             case .failure:
@@ -183,6 +184,64 @@ class APIHandler {
                 completionHandler?(false)
             }
         }
+    }
+    
+    func acceptFriendRequest(requester: Int, reciever: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "senderId": requester,
+            "requestId": reciever
+        ]
+        
+        Alamofire.request("\(server)/friend/request/accept", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure:
+                completionHandler?(false)
+            }
+        }
+    }
+    
+    func declineFriendRequest(requester: Int, reciever: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "senderId": requester,
+            "requestId": reciever
+        ]
+        
+        Alamofire.request("\(server)/friend/request/decline", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure:
+                completionHandler?(false)
+            }
+        }
+    }
+    
+    func getFriendRequests(id: Int, completionHandler: @escaping ((_ users: [User]) -> Void)) {
+        Alamofire.request("\(server)/friend/request/get?id=\(id)").validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value, let jsonDecode = json as? Array<Dictionary<String,AnyObject>> {
+                    let users = self.parseUsers(json: jsonDecode)
+                    completionHandler(users)
+                }
+            case .failure:
+                completionHandler([])
+            }
+        }
+    }
+    
+    // MARK: JSON parsing
+    
+    fileprivate func parseUsers(json: Array<Dictionary<String,AnyObject>>) -> [User] {
+        var users: [User] = []
+        for userStr in json {
+            if let user = self.parseJsonToUser(json: userStr) {
+                users.append(user)
+            }
+        }
+        return users
     }
     
     fileprivate func parseJsonToUser(json: Dictionary<String,AnyObject>) -> User? {

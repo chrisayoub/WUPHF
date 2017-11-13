@@ -24,6 +24,8 @@
 		8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */; };
 		8341A7841F8AEECF00497C0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8341A7831F8AEECF00497C0C /* Assets.xcassets */; };
 		8341A7871F8AEECF00497C0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8341A7851F8AEECF00497C0C /* LaunchScreen.storyboard */; };
+		8395EE541FB975F2005E95EE /* PendingRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395EE531FB975F2005E95EE /* PendingRequestTableViewCell.swift */; };
+		8395EE561FB97606005E95EE /* PendingRequestsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395EE551FB97605005E95EE /* PendingRequestsTableViewController.swift */; };
 		83EFCF2F1FA83C0500B16B97 /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83EFCF2E1FA83C0500B16B97 /* App.plist */; };
 		83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF321FA83C0500B16B97 /* APIHandler.swift */; };
 		83EFCF351FA83C0500B16B97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF341FA83C0500B16B97 /* User.swift */; };
@@ -52,6 +54,8 @@
 		8341A7831F8AEECF00497C0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8341A7861F8AEECF00497C0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8341A7881F8AEECF00497C0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8395EE531FB975F2005E95EE /* PendingRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingRequestTableViewCell.swift; sourceTree = "<group>"; };
+		8395EE551FB97605005E95EE /* PendingRequestsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingRequestsTableViewController.swift; sourceTree = "<group>"; };
 		83EFCF2E1FA83C0500B16B97 /* App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
 		83EFCF321FA83C0500B16B97 /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		83EFCF341FA83C0500B16B97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -109,6 +113,8 @@
 				830198B91FA9353000A05206 /* VerifySMSViewController.swift */,
 				83F903451FB813C900F96C76 /* AddContactViewController.swift */,
 				83F903471FB81B2500F96C76 /* AddContactTableViewCell.swift */,
+				8395EE531FB975F2005E95EE /* PendingRequestTableViewCell.swift */,
+				8395EE551FB97605005E95EE /* PendingRequestsTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -320,6 +326,7 @@
 				4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */,
 				830198B81FA9235D00A05206 /* KeyboardReturn.swift in Sources */,
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
+				8395EE541FB975F2005E95EE /* PendingRequestTableViewCell.swift in Sources */,
 				830198B61FA91EBE00A05206 /* SettingsTableViewController.swift in Sources */,
 				830198AB1FA857CF00A05206 /* LinkAccountsViewController.swift in Sources */,
 				4466B3E51FA8050B00ED1310 /* Common.swift in Sources */,
@@ -327,6 +334,7 @@
 				83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */,
 				83F903481FB81B2500F96C76 /* AddContactTableViewCell.swift in Sources */,
 				44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */,
+				8395EE561FB97606005E95EE /* PendingRequestsTableViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
 				83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */,
 				830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */,

@@ -102,6 +102,8 @@ class SearchUsers(Resource):
 		# Format return value
 		result = '['
 		for user in userList:
+			if user in searcher.requestsRecieved:
+				continue
 			userDict = getUserFullProperties(user)
 			# Add if we requested or not
 			userDict['requested'] = user in searcher.requestsSent
