@@ -89,6 +89,20 @@ class APIHandler {
         }
     }
     
+    func getFriends(id: Int, completionHandler: @escaping ((_ users: [User]) -> Void)) {
+        Alamofire.request("\(server)/friend/get?id=\(id)").validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value, let jsonDecode = json as? Array<Dictionary<String,AnyObject>> {
+                    let users = self.parseUsers(json: jsonDecode)
+                    completionHandler(users)
+                }
+            case .failure:
+                completionHandler([])
+            }
+        }
+    }
+    
     // MARK: Account linking
     
     func linkSms(id: Int, number: String, completionHandler: ((_ success: Bool) -> Void)?) {
