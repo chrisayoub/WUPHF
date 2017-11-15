@@ -205,7 +205,7 @@ class RemoveFriend(Resource):
 
 		userList = session.query(User).filter_by(id=userId).all()
 		friendList = session.query(User).filter_by(id=friendId).all()
-		if len(senderList) != 1 or len(requestedList) != 1:
+		if len(userList) != 1 or len(friendList) != 1:
 			return {'success' : False}, 422
 
 		user = userList[0]
