@@ -1182,28 +1182,37 @@
         <!--Set Default Messages-->
         <scene sceneID="QJK-5a-cQ2">
             <objects>
-                <tableViewController id="nB9-Yn-p4W" sceneMemberID="viewController">
+                <tableViewController id="nB9-Yn-p4W" customClass="DefaultMessagesTableViewController" customModule="WUPHF" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="6KD-Ek-sej">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="49" id="Q3o-bp-27D">
-                                <rect key="frame" x="0.0" y="28" width="375" height="49"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="defaultMessage" rowHeight="42" id="Q3o-bp-27D" customClass="DefaultMessageTableViewCell" customModule="WUPHF" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="42"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3o-bp-27D" id="zNY-h5-Bt4">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="48.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="41.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="&lt;set default message, can edit/clear&gt;" borderStyle="roundedRect" placeholder="&lt;default message&gt;" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rY7-67-FhX">
-                                            <rect key="frame" x="8" y="8" width="359" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="&lt;set default message, can edit/clear&gt;" borderStyle="roundedRect" placeholder="&lt;default message&gt;" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="rY7-67-FhX">
+                                            <rect key="frame" x="8" y="8" width="359" height="25.5"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="rY7-67-FhX" firstAttribute="top" secondItem="zNY-h5-Bt4" secondAttribute="top" constant="8" id="AAQ-iD-KdO"/>
+                                        <constraint firstAttribute="trailing" secondItem="rY7-67-FhX" secondAttribute="trailing" constant="8" id="ajH-4s-LaY"/>
+                                        <constraint firstAttribute="bottom" secondItem="rY7-67-FhX" secondAttribute="bottom" constant="8" id="cxy-7l-2lU"/>
+                                        <constraint firstItem="rY7-67-FhX" firstAttribute="leading" secondItem="zNY-h5-Bt4" secondAttribute="leading" constant="8" id="d9l-js-kDL"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="textEntry" destination="rY7-67-FhX" id="DCK-WG-aWN"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1212,12 +1221,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Set Default Messages" id="Dm7-Ig-0pK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="D5z-jl-Id7"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="D5z-jl-Id7">
+                            <connections>
+                                <action selector="newRow:" destination="nB9-Yn-p4W" id="X39-qg-Q0L"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gc4-kq-4AE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588" y="1504"/>
+            <point key="canvasLocation" x="1588" y="1503.5982008995504"/>
         </scene>
         <!--Edit Profile-->
         <scene sceneID="DCx-ZB-xGg">
