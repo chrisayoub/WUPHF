@@ -246,6 +246,22 @@ class APIHandler {
         }
     }
     
+    func deleteFriend(userId: Int, friendId: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "userId": userId,
+            "friendId": friendId
+        ]
+        
+        Alamofire.request("\(server)/friend/remove", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure:
+                completionHandler?(false)
+            }
+        }
+    }
+    
     // MARK: JSON parsing
     
     fileprivate func parseUsers(json: Array<Dictionary<String,AnyObject>>) -> [User] {

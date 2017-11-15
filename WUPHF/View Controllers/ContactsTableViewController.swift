@@ -47,8 +47,12 @@ class ContactsTableViewController: UITableViewController {
             return UISwipeActionsConfiguration(actions: [])
         }
         
-        let modifyAction = UIContextualAction(style: .normal, title: "Delete", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
-            // TODO: implement user deletion
+        let modifyAction = UIContextualAction(style: .normal, title: "Delete",
+                                              handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+            let friend = self.contacts.remove(at: indexPath.item - 1)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // Delete from server
+            APIHandler.shared.deleteFriend(userId: Common.loggedInUser!.id, friendId: friend.id, completionHandler: nil)
             success(true)
         })
         modifyAction.title = "Delete"

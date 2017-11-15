@@ -200,7 +200,21 @@ class GetFriends(Resource):
 class RemoveFriend(Resource):
 	def post(self):
 		# Delete friend with ID from user with ID
-		return ''
+		userId = request.form['userId']
+		friendId = request.form['friendId']
+
+		userList = session.query(User).filter_by(id=userId).all()
+		friendList = session.query(User).filter_by(id=friendId).all()
+		if len(senderList) != 1 or len(requestedList) != 1:
+			return {'success' : False}, 422
+
+		user = userList[0]
+		friend = friendList[0]
+
+		user.friends.remove(friend)
+		friend.friends.remove(user)
+		session.commit()
+		return {'success' : True}
 
 api.add_resource(SendFriendRequest, '/friend/request/send')
 api.add_resource(GetFriendRequests, '/friend/request/get')
