@@ -19,14 +19,34 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Facebook
+        
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         fbLoginButton.frame = facebookBtn.frame
         view.addSubview(fbLoginButton)
-       // fbLoginButton.addConstraints(facebookBtn.constraints)
-        //view.addSubview(fbLoginButton)
        
         // Twitter
-        twitterBtn.isUserInteractionEnabled = false
+        
+        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                print("signed in as \(session!.userName)")
+                
+                // Sign out
+                //
+                //                let store = Twitter.sharedInstance().sessionStore
+                //
+                //                if let userID = store.session()?.userID {
+                //                    store.logOutUserID(userID)
+                //                }
+                
+                
+            } else {
+                print("Error!")
+            }
+        })
+        logInButton.frame = twitterBtn.frame
+        self.view.addSubview(logInButton)
     }
 
     
@@ -36,17 +56,17 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        if let fbToken = AccessToken.current {
-            print(fbToken.userId!)
-            APIHandler.shared.linkFacebook(id: (Common.loggedInUser?.id)!, fbId: fbToken.userId!, token: fbToken.authenticationToken, completionHandler: {user in  guard user != nil else {
-                    Common.alertPopUp(warning: "Cannot send to server.", vc: self)
-                    return
-                }
-                
-                Common.loggedInUser?.facebookLinked = true;
-            })
-           // Common.loggedInUser?.fbAccessToken = fbToken
-        }
+//        if let fbToken = AccessToken.current {
+//            print(fbToken.userId!)
+//            APIHandler.shared.linkFacebook(id: (Common.loggedInUser?.id)!, fbId: fbToken.userId!, token: fbToken.authenticationToken, completionHandler: {user in  guard user != nil else {
+//                    Common.alertPopUp(warning: "Cannot send to server.", vc: self)
+//                    return
+//                }
+//
+//                Common.loggedInUser?.facebookLinked = true;
+//            })
+//           // Common.loggedInUser?.fbAccessToken = fbToken
+//        }
     }
     
     @IBAction func switchToggle(_ sender: Any) {
@@ -70,6 +90,14 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
             user.enableSMS = true
             user.phone = value!
         })
+    }
+    
+    @IBAction func unlinkFacebook(_ sender: Any) {
+        
+    }
+    
+    @IBAction func unlinkTwitter(_ sender: Any) {
+        
     }
     
     // MARK: - Navigation

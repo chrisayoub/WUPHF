@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import TwitterKit
+import SafariServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        Twitter.sharedInstance().start(withConsumerKey:"Vh94imsURbZM08DPsPj9wR7gN", consumerSecret:"zNwnTAmK1VGLazspa0J8hDmLBeaozbDD9tRq2rVwgWsoBiEi7o")
-        return true    }
+        Twitter.sharedInstance().start(withConsumerKey:"dE7W4G2gjrFS16oyDatS1Ujhh", consumerSecret:"jNS8daivgRdIjBFSCzkUvU9DotUz4SdhOxwGcDdrGOoZtEILnT")
+        return true
+    }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return Twitter.sharedInstance().application(app, open: url, options: options)

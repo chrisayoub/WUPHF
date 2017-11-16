@@ -9,6 +9,7 @@
 import UIKit
 import FacebookLogin
 import FacebookCore
+import TwitterKit
 
 class CreateAccountViewController: UIViewController, ModalViewControllerDelegate {
     
@@ -19,8 +20,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     @IBOutlet weak var confirmPass: UITextField!
     @IBOutlet weak var smsSwitch: UISwitch!
     
-    @IBOutlet weak var fbBtn: UIButton!
-    @IBOutlet weak var twBtn: UIButton!
+    @IBOutlet weak var facebookButton: UIButton!
+    @IBOutlet weak var twitterButton: UIButton!
+    
     
     var smsNumber: String?
     
@@ -34,11 +36,33 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         password.delegate = KeyboardReturn.shared
         confirmPass.delegate = KeyboardReturn.shared
         
+        // Facebook
+        
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
-        fbLoginButton.frame = fbBtn.frame
+        fbLoginButton.frame = facebookButton.frame
         view.addSubview(fbLoginButton)
         
-        twBtn.isUserInteractionEnabled = false
+        // Twitter
+        
+        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                print("signed in as \(session!.userName)")
+                
+                // Sign out
+//
+//                let store = Twitter.sharedInstance().sessionStore
+//
+//                if let userID = store.session()?.userID {
+//                    store.logOutUserID(userID)
+//                }
+                
+                
+            } else {
+                print("Error!")
+            }
+        })
+        logInButton.frame = twitterButton.frame
+        self.view.addSubview(logInButton)
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {
@@ -144,6 +168,11 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         }
     }
     
+    @IBAction func unlinkFacebook(_ sender: Any) {
+    }
+    
+    @IBAction func unlinkTwitter(_ sender: Any) {
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
