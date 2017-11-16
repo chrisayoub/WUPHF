@@ -23,7 +23,6 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
     
-    
     var smsNumber: String?
     
     override func viewDidLoad() {

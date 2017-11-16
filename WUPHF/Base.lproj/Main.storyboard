@@ -104,7 +104,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nl9-jt-lmN">
-                                <rect key="frame" x="166" y="416" width="42" height="33"/>
+                                <rect key="frame" x="166.5" y="416" width="42" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Login">
@@ -472,7 +472,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y29-Ic-INh">
-                                <rect key="frame" x="164.5" y="275.5" width="45" height="33"/>
+                                <rect key="frame" x="165" y="275.5" width="45" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Verify">
                                     <color key="titleColor" red="0.98995523842965472" green="0.98869979323160906" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1070,7 +1070,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Cgz-OC-R0J" kind="relationship" relationship="viewControllers" id="svK-SL-jnh"/>
                         <segue destination="1ou-eA-Gkq" kind="relationship" relationship="viewControllers" id="2KT-JQ-G7w"/>
                         <segue destination="qVp-1H-8bg" kind="relationship" relationship="viewControllers" id="S93-Cm-LiF"/>
                         <segue destination="gxh-mq-UFw" kind="relationship" relationship="viewControllers" id="Tui-lz-8ID"/>
@@ -1287,7 +1286,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rw-Uf-vts">
-                                <rect key="frame" x="169.5" y="426" width="37" height="33"/>
+                                <rect key="frame" x="169" y="426" width="37" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
