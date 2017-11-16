@@ -24,7 +24,4 @@ class ContactTableViewCell: UITableViewCell {
         name.text = "\(user.firstName) \(user.lastName)"
     }
     
-    @IBAction func sendWuphf(_ sender: Any) {
-        print ("TODO!")
-    }
 }

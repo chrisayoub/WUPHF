@@ -31,6 +31,7 @@
 		83EFCF2F1FA83C0500B16B97 /* App.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83EFCF2E1FA83C0500B16B97 /* App.plist */; };
 		83EFCF331FA83C0500B16B97 /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF321FA83C0500B16B97 /* APIHandler.swift */; };
 		83EFCF351FA83C0500B16B97 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EFCF341FA83C0500B16B97 /* User.swift */; };
+		83F4F6CA1FBE4E98004F3077 /* SendWUPHFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F4F6C91FBE4E98004F3077 /* SendWUPHFViewController.swift */; };
 		83F73BC21FBBC37800E871FE /* DefaultMessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F73BC11FBBC37800E871FE /* DefaultMessagesTableViewController.swift */; };
 		83F73BC41FBBC38600E871FE /* DefaultMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F73BC31FBBC38600E871FE /* DefaultMessageTableViewCell.swift */; };
 		83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F903451FB813C900F96C76 /* AddContactViewController.swift */; };
@@ -65,6 +66,7 @@
 		83EFCF2E1FA83C0500B16B97 /* App.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = App.plist; sourceTree = "<group>"; };
 		83EFCF321FA83C0500B16B97 /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
 		83EFCF341FA83C0500B16B97 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		83F4F6C91FBE4E98004F3077 /* SendWUPHFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendWUPHFViewController.swift; sourceTree = "<group>"; };
 		83F73BC11FBBC37800E871FE /* DefaultMessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMessagesTableViewController.swift; sourceTree = "<group>"; };
 		83F73BC31FBBC38600E871FE /* DefaultMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMessageTableViewCell.swift; sourceTree = "<group>"; };
 		83F903451FB813C900F96C76 /* AddContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				8395EE551FB97605005E95EE /* PendingRequestsTableViewController.swift */,
 				8395EE5A1FB98393005E95EE /* ContactsTableViewController.swift */,
 				83F73BC11FBBC37800E871FE /* DefaultMessagesTableViewController.swift */,
+				83F4F6C91FBE4E98004F3077 /* SendWUPHFViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				8395EE561FB97606005E95EE /* PendingRequestsTableViewController.swift in Sources */,
 				8341A77A1F8AEECF00497C0C /* AppDelegate.swift in Sources */,
 				83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */,
+				83F4F6CA1FBE4E98004F3077 /* SendWUPHFViewController.swift in Sources */,
 				830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */,
 				83EFCF351FA83C0500B16B97 /* User.swift in Sources */,
 				8395EE591FB98380005E95EE /* ContactTableViewCell.swift in Sources */,

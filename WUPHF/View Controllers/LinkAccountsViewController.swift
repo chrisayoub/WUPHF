@@ -20,6 +20,10 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SMS
+        
+        switchSms.setOn(Common.loggedInUser!.enableSMS, animated: false)
+        
         // Facebook
         
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
