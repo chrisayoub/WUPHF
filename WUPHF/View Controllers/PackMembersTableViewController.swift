@@ -10,8 +10,10 @@ import UIKit
 
 class PackMembersTableViewController: UITableViewController {
     
+    var alert:UIAlertController? = nil
     var pack: Pack!
     var members: [User] = []
+    var email: UITextField!
 
     override func viewDidLoad() {
         
@@ -57,6 +59,30 @@ class PackMembersTableViewController: UITableViewController {
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.sendInfo(user: members[indexPath.item])
         return cell
+    }
+    
+    @IBAction func addContact(_ Sender: AnyObject) {
+        self.alert = UIAlertController(title: "Add Member", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        self.alert!.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default))
+        
+        
+        
+        
+        alert?.addTextField(configurationHandler: { (textField : UITextField) -> Void in
+            self.email = textField
+        })
+        var mail: String = ""
+        let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
+            mail = (self.email?.text!)!
+            print("writing name")
+            self.members.append(User(id: 5, firstName: "JAY", lastName: "bay", email: mail, phone: "23", enableSMS: false, facebookLinked: false, twitterLinked: false))
+            //add pack to DB
+            
+        })
+        
+        self.alert?.addAction(doneAction)
+        
+        self.present(self.alert!, animated: true, completion: nil)
     }
     
     // https://developerslogblog.wordpress.com/2017/06/28/ios-11-swipe-leftright-in-uitableviewcell/

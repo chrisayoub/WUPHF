@@ -1018,7 +1018,11 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="My Packs" id="Zxp-nZ-gLZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="PVA-D2-5ql"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="PVA-D2-5ql">
+                            <connections>
+                                <action selector="createPackAlert:" destination="C8k-8M-eSn" id="cqT-QR-WBa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Us-Ry-Mgn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1029,7 +1033,7 @@
         <scene sceneID="1Zl-ft-KIK">
             <objects>
                 <tableViewController id="0WO-xM-Ari" customClass="PackMembersTableViewController" customModule="WUPHF" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fU0-jv-F8R" customClass="PackM">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fU0-jv-F8R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1074,7 +1078,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="&lt;My Pack 1&gt;" id="2Hl-0C-72c">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rYe-lR-yPj"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="rYe-lR-yPj">
+                            <connections>
+                                <action selector="addContact:" destination="0WO-xM-Ari" id="SZJ-E7-w7w"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oag-Se-FzC" userLabel="First Responder" sceneMemberID="firstResponder"/>

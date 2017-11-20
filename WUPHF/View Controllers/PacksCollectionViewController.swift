@@ -10,8 +10,15 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class PacksCollectionViewController: UICollectionViewController {
+class PacksCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    let imagePicker = UIImagePickerController()
+    var newName: String? = ""
+    var newImage: UIImage?
+
+    var alert:UIAlertController? = nil
+    lazy var createPackName: UITextField? = nil
+    lazy var createPackImage: UIImageView? = nil
     
     //temprorary values
     var packs: [Pack] = []
@@ -65,76 +72,126 @@ class PacksCollectionViewController: UICollectionViewController {
     */
 
     // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-        
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        
-        return packs.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! PackCollectionViewCell
     
-        
-        // Configure the cell...
-        let pack = packs[indexPath.row]
-        cell.delegate = self
-        
-        cell.config(messageText: pack.name, messageImage: pack.image, users: pack.members)
     
-        return cell
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowPack" {
-            // Get the table view row that was tapped.
-            if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell){
-                let vc = segue.destination as! PackMembersTableViewController
-                // Pass the selected data model object to the destination view controller.
-                vc.pack = packs[indexPaths.row]
-                // Set the navigation bar back button text.
-                // If you don't do this, the back button text is this screens title text.
-                // If this screen didn't have any nav bar title text, the back button text would be 'Back', by default.
-                let backItem = UIBarButtonItem()
-                backItem.title = "Back"
-                navigationItem.backBarButtonItem = backItem
+    @IBAction func createPackAlert(_ Sender: AnyObject) {
+            self.alert = UIAlertController(title: "Create a Pack", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            self.alert!.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default))
+        
+            let getPhoto = UIAlertAction(title: "Add Photo", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                    self.imagePicker.delegate = self
+                    self.imagePicker.sourceType = .photoLibrary;
+                    self.imagePicker.allowsEditing = true
+                    self.imagePicker.modalPresentationStyle = .popover
+                    
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                    //let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+                }
+            })
+            self.alert!.addAction(getPhoto)
+        
+            present(self.alert!, animated: true, completion: nil)
+        }
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            self.newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+            
+            self.dismiss(animated: true, completion: {
+                let alertController = UIAlertController(title: "Name your pack", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                
+                alertController.addTextField(configurationHandler: { (textField : UITextField) -> Void in
+                    self.createPackName = textField
+                })
+                
+                let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
+                    self.newName = self.createPackName?.text
+                    print("writing name")
+                    self.packs.append(Pack(name: self.newName!, image: self.newImage!, members: self.users1))
+                    //add pack to DB
+                    
+                })
+                
+                alertController.addAction(doneAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+            })
+        }
+    
+        //What to do if the image picker cancels.
+        func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+            dismiss(animated: false, completion: nil)
+        }
+
+        override func numberOfSections(in collectionView: UICollectionView) -> Int {
+            // #warning Incomplete implementation, return the number of sections
+            return 1
+            
+        }
+
+
+        override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            // #warning Incomplete implementation, return the number of items
+            
+            return packs.count
+        }
+
+        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! PackCollectionViewCell
+        
+            
+            // Configure the cell...
+            let pack = packs[indexPath.row]
+            cell.delegate = self
+            
+            cell.config(messageText: pack.name, messageImage: pack.image, users: pack.members)
+        
+            return cell
+        }
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "ShowPack" {
+                // Get the table view row that was tapped.
+                if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell){
+                    let vc = segue.destination as! PackMembersTableViewController
+                    // Pass the selected data model object to the destination view controller.
+                    vc.pack = packs[indexPaths.row]
+                    // Set the navigation bar back button text.
+                    // If you don't do this, the back button text is this screens title text.
+                    // If this screen didn't have any nav bar title text, the back button text would be 'Back', by default.
+                    let backItem = UIBarButtonItem()
+                    backItem.title = "Back"
+                    navigationItem.backBarButtonItem = backItem
+                }
             }
         }
-    }
 
-    // MARK: UICollectionViewDelegate
+        // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
+        /*
+        // Uncomment this method to specify if the specified item should be highlighted during tracking
+        override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+            return true
+        }
+        */
 
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
+        /*
+        // Uncomment this method to specify if the specified item should be selected
+        override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+            return true
+        }
+        */
 
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+        /*
+        // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+        override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+            return false
+        }
 
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
+        override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+            return false
+        }
 
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
     }
     */
