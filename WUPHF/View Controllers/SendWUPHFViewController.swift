@@ -11,6 +11,7 @@ import UIKit
 class SendWUPHFViewController: UIViewController, UITableViewDataSource {
     
     private var messages: [String] = []
+    //private var target: User
 
     @IBOutlet weak var txtField: UITextView!
     @IBOutlet weak var table: UITableView!

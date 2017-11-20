@@ -35,6 +35,8 @@ class User {
         //_fbAccessToken = fbAccessToken
     }
     
+
+    
     var id: Int {
         get { return _id }
         set(data) { _id = data }

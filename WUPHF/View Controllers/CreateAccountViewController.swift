@@ -39,6 +39,15 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         fbLoginButton.frame = facebookButton.frame
+        fbLoginButton.center = facebookButton.center
+        fbLoginButton.sizeToFit()
+       /* var frm = facebookButton.frame
+        fbLoginButton.frame.origin.x = frm.origin.x
+        fbLoginButton.frame.origin.y = frm.origin.y
+        fbLoginButton.frame.size.width = frm.size.width
+        fbLoginButton.frame.size. = frm.size.height */
+
+      
         view.addSubview(fbLoginButton)
         
         // Twitter

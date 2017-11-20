@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		242254A1D92B1E16649BB78C /* Pods_WUPHF.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 889762957542608E55FD90EE /* Pods_WUPHF.framework */; };
 		4466B3E51FA8050B00ED1310 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4466B3E41FA8050B00ED1310 /* Common.swift */; };
+		4472251F1FC230DE0025615B /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4472251E1FC230DE0025615B /* File.swift */; };
+		447225211FC235200025615B /* PacksCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447225201FC235200025615B /* PacksCollectionViewController.swift */; };
+		447225231FC236D20025615B /* PackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447225221FC236D20025615B /* PackCollectionViewCell.swift */; };
+		447225251FC240580025615B /* PackMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447225241FC240580025615B /* PackMembersTableViewController.swift */; };
+		447225271FC241A30025615B /* PackMembersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447225261FC241A30025615B /* PackMembersTableViewCell.swift */; };
 		4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */; };
 		4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4491C48C1FA814DB00417602 /* EditProfileViewController.swift */; };
 		44B4428C1FA6A79400D9F58E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B4428B1FA6A79400D9F58E /* LoginViewController.swift */; };
@@ -42,6 +47,11 @@
 		137DD445024253F5B7245463 /* Pods-WUPHF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.release.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.release.xcconfig"; sourceTree = "<group>"; };
 		149E08DD5BE60B7512985E33 /* Pods-WUPHF.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WUPHF.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WUPHF/Pods-WUPHF.debug.xcconfig"; sourceTree = "<group>"; };
 		4466B3E41FA8050B00ED1310 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		4472251E1FC230DE0025615B /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		447225201FC235200025615B /* PacksCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacksCollectionViewController.swift; sourceTree = "<group>"; };
+		447225221FC236D20025615B /* PackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackCollectionViewCell.swift; sourceTree = "<group>"; };
+		447225241FC240580025615B /* PackMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackMembersTableViewController.swift; sourceTree = "<group>"; };
+		447225261FC241A30025615B /* PackMembersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackMembersTableViewCell.swift; sourceTree = "<group>"; };
 		4488C6211FA6930200E667A7 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		4491C48C1FA814DB00417602 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		44B4428B1FA6A79400D9F58E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				83EFCF341FA83C0500B16B97 /* User.swift */,
+				4472251E1FC230DE0025615B /* File.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -126,6 +137,8 @@
 				8395EE5A1FB98393005E95EE /* ContactsTableViewController.swift */,
 				83F73BC11FBBC37800E871FE /* DefaultMessagesTableViewController.swift */,
 				83F4F6C91FBE4E98004F3077 /* SendWUPHFViewController.swift */,
+				447225201FC235200025615B /* PacksCollectionViewController.swift */,
+				447225241FC240580025615B /* PackMembersTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -172,9 +185,11 @@
 		8395EE571FB9835A005E95EE /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
+				447225221FC236D20025615B /* PackCollectionViewCell.swift */,
 				83F903471FB81B2500F96C76 /* AddContactTableViewCell.swift */,
 				8395EE531FB975F2005E95EE /* PendingRequestTableViewCell.swift */,
 				8395EE581FB98380005E95EE /* ContactTableViewCell.swift */,
+				447225261FC241A30025615B /* PackMembersTableViewCell.swift */,
 				83F73BC31FBBC38600E871FE /* DefaultMessageTableViewCell.swift */,
 			);
 			path = "Custom Cells";
@@ -347,11 +362,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4491C48D1FA814DB00417602 /* EditProfileViewController.swift in Sources */,
+				447225251FC240580025615B /* PackMembersTableViewController.swift in Sources */,
+				447225231FC236D20025615B /* PackCollectionViewCell.swift in Sources */,
 				830198B81FA9235D00A05206 /* KeyboardReturn.swift in Sources */,
 				4488C6221FA6930200E667A7 /* CreateAccountViewController.swift in Sources */,
 				8395EE541FB975F2005E95EE /* PendingRequestTableViewCell.swift in Sources */,
+				447225271FC241A30025615B /* PackMembersTableViewCell.swift in Sources */,
 				830198B61FA91EBE00A05206 /* SettingsTableViewController.swift in Sources */,
 				830198AB1FA857CF00A05206 /* LinkAccountsViewController.swift in Sources */,
+				4472251F1FC230DE0025615B /* File.swift in Sources */,
 				4466B3E51FA8050B00ED1310 /* Common.swift in Sources */,
 				8341A7821F8AEECF00497C0C /* WUPHF.xcdatamodeld in Sources */,
 				8395EE5B1FB98393005E95EE /* ContactsTableViewController.swift in Sources */,
@@ -364,6 +383,7 @@
 				83F903461FB813C900F96C76 /* AddContactViewController.swift in Sources */,
 				83F4F6CA1FBE4E98004F3077 /* SendWUPHFViewController.swift in Sources */,
 				830198BA1FA9353000A05206 /* VerifySMSViewController.swift in Sources */,
+				447225211FC235200025615B /* PacksCollectionViewController.swift in Sources */,
 				83EFCF351FA83C0500B16B97 /* User.swift in Sources */,
 				8395EE591FB98380005E95EE /* ContactTableViewCell.swift in Sources */,
 				83F73BC41FBBC38600E871FE /* DefaultMessageTableViewCell.swift in Sources */,
