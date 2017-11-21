@@ -262,6 +262,24 @@ class APIHandler {
         }
     }
     
+    // MARK: WUPHF sending
+    func sendWUPHF(userId: Int, friendId: Int, message: String, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "userId": userId,
+            "friendId": friendId,
+            "message": message
+        ]
+        
+        Alamofire.request("\(server)/wuphf", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure:
+                completionHandler?(false)
+            }
+        }
+    }
+    
     // MARK: JSON parsing
     
     fileprivate func parseUsers(json: Array<Dictionary<String,AnyObject>>) -> [User] {

@@ -11,6 +11,7 @@ import UIKit
 class ContactsTableViewController: UITableViewController {
 
     private var contacts: [User] = []
+    private var selectedUser: User?
     
     override func viewDidAppear(_ animated: Bool) {
         APIHandler.shared.getFriends(id: Common.loggedInUser!.id) { (users) in
@@ -63,14 +64,22 @@ class ContactsTableViewController: UITableViewController {
         return result
     }
     
-    /*
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.item > 0 {
+            selectedUser = contacts[indexPath.item - 1]
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.destination is SendWUPHFViewController {
+            let vc = segue.destination as! SendWUPHFViewController
+            vc.target = selectedUser
+        }
     }
-    */
 
 }

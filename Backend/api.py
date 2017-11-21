@@ -2,6 +2,8 @@ from db import DB, User, Pack, FacebookAccount, TwitterAccount, Message, Bark
 from sqlalchemy import or_
 from flask import Flask, request
 from flask_restful import Resource, Api
+from phone import sendSms
+from emailApi import sendEmail
 import json
 
 app = Flask("WUPHF")
@@ -310,9 +312,45 @@ api.add_resource(UnlinkSMS, '/sms/unlink')
 
 class WUPHF(Resource):
 	def post(self):
-		# Send a WUPHF to the given user
+		# Send a WUPHF to the given user from given user ID
+		userId = request.form['userId']
+		friendId = request.form['friendId']
+		msg = request.form['message']
 
-		return ''
+		userList = session.query(User).filter_by(id=userId).all()
+		friendList = session.query(User).filter_by(id=friendId).all()
+		if len(userList) != 1 or len(friendList) != 1:
+			return {'success' : False}, 422
+
+		user = userList[0]
+		friend = friendList[0]
+
+		# Get senderName and message
+		senderName = user.fullName
+		text = wrapWUPHF(msg=msg, senderName=senderName)
+
+		# Send an email
+
+		# wuphfios@gmail.com
+		# wuphfforios
+		subject = 'WUPHF from ' + senderName
+		try:
+			sendEmail(text=text, targetEmail=friend.email, subject=senderName)
+		except:
+			print('Could not email')
+
+		# Send SMS
+		if friend.enableSMS:
+			try:
+				sendSms(msg, friend.phoneNumber)
+			except:
+				print('Could not SMS')
+
+		# Send Facebook
+
+		# Send Twitter
+
+		return {'success' : True}
 
 	def get(self):
 		# Get info about a specific WUPHF

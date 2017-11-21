@@ -20,9 +20,9 @@ class Common {
     }
     
     static func alertPopUp(warning: String, vc: UIViewController, completion: ((_ : UIAlertAction) -> Void)?) {
-        let alert = UIAlertController(title: "Notice", message: warning, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: warning, message: nil, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: completion))
-        vc.present(alert,animated: true, completion: nil)
+        vc.present(alert, animated: true, completion: nil)
     }
     
     // Credit to https://stackoverflow.com/questions/25471114/how-to-validate-an-e-mail-address-in-swift

@@ -11,7 +11,8 @@ import UIKit
 class SendWUPHFViewController: UIViewController, UITableViewDataSource {
     
     private var messages: [String] = []
-    //private var target: User
+    
+    var target: User?
 
     @IBOutlet weak var txtField: UITextView!
     @IBOutlet weak var table: UITableView!
@@ -45,7 +46,16 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
     }
 
     @IBAction func sendBtn(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
+            friendId: target!.id, message: txtField.text) { (success) in
+                if success {
+                    Common.alertPopUp(warning: "WUPHF Succesfull!", vc: self, completion: { (action) in
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                } else {
+                    Common.alertPopUp(warning: "WUPHF Failed!", vc: self, completion: nil)
+                }
+        }
     }
     
     @IBAction func cancelBtn(_ sender: Any) {
