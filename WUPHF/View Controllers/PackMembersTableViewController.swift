@@ -77,6 +77,7 @@ class PackMembersTableViewController: UITableViewController {
             print("writing name")
             self.members.append(User(id: 5, firstName: "JAY", lastName: "bay", email: mail, phone: "23", enableSMS: false, facebookLinked: false, twitterLinked: false))
             //add pack to DB
+            self.tableView.reloadData()
             
         })
         

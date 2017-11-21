@@ -107,6 +107,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                     self.newName = self.createPackName?.text
                     print("writing name")
                     self.packs.append(Pack(name: self.newName!, image: self.newImage!, members: self.users1))
+                    self.collectionView?.reloadData()
                     //add pack to DB
                     
                 })
@@ -114,7 +115,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 alertController.addAction(doneAction)
                 
                 self.present(alertController, animated: true, completion: nil)
-                
+               
             })
         }
     
@@ -132,7 +133,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
 
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of items
-            
+            print(packs.count)
             return packs.count
         }
 

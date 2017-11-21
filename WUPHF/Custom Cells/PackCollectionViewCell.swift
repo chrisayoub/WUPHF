@@ -13,9 +13,9 @@ class PackCollectionViewCell: UICollectionViewCell {
     @IBAction func sendBark(_ sender: Any) {
     }
     @IBOutlet weak var packName: UILabel!
-    @IBOutlet weak var packImage: UIButton!
     var delegate: PacksCollectionViewController!
     
+    @IBOutlet weak var packImage: UIImageView!
     var members: [User] = []
     
     override func awakeFromNib() {
@@ -27,10 +27,11 @@ class PackCollectionViewCell: UICollectionViewCell {
         delegate.performSegue(withIdentifier: "ShowPack", sender: self)
     }
     func config(messageText: String, messageImage: UIImage, users: [User]) {
-        packImage.layer.cornerRadius = packImage.frame.height/2
-        packImage.layer.masksToBounds = true
+       // packImage.layer.cornerRadius = packImage.frame.height/2
+        //packImage.layer.masksToBounds = true
         packName.text = messageText
-        packImage.setBackgroundImage(messageImage, for: .normal)
+        packName.bringSubview(toFront: self)
+        packImage.image=messageImage
         members = users
     }
 }
