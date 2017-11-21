@@ -12,6 +12,7 @@ class PackMembersTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var member: UILabel!
+    var delegate: PackMembersTableViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,5 +23,8 @@ class PackMembersTableViewCell: UITableViewCell {
     func sendInfo(user: User) {
         
         member.text = "\(user.firstName) \(user.lastName)"
+    }
+    @IBAction func sendWuphf(_ sender: Any) {
+        delegate.performSegue(withIdentifier: "SendWuphf", sender: self)
     }
 }

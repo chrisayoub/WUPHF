@@ -58,6 +58,7 @@ class PackMembersTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "member", for: indexPath) as! PackMembersTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.sendInfo(user: members[indexPath.item])
+        cell.delegate = self
         return cell
     }
     
@@ -84,6 +85,20 @@ class PackMembersTableViewController: UITableViewController {
         self.alert?.addAction(doneAction)
         
         self.present(self.alert!, animated: true, completion: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "SendWuphf" {
+            if let indexPath = self.tableView.indexPath(for: sender as! PackMembersTableViewCell){
+                
+                let tempController = segue.destination as? UINavigationController
+                let vc = tempController?.topViewController as! SendWUPHFViewController
+                //segue.destination as! SendWUPHFViewController
+                vc.target = members[indexPath.row]
+                
+            }
+        }
     }
     
     // https://developerslogblog.wordpress.com/2017/06/28/ios-11-swipe-leftright-in-uitableviewcell/

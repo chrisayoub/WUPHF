@@ -345,7 +345,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-4O-qqv">
-                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addContact" rowHeight="67" id="0tB-Fb-51b" customClass="AddContactTableViewCell" customModule="WUPHF" customModuleProvider="target">
@@ -1057,6 +1057,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-i3-WWR">
                                             <rect key="frame" x="298" y="5" width="54" height="30"/>
                                             <state key="normal" title="WUPHF"/>
+                                            <connections>
+                                                <action selector="sendWuphf:" destination="xCS-I4-uUO" eventType="touchUpInside" id="TNH-ax-WX3"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -1071,7 +1074,7 @@
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="member" destination="iOE-Xd-cDF" id="EWK-ml-iIn"/>
-                                    <segue destination="kWf-gr-MIy" kind="show" identifier="SendWuphf" id="YPQ-Od-dcR"/>
+                                    <segue destination="0ae-qI-G8U" kind="show" identifier="SendWuphf" id="4qe-ur-NBn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1103,7 +1106,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="1ou-eA-Gkq" kind="relationship" relationship="viewControllers" id="2KT-JQ-G7w"/>
                         <segue destination="qVp-1H-8bg" kind="relationship" relationship="viewControllers" id="S93-Cm-LiF"/>
                         <segue destination="gxh-mq-UFw" kind="relationship" relationship="viewControllers" id="Tui-lz-8ID"/>
                     </connections>
@@ -1490,9 +1492,9 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="4qe-ur-NBn"/>
         <segue reference="TEj-hz-Y12"/>
         <segue reference="FAE-f4-fND"/>
-        <segue reference="YPQ-Od-dcR"/>
         <segue reference="Mas-ne-dUX"/>
     </inferredMetricsTieBreakers>
 </document>
