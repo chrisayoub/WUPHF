@@ -108,7 +108,10 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             // Store the data, async so we return quick
             let strPack = pack.toString()
             var packs = UserDefaults.standard.dictionary(forKey: "packs")
-            var packsList = packs![String(describing: Common.loggedInUser!.id)] as! [String]
+            var packsList: [String] = []
+            if let tempPacks = packs![String(describing: Common.loggedInUser!.id)] as? [String] {
+                packsList = tempPacks
+            }
             packsList.append(strPack)
             packs![String(describing: Common.loggedInUser!.id)] = packsList
             UserDefaults.standard.set(packs, forKey: "packs")
@@ -127,6 +130,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         var packs = UserDefaults.standard.dictionary(forKey: "packs")
         if packs == nil {
             packs = Dictionary()
+            packs![String(describing: Common.loggedInUser!.id)] = []
             UserDefaults.standard.set(packs, forKey: "packs")
         }
         var tempPacks: [String] = []
