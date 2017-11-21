@@ -41,8 +41,10 @@ class Common {
     
     static func isValidPhone(testStr: String) -> Bool {
         let PHONE_REGEX = "^\\d{3}-\\d{3}-\\d{4}$"
+        let PHONE_ALT_REGEX = "^\\d{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        let result = phoneTest.evaluate(with: testStr)
+        let phoneAltTest = NSPredicate(format: "SELF MATCHES %@", PHONE_ALT_REGEX)
+        let result = phoneTest.evaluate(with: testStr) || phoneAltTest.evaluate(with: testStr)
         return result
     }
 }
