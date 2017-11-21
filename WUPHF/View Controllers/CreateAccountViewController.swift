@@ -36,23 +36,12 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         confirmPass.delegate = KeyboardReturn.shared
         
         // Facebook
-        
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         fbLoginButton.frame = facebookButton.frame
-        fbLoginButton.center = facebookButton.center
-        fbLoginButton.sizeToFit()
-       /* var frm = facebookButton.frame
-        fbLoginButton.frame.origin.x = frm.origin.x
-        fbLoginButton.frame.origin.y = frm.origin.y
-        fbLoginButton.frame.size.width = frm.size.width
-        fbLoginButton.frame.size. = frm.size.height */
-
-      
         view.addSubview(fbLoginButton)
         
         // Twitter
-        
-        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session!.userName)")
                 
@@ -69,8 +58,19 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                 print("Error!")
             }
         })
-        logInButton.frame = twitterButton.frame
-        self.view.addSubview(logInButton)
+        twLogInButton.frame = twitterButton.frame
+        self.view.addSubview(twLogInButton)
+        
+        // For the 8 plus
+        if UIScreen.main.bounds.size.height == 736.0 {
+            var fbCenter = facebookButton.center
+            fbCenter.x += 35
+            fbLoginButton.center = fbCenter
+            
+            var twCenter = twitterButton.center
+            twCenter.x += 37
+            twLogInButton.center = twCenter
+        }
     }
     
     @IBAction func createAccountBtn(_ sender: Any) {

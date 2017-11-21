@@ -21,18 +21,15 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
         super.viewDidLoad()
         
         // SMS
-        
         switchSms.setOn(Common.loggedInUser!.enableSMS, animated: false)
         
         // Facebook
-        
         let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
         fbLoginButton.frame = facebookBtn.frame
         view.addSubview(fbLoginButton)
-       
-        // Twitter
         
-        let logInButton = TWTRLogInButton(logInCompletion: { session, error in
+        // Twitter
+        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
             if (session != nil) {
                 print("signed in as \(session!.userName)")
                 
@@ -49,8 +46,19 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
                 print("Error!")
             }
         })
-        logInButton.frame = twitterBtn.frame
-        self.view.addSubview(logInButton)
+        twLogInButton.frame = twitterBtn.frame
+        self.view.addSubview(twLogInButton)
+        
+        // For the 8 plus
+        if UIScreen.main.bounds.size.height == 736.0 {
+            var fbCenter = facebookBtn.center
+            fbCenter.x += 35
+            fbLoginButton.center = fbCenter
+            
+            var twCenter = twitterBtn.center
+            twCenter.x += 37
+            twLogInButton.center = twCenter
+        }
     }
 
     
