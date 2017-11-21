@@ -158,7 +158,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="&lt;defaultmessage1&gt;" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NWa-NP-nmO">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NWa-NP-nmO">
                                 <rect key="frame" x="16" y="117" width="343" height="163"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -294,7 +294,6 @@
                                             </state>
                                             <connections>
                                                 <action selector="sendWUPHF:" destination="glN-1v-hlj" eventType="touchUpInside" id="f3a-nc-zj3"/>
-                                                <segue destination="0ae-qI-G8U" kind="presentation" identifier="SendWuphf" id="SOp-aL-3NA"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -310,7 +309,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="q3g-h9-cpM" id="GXP-YA-mRB"/>
-                                    <outlet property="sendWUPHF" destination="2LD-9S-8uX" id="4kH-Zk-TNX"/>
+                                    <segue destination="0ae-qI-G8U" kind="show" identifier="SendWuphf" id="dcN-2D-9lm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1493,7 +1492,7 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="SOp-aL-3NA"/>
+        <segue reference="dcN-2D-9lm"/>
         <segue reference="TEj-hz-Y12"/>
         <segue reference="FAE-f4-fND"/>
         <segue reference="Mas-ne-dUX"/>
