@@ -1156,7 +1156,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="email" destination="9kt-MH-2fO" id="sCk-Pb-QZ2"/>
-                                    <outlet property="name" destination="Gm4-8S-ROU" id="u1w-9H-pjk"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

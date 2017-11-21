@@ -30,11 +30,12 @@ class AddtoPackTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(contacts.count)
         return contacts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        print("in cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "contact", for: indexPath) as! AddToPackTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.sendInfo(user: contacts[indexPath.item])
@@ -57,7 +58,7 @@ class AddtoPackTableViewController: UITableViewController {
             if let indexPath = self.tableView.indexPath(for: sender as! ContactTableViewCell){
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
-                vc.target = contacts[indexPath.row - 1]
+                vc.target = contacts[indexPath.row]
             }
         }
     }

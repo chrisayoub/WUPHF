@@ -20,7 +20,7 @@ class AddToPackTableViewCell: UITableViewCell {
   
     override func awakeFromNib() {
         super.awakeFromNib()
-        name.text = ""
+        
     }
     @IBAction func addBTn(_ sender: Any) {
         addPackMember()
@@ -29,6 +29,7 @@ class AddToPackTableViewCell: UITableViewCell {
     func sendInfo(user: User) {
         self.user = user
         name.text = "\(user.firstName) \(user.lastName)"
+        email.text = user.email
     }
     func addPackMember(){
         getPacks()
