@@ -171,8 +171,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! PackCollectionViewCell
     
         let pack = displayPacks[indexPath.row]
-        cell.delegate = self
         cell.config(messageText: pack.name, messageImage: pack.image, users: pack.members)
+        cell.parentVC = self
         return cell
     }
     
