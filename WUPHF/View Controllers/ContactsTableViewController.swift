@@ -33,7 +33,29 @@ class ContactsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
             // TODO: https://stackoverflow.com/questions/26129428/badge-view-in-uitableviewcell
-            return tableView.dequeueReusableCell(withIdentifier: "pendingContactRequests", for: indexPath)
+            
+//            var accesoryBadge = UILabel()
+//            var string = "2"
+//            accesoryBadge.text = string
+//            accesoryBadge.backgroundColor = .red
+//            accesoryBadge.textColor = .white
+//            accesoryBadge.font = UIFont.systemFont(ofSize: 14)
+//            accesoryBadge.textAlignment = .center
+//            accesoryBadge.sizeToFit()
+//
+//            var frame = accesoryBadge.frame
+//            frame.size.height += (CGFloat) (0.4 * 14)
+//            frame.size.width = frame.size.height
+//            accesoryBadge.frame = frame
+//
+//            accesoryBadge.layer.cornerRadius = frame.size.height / 2.0
+//            accesoryBadge.clipsToBounds = true
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "pendingContactRequests", for: indexPath)
+            
+//            cell.accessoryView = accesoryBadge
+            
+            return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: "contact", for: indexPath) as! ContactTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none

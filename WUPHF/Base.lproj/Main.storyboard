@@ -73,7 +73,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="**********" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ArG-7L-BKt">
                                 <rect key="frame" x="30" y="342" width="315" height="30"/>
@@ -627,7 +627,7 @@
                                 <rect key="frame" x="30" y="200" width="315" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" textContentType="username"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Aw-ez-OBJ">
                                 <rect key="frame" x="30" y="238" width="315" height="30"/>
@@ -1042,7 +1042,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="separatorColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.98958333330000003" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="sectionIndexColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1054,27 +1054,30 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="&lt;Full Name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-Xd-cDF">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Full Name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOE-Xd-cDF">
                                             <rect key="frame" x="15" y="11" width="98" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-i3-WWR">
-                                            <rect key="frame" x="298" y="5" width="54" height="30"/>
-                                            <state key="normal" title="WUPHF"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-i3-WWR">
+                                            <rect key="frame" x="291" y="4" width="61" height="33"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="WUPHF">
+                                                <color key="titleColor" red="0.98958333330000003" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                             <connections>
                                                 <action selector="sendWuphf:" destination="xCS-I4-uUO" eventType="touchUpInside" id="TNH-ax-WX3"/>
                                             </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="9oB-i3-WWR" secondAttribute="bottom" constant="-1" id="99d-xj-UsZ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="iOE-Xd-cDF" secondAttribute="bottom" constant="2" id="D6g-4p-cP4"/>
-                                        <constraint firstItem="iOE-Xd-cDF" firstAttribute="leading" secondItem="VVV-kk-oRN" secondAttribute="leadingMargin" constant="-1" id="ELa-fd-Yec"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="9oB-i3-WWR" secondAttribute="trailing" constant="7" id="Tmt-gE-6Cr"/>
-                                        <constraint firstItem="9oB-i3-WWR" firstAttribute="top" secondItem="VVV-kk-oRN" secondAttribute="topMargin" constant="-6" id="dJh-sw-ejM"/>
-                                        <constraint firstItem="iOE-Xd-cDF" firstAttribute="top" secondItem="VVV-kk-oRN" secondAttribute="topMargin" id="fc8-dL-dSS"/>
+                                        <constraint firstAttribute="bottom" secondItem="9oB-i3-WWR" secondAttribute="bottom" constant="6.5" id="0T9-NL-tfU"/>
+                                        <constraint firstItem="iOE-Xd-cDF" firstAttribute="top" secondItem="VVV-kk-oRN" secondAttribute="top" constant="11" id="3Oo-FN-adg"/>
+                                        <constraint firstAttribute="trailing" secondItem="9oB-i3-WWR" secondAttribute="trailing" constant="23" id="Ol7-dC-JE3"/>
+                                        <constraint firstItem="iOE-Xd-cDF" firstAttribute="leading" secondItem="VVV-kk-oRN" secondAttribute="leading" constant="15" id="gCK-zn-sCs"/>
+                                        <constraint firstItem="9oB-i3-WWR" firstAttribute="top" secondItem="VVV-kk-oRN" secondAttribute="top" constant="4" id="le4-kI-XaL"/>
+                                        <constraint firstAttribute="bottom" secondItem="iOE-Xd-cDF" secondAttribute="bottom" constant="11.5" id="mOg-UF-gfM"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1180,9 +1183,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="1ou-eA-Gkq" kind="relationship" relationship="viewControllers" id="051-Kn-3rv"/>
                         <segue destination="qVp-1H-8bg" kind="relationship" relationship="viewControllers" id="S93-Cm-LiF"/>
                         <segue destination="gxh-mq-UFw" kind="relationship" relationship="viewControllers" id="Tui-lz-8ID"/>
-                        <segue destination="1ou-eA-Gkq" kind="relationship" relationship="viewControllers" id="051-Kn-3rv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ5-xi-Xjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1569,7 +1572,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="4qe-ur-NBn"/>
         <segue reference="PpI-i7-HYy"/>
-        <segue reference="FAE-f4-fND"/>
+        <segue reference="ayo-xT-YL9"/>
         <segue reference="Mas-ne-dUX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -13,7 +13,7 @@ class Pack{
     
     private var _name: String
     private var _image: UIImage
-    private var _members: [Int] //TODO: what is the person ID in WUPHF??
+    private var _members: [Int]
     
     init(name: String, image: UIImage, members: [Int]) {
         _name = name
@@ -41,14 +41,12 @@ class Pack{
         s.append(_name)
         s.append("\n")
         let imageData = UIImagePNGRepresentation(_image)
-        let strImage:String = (imageData?.base64EncodedString())!
+        let strImage: String = (imageData?.base64EncodedString())!
         s.append(strImage)
         s.append("\n")
-        let memArray = _members.map{
-            String($0)
-        }
-        for str in memArray{
-            s.append(str)
+        
+        for id in _members {
+            s.append("\(id)")
         }
         
         return s

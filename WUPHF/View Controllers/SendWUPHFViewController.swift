@@ -8,9 +8,10 @@
 
 import UIKit
 
-class SendWUPHFViewController: UIViewController, UITableViewDataSource {
+class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private var messages: [String] = []
+    private var wuphfInProgess = false
     
     var target: User?
 
@@ -21,6 +22,7 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         table.dataSource = self
+        table.delegate = self
         
         table.layer.cornerRadius = 15.0
         txtField.layer.cornerRadius = 15.0
@@ -46,6 +48,10 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
     }
 
     @IBAction func sendBtn(_ sender: Any) {
+        if wuphfInProgess {
+            return
+        }
+        self.wuphfInProgess = true
         APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
             friendId: target!.id, message: txtField.text) { (success) in
                 if success {
@@ -55,6 +61,7 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
                 } else {
                     Common.alertPopUp(warning: "WUPHF Failed!", vc: self, completion: nil)
                 }
+                self.wuphfInProgess = false
         }
     }
     
@@ -74,6 +81,11 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "displayMessage", for: indexPath)
         cell.textLabel?.text = messages[indexPath.item]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        txtField.text = messages[indexPath.item]
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     /*

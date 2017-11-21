@@ -10,41 +10,17 @@ import UIKit
 
 class PackMembersTableViewController: UITableViewController {
     
-    var alert:UIAlertController? = nil
+    var alert: UIAlertController? = nil
     var pack: Pack!
-    var members: [Int] = []
     var users: [User] = []
     var email: UITextField!
 
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.title = pack.name
-        members = pack.members
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        getUsers()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Table view data source
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        //TODO: Change to packs
-        /*APIHandler.shared.getFriends(id: Common.loggedInUser!.id) { (users) in
-            self.members =
-            self.tableView.reloadData()
-        }*/
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,19 +34,21 @@ class PackMembersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "member", for: indexPath) as! PackMembersTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-     //   cell.sendInfo(user: members[indexPath.item])
+        cell.sendInfo(user: users[indexPath.item])
         cell.delegate = self
         return cell
     }
-    func getUsers(){
-        let loading = Common.getLoadingAnimation(view: self.view)
-        loading.startAnimating()
-        for id in members{
-            APIHandler.shared.getUser(id: id) { (user) in
+    
+    func getUsers() {
+        for i in 0 ..< pack.members.count {
+            APIHandler.shared.getUser(id: pack.members[i]) { (user) in
                 self.users.append(user!)
+                if i == self.pack.members.count - 1 {
+                    // Load data in table after done
+                    self.tableView.reloadData()
+                }
             }
         }
-        loading.stopAnimating()
     }
     
     @IBAction func addContact(_ Sender: AnyObject) {
@@ -97,23 +75,20 @@ class PackMembersTableViewController: UITableViewController {
         
         self.present(self.alert!, animated: true, completion: nil)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "SendWuphf" {
-            if let indexPath = self.tableView.indexPath(for: sender as! PackMembersTableViewCell){
-                
+            if let index = self.tableView.indexPath(for: sender as! PackMembersTableViewCell) {
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
-                //segue.destination as! SendWUPHFViewController
-                //vc.target = members[indexPath.row]
-                
+                vc.target = self.users[index.item]
             }
         }
         if segue.identifier == "AddToPack" {
             let vc = segue.destination as! AddtoPackTableViewController
             vc.pack = self.pack
-            
         }
     }
     
@@ -140,21 +115,4 @@ class PackMembersTableViewController: UITableViewController {
         result.performsFirstActionWithFullSwipe = false
         return result
     }*/
-    func toPack(str:String) -> Pack{
-        var pack: Pack!
-        let strArr = str.components(separatedBy: " ")
-        pack.name = strArr[0]
-        let dataDecoded:Data = NSData(base64Encoded: strArr[1], options: Data.Base64DecodingOptions.ignoreUnknownCharacters)! as Data
-        let image:UIImage! = UIImage(data: dataDecoded)
-        pack.image = image
-        var memIDs: [Int] = []
-        
-        for char in strArr[3]{
-            memIDs.append(Int(String(char))!)
-        }
-        
-        
-        return pack
-    }
-
 }
