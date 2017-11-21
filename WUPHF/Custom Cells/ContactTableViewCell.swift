@@ -13,7 +13,7 @@ class ContactTableViewCell: UITableViewCell {
     @IBOutlet weak var name: UILabel!
     
     private var user: User?
-    
+    var delegate: ContactsTableViewController!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,6 +26,6 @@ class ContactTableViewCell: UITableViewCell {
     }
     
     @IBAction func sendWUPHF(_ sender: Any) {
-        
+        delegate.performSegue(withIdentifier: "SendWuphf", sender: self)
     }
 }

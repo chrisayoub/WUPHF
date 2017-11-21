@@ -158,7 +158,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="&lt;defaultmessage1&gt;" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NWa-NP-nmO">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="NWa-NP-nmO">
                                 <rect key="frame" x="16" y="117" width="343" height="163"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -294,7 +294,6 @@
                                             </state>
                                             <connections>
                                                 <action selector="sendWUPHF:" destination="glN-1v-hlj" eventType="touchUpInside" id="f3a-nc-zj3"/>
-                                                <segue destination="0ae-qI-G8U" kind="presentation" identifier="SendWuphf" id="SOp-aL-3NA"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -310,7 +309,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="q3g-h9-cpM" id="GXP-YA-mRB"/>
-                                    <outlet property="sendWUPHF" destination="2LD-9S-8uX" id="4kH-Zk-TNX"/>
+                                    <segue destination="0ae-qI-G8U" kind="show" identifier="SendWuphf" id="dcN-2D-9lm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1064,9 +1063,6 @@
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-i3-WWR">
                                             <rect key="frame" x="298" y="5" width="54" height="30"/>
                                             <state key="normal" title="WUPHF"/>
-                                            <connections>
-                                                <segue destination="0ae-qI-G8U" kind="show" id="Bem-bM-sua"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -1081,6 +1077,7 @@
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="member" destination="iOE-Xd-cDF" id="EWK-ml-iIn"/>
+                                    <segue destination="kWf-gr-MIy" kind="show" identifier="SendWuphf" id="YPQ-Od-dcR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

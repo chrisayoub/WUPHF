@@ -38,6 +38,7 @@ class ContactsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "contact", for: indexPath) as! ContactTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.sendInfo(user: contacts[indexPath.item - 1])
+        cell.delegate = self
         return cell
     }
     
@@ -78,7 +79,7 @@ class ContactsTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "SendWuphf" {
-            if let indexPath = self.tableView.indexPath(for: sender){
+            if let indexPath = self.tableView.indexPath(for: sender as! ContactTableViewCell){
                 
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
