@@ -79,7 +79,14 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             })
             
             let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
+                // Check for duplicate
                 let newName = self.createPackName?.text
+                for pack in self.displayPacks {
+                    if pack.name == newName {
+                        Common.alertPopUp(warning: "Please enter a unique pack name.", vc: self)
+                        return
+                    }
+                }
                 self.addPack(pack: Pack(name: newName!, image: newImage!, members: []))
                 self.collectionView?.reloadData()
             })
@@ -101,12 +108,9 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             // Store the data, async so we return quick
             let strPack = pack.toString()
             var packs = UserDefaults.standard.dictionary(forKey: "packs")
-            var newPacks: [String] = []
-            newPacks.append(strPack)
-            for p in self.displayPacks {
-                newPacks.append(p.toString())
-            }
-            packs![String(describing: Common.loggedInUser!.id)] = newPacks
+            var packsList = packs![String(describing: Common.loggedInUser!.id)] as! [String]
+            packsList.append(strPack)
+            packs![String(describing: Common.loggedInUser!.id)] = packsList
             UserDefaults.standard.set(packs, forKey: "packs")
             UserDefaults.standard.synchronize()
         }
@@ -126,7 +130,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             UserDefaults.standard.set(packs, forKey: "packs")
         }
         var tempPacks: [String] = []
-        if let packList = packs![String(describing: Common.loggedInUser!.id)]{
+        if let packList = packs![String(describing: Common.loggedInUser!.id)] {
             tempPacks = packList as! [String]
         }
         for p in tempPacks {

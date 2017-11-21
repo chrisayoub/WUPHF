@@ -8,17 +8,20 @@
 
 import UIKit
 
-class AddtoPackTableViewController: UITableViewController {
-    
+class AddtoPackTableViewController: UITableViewController, AddUserToPack {
+
     private var contacts: [User] = []
-    var selectedUser: User!
-    var pack: Pack!
-    var allPacks: [Pack]!
-    //private var selectedUser: User?
+    var pack: Pack?
+    var delegate: UpdatePackList?
     
     override func viewDidAppear(_ animated: Bool) {
         APIHandler.shared.getFriends(id: Common.loggedInUser!.id) { (users) in
-            self.contacts = users
+            self.contacts = []
+            for user in users {
+                if !self.pack!.members.contains(user.id) {
+                    self.contacts.append(user)
+                }
+            }
             self.tableView.reloadData()
         }
     }
@@ -30,39 +33,27 @@ class AddtoPackTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(contacts.count)
         return contacts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("in cell")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "contact", for: indexPath) as! AddToPackTableViewCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.sendInfo(user: contacts[indexPath.item])
-        cell.delegate = self
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addContactToPack", for: indexPath) as! AddToPackTableViewCell
+        cell.sendInfo(user: contacts[indexPath.item], pack: pack!, delegate: self)
+        cell.selectionStyle = .none
         return cell
     }
     
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            selectedUser = contacts[indexPath.item]
-        }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "SendWuphf" {
-            if let indexPath = self.tableView.indexPath(for: sender as! ContactTableViewCell){
-                let tempController = segue.destination as? UINavigationController
-                let vc = tempController?.topViewController as! SendWUPHFViewController
-                vc.target = contacts[indexPath.row]
-            }
-        }
+    func addUserToPack(user: User, pack: Pack) {
+        pack.members.append(user.id)
+        // Update persistence async
+        pack.writePack()
+        // Go back
+        delegate?.updateListAndGoBack()
     }
     
-    
+}
+
+protocol UpdatePackList {
+    func updateListAndGoBack()
 }
 

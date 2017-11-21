@@ -8,12 +8,10 @@
 
 import UIKit
 
-class PackMembersTableViewController: UITableViewController {
+class PackMembersTableViewController: UITableViewController, UpdatePackList {
     
-    var alert: UIAlertController? = nil
     var pack: Pack!
     var users: [User] = []
-    var email: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +40,9 @@ class PackMembersTableViewController: UITableViewController {
     func getUsers() {
         for i in 0 ..< pack.members.count {
             APIHandler.shared.getUser(id: pack.members[i]) { (user) in
-                self.users.append(user!)
+                if let userGood = user {
+                    self.users.append(userGood)
+                }
                 if i == self.pack.members.count - 1 {
                     // Load data in table after done
                     self.tableView.reloadData()
@@ -50,32 +50,7 @@ class PackMembersTableViewController: UITableViewController {
             }
         }
     }
-    
-    @IBAction func addContact(_ Sender: AnyObject) {
-        self.alert = UIAlertController(title: "Add Member", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        self.alert!.addAction(UIAlertAction(title: "Create", style: UIAlertActionStyle.default))
-        
-        
-        
-        
-        alert?.addTextField(configurationHandler: { (textField : UITextField) -> Void in
-            self.email = textField
-        })
-        var mail: String = ""
-        let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
-            mail = (self.email?.text!)!
-            print("writing name")
-            self.users.append(User(id: 5, firstName: "JAY", lastName: "bay", email: mail, phone: "23", enableSMS: false, facebookLinked: false, twitterLinked: false))
-            //add pack to DB
-            self.tableView.reloadData()
-            
-        })
-        
-        self.alert?.addAction(doneAction)
-        
-        self.present(self.alert!, animated: true, completion: nil)
-    }
-    
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -86,33 +61,37 @@ class PackMembersTableViewController: UITableViewController {
                 vc.target = self.users[index.item]
             }
         }
-        if segue.identifier == "AddToPack" {
+        else if segue.identifier == "AddToPack" {
             let vc = segue.destination as! AddtoPackTableViewController
+            vc.delegate = self
             vc.pack = self.pack
         }
     }
     
+    func updateListAndGoBack() {
+        // Update list
+        getUsers()
+        // Bring back
+        navigationController?.popToViewController(self, animated: true)
+    }
+    
     // https://developerslogblog.wordpress.com/2017/06/28/ios-11-swipe-leftright-in-uitableviewcell/
-    /*override func tableView(_ tableView: UITableView,
+    override func tableView(_ tableView: UITableView,
                             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if indexPath.item == 0 {
-            return UISwipeActionsConfiguration(actions: [])
-        }
-        //TODO: customize for actions
-        /*let modifyAction = UIContextualAction(style: .normal, title: "Delete",
+        let modifyAction = UIContextualAction(style: .normal, title: "Delete",
                                               handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
-                                                let friend = self.members.remove(at: indexPath.item - 1)
+                                                self.pack.members.remove(at: indexPath.item)
+                                                self.users.remove(at: indexPath.item)
                                                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                                                // Delete from server
-                                                //TODO: Remove from pack not delete friend
-                                                //APIHandler.shared.deleteFriend(userId: Common.loggedInUser!.id, friendId: friend.id, completionHandler: nil)
+                                                // Update persistence async
+                                                self.pack.writePack()
                                                 success(true)
-        })*/
-      //  modifyAction.title = "Delete"
-        //modifyAction.backgroundColor = .red
+        })
+        modifyAction.title = "Delete"
+        modifyAction.backgroundColor = .red
         
-      //  let result = UISwipeActionsConfiguration(actions: [modifyAction])
+        let result = UISwipeActionsConfiguration(actions: [modifyAction])
         result.performsFirstActionWithFullSwipe = false
         return result
-    }*/
+    }
 }

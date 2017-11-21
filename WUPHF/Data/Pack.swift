@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Pack{
+class Pack {
     
     private var _name: String
     private var _image: UIImage
@@ -52,5 +52,26 @@ class Pack{
         return s
     }
     
-    
+    func writePack() {
+        DispatchQueue.global().async {
+            var packs = UserDefaults.standard.dictionary(forKey: "packs")
+            let packsList = packs![String(describing: Common.loggedInUser!.id)] as! [String]
+            var newPacksList: [String] = []
+            
+            // Update new pack with member
+            for packStr in packsList {
+                let strArr = packStr.components(separatedBy: "\n")
+                let name: String = strArr[0]
+                if name == self.name {
+                    newPacksList.append(self.toString())
+                } else {
+                    newPacksList.append(packStr)
+                }
+            }
+            
+            packs![String(describing: Common.loggedInUser!.id)] = newPacksList
+            UserDefaults.standard.set(packs, forKey: "packs")
+            UserDefaults.standard.synchronize()
+        }
+    }
 }
