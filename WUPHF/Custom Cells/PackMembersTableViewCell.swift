@@ -16,6 +16,7 @@ class PackMembersTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         member.text = ""
+        
     }
     
     func sendInfo(user: User) {
