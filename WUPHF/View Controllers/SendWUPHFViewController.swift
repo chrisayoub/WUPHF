@@ -46,11 +46,10 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource {
     }
 
     @IBAction func sendBtn(_ sender: Any) {
-        print(target)
         APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
             friendId: target!.id, message: txtField.text) { (success) in
                 if success {
-                    Common.alertPopUp(warning: "WUPHF Succesfull!", vc: self, completion: { (action) in
+                    Common.alertPopUp(warning: "WUPHF Successful!", vc: self, completion: { (action) in
                         self.dismiss(animated: true, completion: nil)
                     })
                 } else {

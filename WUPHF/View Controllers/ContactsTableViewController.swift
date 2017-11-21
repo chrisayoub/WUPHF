@@ -67,7 +67,6 @@ class ContactsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.item > 0 {
-            print(selectedUser)
             selectedUser = contacts[indexPath.item - 1]
         }
     }
