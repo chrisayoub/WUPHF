@@ -67,7 +67,6 @@ class ContactsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.item > 0 {
-            print(selectedUser)
             selectedUser = contacts[indexPath.item - 1]
         }
     }
@@ -80,12 +79,9 @@ class ContactsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "SendWuphf" {
             if let indexPath = self.tableView.indexPath(for: sender as! ContactTableViewCell){
-                
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
-                    //segue.destination as! SendWUPHFViewController
-                vc.target = contacts[indexPath.row-1]
-                print(selectedUser)
+                vc.target = contacts[indexPath.row - 1]
             }
         }
     }

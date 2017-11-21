@@ -17,6 +17,8 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     @IBOutlet weak var twitterBtn: UIButton!
     @IBOutlet weak var switchSms: UISwitch!
     
+    private var facebookLoginButton: LoginButton?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,40 +26,46 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
         switchSms.setOn(Common.loggedInUser!.enableSMS, animated: false)
         
         // Facebook
-        let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
-        fbLoginButton.frame = facebookBtn.frame
-        view.addSubview(fbLoginButton)
+        LoginManager().logOut()
+        facebookLoginButton = LoginButton(publishPermissions: [ .publishActions ])
+        facebookLoginButton!.frame = facebookBtn.frame
+        view.addSubview(facebookLoginButton!)
+        
+        if (Common.loggedInUser!.facebookLinked) {
+            facebookLoginButton!.isHidden = true
+        }
         
         // Twitter
-        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                print("signed in as \(session!.userName)")
-                
-                // Sign out
-                //
-                //                let store = Twitter.sharedInstance().sessionStore
-                //
-                //                if let userID = store.session()?.userID {
-                //                    store.logOutUserID(userID)
-                //                }
-                
-                
-            } else {
-                print("Error!")
-            }
-        })
-        twLogInButton.frame = twitterBtn.frame
-        self.view.addSubview(twLogInButton)
+//        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
+//            if (session != nil) {
+//                print("signed in as \(session!.userName)")
+//
+//                // Sign out
+//                //
+//                //                let store = Twitter.sharedInstance().sessionStore
+//                //
+//                //                if let userID = store.session()?.userID {
+//                //                    store.logOutUserID(userID)
+//                //                }
+//
+//
+//            } else {
+//                print("Error!")
+//            }
+//        })
+//        twLogInButton.frame = twitterBtn.frame
+//        self.view.addSubview(twLogInButton)
+        twitterBtn.isHidden = true
         
         // For the 8 plus
         if UIScreen.main.bounds.size.height == 736.0 {
             var fbCenter = facebookBtn.center
             fbCenter.x += 35
-            fbLoginButton.center = fbCenter
+            facebookLoginButton!.center = fbCenter
             
-            var twCenter = twitterBtn.center
-            twCenter.x += 37
-            twLogInButton.center = twCenter
+//            var twCenter = twitterBtn.center
+//            twCenter.x += 37
+//            twLogInButton.center = twCenter
         }
     }
 
@@ -68,17 +76,19 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     }
 
     override func viewWillAppear(_ animated: Bool) {
-//        if let fbToken = AccessToken.current {
-//            print(fbToken.userId!)
-//            APIHandler.shared.linkFacebook(id: (Common.loggedInUser?.id)!, fbId: fbToken.userId!, token: fbToken.authenticationToken, completionHandler: {user in  guard user != nil else {
-//                    Common.alertPopUp(warning: "Cannot send to server.", vc: self)
-//                    return
-//                }
-//
-//                Common.loggedInUser?.facebookLinked = true;
-//            })
-//           // Common.loggedInUser?.fbAccessToken = fbToken
-//        }
+        if let fbToken = AccessToken.current {
+            // We are now logged into Facebook!
+            
+            // Hide button
+            facebookLoginButton!.isHidden = true
+            // Update user
+            Common.loggedInUser?.facebookLinked = true;
+            // Send to server
+            APIHandler.shared.linkFacebook(id: (Common.loggedInUser?.id)!,
+                                           fbId: fbToken.userId!,
+                                           token: fbToken.authenticationToken,
+                                           completionHandler: nil)
+        }
     }
     
     @IBAction func switchToggle(_ sender: Any) {
@@ -105,7 +115,13 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     }
     
     @IBAction func unlinkFacebook(_ sender: Any) {
-        
+        // Enable Facebook login button
+        LoginManager().logOut()
+        facebookLoginButton!.isHidden = false
+        // Unlink
+        Common.loggedInUser!.facebookLinked = false
+        // Send to server
+        APIHandler.shared.unlinkFacebook(id: Common.loggedInUser!.id, completionHandler: nil)
     }
     
     @IBAction func unlinkTwitter(_ sender: Any) {

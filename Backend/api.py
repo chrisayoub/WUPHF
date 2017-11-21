@@ -4,6 +4,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 from phone import sendSms
 from emailApi import sendEmail
+from facebook import makeWallPost
 import json
 
 app = Flask("WUPHF")
@@ -347,6 +348,11 @@ class WUPHF(Resource):
 				print('Could not SMS')
 
 		# Send Facebook
+		if user.facebookAccount != None and friend.facebookAccount != None:
+			try:
+				makeWallPost(user.facebookAccount, friend.facebookAccount, text)
+			except:
+				print('Could not Facebook')
 
 		# Send Twitter
 

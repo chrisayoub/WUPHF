@@ -23,6 +23,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     @IBOutlet weak var facebookButton: UIButton!
     @IBOutlet weak var twitterButton: UIButton!
     
+    private var facebookLoginButton: LoginButton?
+    private var fbAccessToken: AccessToken?
+    
     var smsNumber: String?
     
     override func viewDidLoad() {
@@ -36,40 +39,53 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         confirmPass.delegate = KeyboardReturn.shared
         
         // Facebook
-        let fbLoginButton = LoginButton(readPermissions: [ .publicProfile ])
-        fbLoginButton.frame = facebookButton.frame
-        view.addSubview(fbLoginButton)
+        LoginManager().logOut()
+        facebookLoginButton = LoginButton(readPermissions: [ .publicProfile ])
+        facebookLoginButton!.frame = facebookButton.frame
+        view.addSubview(facebookLoginButton!)
         
         // Twitter
-        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                print("signed in as \(session!.userName)")
-                
-                // Sign out
+//        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
+//            if (session != nil) {
+//                print("signed in as \(session!.userName)")
 //
-//                let store = Twitter.sharedInstance().sessionStore
+//                // Sign out
+////
+////                let store = Twitter.sharedInstance().sessionStore
+////
+////                if let userID = store.session()?.userID {
+////                    store.logOutUserID(userID)
+////                }
 //
-//                if let userID = store.session()?.userID {
-//                    store.logOutUserID(userID)
-//                }
-                
-                
-            } else {
-                print("Error!")
-            }
-        })
-        twLogInButton.frame = twitterButton.frame
-        self.view.addSubview(twLogInButton)
+//
+//            } else {
+//                print("Error!")
+//            }
+//        })
+//        twLogInButton.frame = twitterButton.frame
+//        self.view.addSubview(twLogInButton)
+        twitterButton.isHidden = true
         
         // For the 8 plus
         if UIScreen.main.bounds.size.height == 736.0 {
             var fbCenter = facebookButton.center
             fbCenter.x += 35
-            fbLoginButton.center = fbCenter
+            facebookLoginButton!.center = fbCenter
             
-            var twCenter = twitterButton.center
-            twCenter.x += 37
-            twLogInButton.center = twCenter
+//            var twCenter = twitterButton.center
+//            twCenter.x += 37
+//            twLogInButton.center = twCenter
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if let fbToken = AccessToken.current {
+            // We are now logged into Facebook!
+            
+            // Save token
+            fbAccessToken = fbToken
+            // Hide button
+            facebookLoginButton!.isHidden = true
         }
     }
     
@@ -139,6 +155,13 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                             }
                             
                             // Add FB to user if present
+                            if let fbToken = self.fbAccessToken {
+                                APIHandler.shared.linkFacebook(id: id!,
+                                                               fbId: fbToken.userId!,
+                                                               token: fbToken.authenticationToken,
+                                                               completionHandler: nil)
+                            }
+                            LoginManager().logOut()
                             
                             // Add TW to user if present
                             
@@ -177,10 +200,14 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     }
     
     @IBAction func unlinkFacebook(_ sender: Any) {
+        LoginManager().logOut()
+        facebookLoginButton!.isHidden = false
+        fbAccessToken = nil
     }
     
     @IBAction func unlinkTwitter(_ sender: Any) {
     }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
