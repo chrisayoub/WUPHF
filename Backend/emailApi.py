@@ -30,6 +30,3 @@ def sendEmail(text, targetEmail, subject):
     # Terminate the SMTP session and close the connection
     s.quit()
 
-
-sendEmail(text='This is a test message!', targetEmail='chris.ayoubtexas@gmail.com', subject='WUPHF Message')
-
