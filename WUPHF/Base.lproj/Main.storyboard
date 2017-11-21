@@ -1057,9 +1057,6 @@
                                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oB-i3-WWR">
                                             <rect key="frame" x="298" y="5" width="54" height="30"/>
                                             <state key="normal" title="WUPHF"/>
-                                            <connections>
-                                                <segue destination="0ae-qI-G8U" kind="show" id="Bem-bM-sua"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -1074,6 +1071,7 @@
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="member" destination="iOE-Xd-cDF" id="EWK-ml-iIn"/>
+                                    <segue destination="kWf-gr-MIy" kind="show" identifier="SendWuphf" id="YPQ-Od-dcR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1492,9 +1490,9 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcN-2D-9lm"/>
         <segue reference="TEj-hz-Y12"/>
         <segue reference="FAE-f4-fND"/>
+        <segue reference="YPQ-Od-dcR"/>
         <segue reference="Mas-ne-dUX"/>
     </inferredMetricsTieBreakers>
 </document>
