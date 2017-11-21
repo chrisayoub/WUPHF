@@ -335,14 +335,14 @@ class WUPHF(Resource):
 		# wuphfforios
 		subject = 'WUPHF from ' + senderName
 		try:
-			sendEmail(text=text, targetEmail=friend.email, subject=senderName)
+			sendEmail(text=text, targetEmail=friend.email, subject=subject)
 		except:
 			print('Could not email')
 
 		# Send SMS
 		if friend.enableSMS:
 			try:
-				sendSms(msg, friend.phoneNumber)
+				sendSms(text, friend.phoneNumber)
 			except:
 				print('Could not SMS')
 
