@@ -14,6 +14,7 @@ class ContactTableViewCell: UITableViewCell {
     
     private var user: User?
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         name.text = ""
@@ -24,4 +25,7 @@ class ContactTableViewCell: UITableViewCell {
         name.text = "\(user.firstName) \(user.lastName)"
     }
     
+    @IBAction func sendWUPHF(_ sender: Any) {
+        
+    }
 }
