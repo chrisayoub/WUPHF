@@ -41,25 +41,26 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         view.addSubview(fbLoginButton)
         
         // Twitter
-        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
-            if (session != nil) {
-                print("signed in as \(session!.userName)")
-                
-                // Sign out
+//        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
+//            if (session != nil) {
+//                print("signed in as \(session!.userName)")
 //
-//                let store = Twitter.sharedInstance().sessionStore
+//                // Sign out
+////
+////                let store = Twitter.sharedInstance().sessionStore
+////
+////                if let userID = store.session()?.userID {
+////                    store.logOutUserID(userID)
+////                }
 //
-//                if let userID = store.session()?.userID {
-//                    store.logOutUserID(userID)
-//                }
-                
-                
-            } else {
-                print("Error!")
-            }
-        })
-        twLogInButton.frame = twitterButton.frame
-        self.view.addSubview(twLogInButton)
+//
+//            } else {
+//                print("Error!")
+//            }
+//        })
+//        twLogInButton.frame = twitterButton.frame
+//        self.view.addSubview(twLogInButton)
+        twitterButton.isHidden = true
         
         // For the 8 plus
         if UIScreen.main.bounds.size.height == 736.0 {
@@ -67,9 +68,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
             fbCenter.x += 35
             fbLoginButton.center = fbCenter
             
-            var twCenter = twitterButton.center
-            twCenter.x += 37
-            twLogInButton.center = twCenter
+//            var twCenter = twitterButton.center
+//            twCenter.x += 37
+//            twLogInButton.center = twCenter
         }
     }
     

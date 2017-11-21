@@ -696,7 +696,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSw-jg-WDI">
                                 <rect key="frame" x="162" y="431" width="183" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Unlink Twitter">
+                                <state key="normal" title="Unlink">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -706,7 +706,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7Q-Ok-shc">
                                 <rect key="frame" x="164" y="386" width="183" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Facebook">
+                                <state key="normal" title="Unlink">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1177,7 +1177,7 @@
                                     <constraint firstAttribute="width" constant="200" id="VCc-RA-fZ3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Facebook">
+                                <state key="normal" title="Unlink">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1190,7 +1190,7 @@
                                     <constraint firstAttribute="width" constant="200" id="0xm-GR-X9o"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Twitter">
+                                <state key="normal" title="Unlink">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1499,7 +1499,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="4qe-ur-NBn"/>
-        <segue reference="TEj-hz-Y12"/>
+        <segue reference="PpI-i7-HYy"/>
         <segue reference="FAE-f4-fND"/>
         <segue reference="Mas-ne-dUX"/>
     </inferredMetricsTieBreakers>
