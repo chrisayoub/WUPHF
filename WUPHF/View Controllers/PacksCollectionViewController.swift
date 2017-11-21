@@ -21,30 +21,28 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     lazy var createPackImage: UIImageView? = nil
     
     //temprorary values
-    var packs: [Pack] = []
+    var packs: [String] = []
+    var displayPacks: [Pack] = []
     var imageTest: UIImage? = #imageLiteral(resourceName: "facebook_login")
-    var users: [User] = []
+    var users: [Int] = []
     var users1: [User] = []
     
     override func viewDidLoad() {
-        users1.append(User(id: 1, firstName: "test", lastName: "er", email: "", phone: "",
-                           enableSMS: false, facebookLinked: false, twitterLinked: false))
+       /* users.append(1)
+        users.append(2)
+        users.append(3)
+        users.append(4)
         
-        users.append(User(id: 1, firstName: "test", lastName: "er", email: "", phone: "",
-                           enableSMS: false, facebookLinked: false, twitterLinked: false))
-        users.append(User(id: 2, firstName: "test", lastName: "er2", email: "", phone: "",
-                          enableSMS: false, facebookLinked: false, twitterLinked: false))
-        users.append(User(id: 3, firstName: "test", lastName: "er3", email: "", phone: "",
-                          enableSMS: false, facebookLinked: false, twitterLinked: false))
-        users.append(User(id: 4, firstName: "test", lastName: "er4", email: "", phone: "",
-                          enableSMS: false, facebookLinked: false, twitterLinked: false))
-        packs.append(Pack(name: "Test", image: imageTest!, members: users1))
+        packs.append(Pack(name: "Test1", image: imageTest!, members: users))
         packs.append(Pack(name: "Test2", image: imageTest!, members: users))
         packs.append(Pack(name: "Test3", image: imageTest!, members: users))
-        packs.append(Pack(name: "Test4", image: imageTest!, members: users))
-        packs.append(Pack(name: "Test5", image: imageTest!, members: users))
-        
-
+        print(packs[0].toString())
+        packs.append(toPack(str: packs[0].toString()))
+       */
+     //   packs.append(Pack(name: "Test4", image: imageTest!, members: users))
+       // packs.append(Pack(name: "Test5", image: imageTest!, members: users))*/
+        getPacks()
+       
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -106,9 +104,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
                     self.newName = self.createPackName?.text
                     print("writing name")
-                    self.packs.append(Pack(name: self.newName!, image: self.newImage!, members: self.users1))
+                    self.addPack(pack: Pack(name: self.newName!, image: self.newImage!, members: []))
                     self.collectionView?.reloadData()
-                    //add pack to DB
                     
                 })
                 
@@ -117,6 +114,39 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 self.present(alertController, animated: true, completion: nil)
                
             })
+        }
+        func addPack(pack: Pack){
+            let strPack = pack.toString()
+            var packs = UserDefaults.standard.dictionary(forKey: "packs")
+            var newPacks: [String] = []
+            newPacks.append(strPack)
+            for p in displayPacks{
+                newPacks.append(p.toString())
+            }
+            
+            packs![String(describing: Common.loggedInUser!.id)] = newPacks
+            UserDefaults.standard.set(packs, forKey: "packs")
+            UserDefaults.standard.synchronize()
+            getPacks()
+        }
+        func getPacks(){
+            if !displayPacks.isEmpty{
+                displayPacks.removeAll(keepingCapacity: false)
+            }
+            var packs = UserDefaults.standard.dictionary(forKey: "packs")
+            if packs == nil {
+                packs = Dictionary()
+                UserDefaults.standard.set(packs, forKey: "packs")
+            }
+            var tempPacks: [String] = []
+            if let packList = packs![String(describing: Common.loggedInUser!.id)]{
+                tempPacks = packList as! [String]
+            }
+            for p in tempPacks {
+                displayPacks.append(toPack(str: p))
+            }
+            UserDefaults.standard.synchronize()
+
         }
     
         //What to do if the image picker cancels.
@@ -133,8 +163,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
 
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of items
-            print(packs.count)
-            return packs.count
+            print(displayPacks.count)
+            return displayPacks.count
         }
 
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -142,7 +172,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         
             
             // Configure the cell...
-            let pack = packs[indexPath.row]
+            let pack = displayPacks[indexPath.row]
             cell.delegate = self
             
             cell.config(messageText: pack.name, messageImage: pack.image, users: pack.members)
@@ -155,7 +185,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell){
                     let vc = segue.destination as! PackMembersTableViewController
                     // Pass the selected data model object to the destination view controller.
-                    vc.pack = packs[indexPaths.row]
+                    vc.pack = displayPacks[indexPaths.row]
                     // Set the navigation bar back button text.
                     // If you don't do this, the back button text is this screens title text.
                     // If this screen didn't have any nav bar title text, the back button text would be 'Back', by default.
@@ -196,5 +226,20 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     
     }
     */
+    func toPack(str:String) -> Pack{
+        let strArr = str.components(separatedBy: "\n")
+        let name:String = strArr[0]
+        let dataDecoded:Data = NSData(base64Encoded: strArr[1], options: Data.Base64DecodingOptions.ignoreUnknownCharacters)! as Data
+        let image:UIImage! = UIImage(data: dataDecoded)
+        
+        var memIDs: [Int] = []
+        
+        for char in strArr[2]{
+            memIDs.append(Int(String(char))!)
+        }
+        
+        
+        return Pack(name: name, image: image, members: memIDs)
+    }
 
 }

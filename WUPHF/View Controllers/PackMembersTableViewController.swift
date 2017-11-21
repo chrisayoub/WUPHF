@@ -12,7 +12,8 @@ class PackMembersTableViewController: UITableViewController {
     
     var alert:UIAlertController? = nil
     var pack: Pack!
-    var members: [User] = []
+    var members: [Int] = []
+    var users: [User] = []
     var email: UITextField!
 
     override func viewDidLoad() {
@@ -51,15 +52,25 @@ class PackMembersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        return users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "member", for: indexPath) as! PackMembersTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.sendInfo(user: members[indexPath.item])
+     //   cell.sendInfo(user: members[indexPath.item])
         cell.delegate = self
         return cell
+    }
+    func getUsers(){
+        let loading = Common.getLoadingAnimation(view: self.view)
+        loading.startAnimating()
+        for id in members{
+            APIHandler.shared.getUser(id: id) { (user) in
+                self.users.append(user!)
+            }
+        }
+        loading.stopAnimating()
     }
     
     @IBAction func addContact(_ Sender: AnyObject) {
@@ -76,7 +87,7 @@ class PackMembersTableViewController: UITableViewController {
         let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
             mail = (self.email?.text!)!
             print("writing name")
-            self.members.append(User(id: 5, firstName: "JAY", lastName: "bay", email: mail, phone: "23", enableSMS: false, facebookLinked: false, twitterLinked: false))
+            self.users.append(User(id: 5, firstName: "JAY", lastName: "bay", email: mail, phone: "23", enableSMS: false, facebookLinked: false, twitterLinked: false))
             //add pack to DB
             self.tableView.reloadData()
             
@@ -95,9 +106,14 @@ class PackMembersTableViewController: UITableViewController {
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
                 //segue.destination as! SendWUPHFViewController
-                vc.target = members[indexPath.row]
+                //vc.target = members[indexPath.row]
                 
             }
+        }
+        if segue.identifier == "AddToPack" {
+            let vc = segue.destination as! AddtoPackTableViewController
+            vc.pack = self.pack
+            
         }
     }
     
@@ -124,5 +140,21 @@ class PackMembersTableViewController: UITableViewController {
         result.performsFirstActionWithFullSwipe = false
         return result
     }*/
+    func toPack(str:String) -> Pack{
+        var pack: Pack!
+        let strArr = str.components(separatedBy: " ")
+        pack.name = strArr[0]
+        let dataDecoded:Data = NSData(base64Encoded: strArr[1], options: Data.Base64DecodingOptions.ignoreUnknownCharacters)! as Data
+        let image:UIImage! = UIImage(data: dataDecoded)
+        pack.image = image
+        var memIDs: [Int] = []
+        
+        for char in strArr[3]{
+            memIDs.append(Int(String(char))!)
+        }
+        
+        
+        return pack
+    }
 
 }
