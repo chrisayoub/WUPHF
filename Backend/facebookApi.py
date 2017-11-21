@@ -5,5 +5,5 @@ import requests
 def makeWallPost(account, targetAccount, msg):
 	payload =  {'privacy' : '{\'value\': \'SELF\'}', 
 				'message' : msg, 'tags' : str(targetAccount.fbId)}
-	requests.post("https://graph.facebook.com/v2.11/me/feed?access_token=" + account.token, 
+	r = requests.post("https://graph.facebook.com/v2.11/me/feed?access_token=" + account.token, 
 		data=payload)

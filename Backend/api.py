@@ -4,7 +4,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 from phone import sendSms
 from emailApi import sendEmail
-from facebook import makeWallPost
+from facebookApi import makeWallPost
 import json
 
 app = Flask("WUPHF")
