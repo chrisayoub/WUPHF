@@ -16,7 +16,7 @@ class PackCollectionViewCell: UICollectionViewCell {
     var delegate: PacksCollectionViewController!
     
     @IBOutlet weak var packImage: UIImageView!
-    var members: [User] = []
+    var members: [Int] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +26,7 @@ class PackCollectionViewCell: UICollectionViewCell {
     @IBAction func goToPack(_ sender: Any) {
         delegate.performSegue(withIdentifier: "ShowPack", sender: self)
     }
-    func config(messageText: String, messageImage: UIImage, users: [User]) {
+    func config(messageText: String, messageImage: UIImage, users: [Int]) {
        // packImage.layer.cornerRadius = packImage.frame.height/2
         //packImage.layer.masksToBounds = true
         packName.text = messageText
