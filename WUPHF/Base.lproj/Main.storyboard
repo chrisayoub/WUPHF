@@ -345,7 +345,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iDW-4O-qqv">
-                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addContact" rowHeight="67" id="0tB-Fb-51b" customClass="AddContactTableViewCell" customModule="WUPHF" customModuleProvider="target">
@@ -1093,6 +1093,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rYe-lR-yPj">
                             <connections>
                                 <action selector="addContact:" destination="0WO-xM-Ari" id="SZJ-E7-w7w"/>
+                                <segue destination="keB-dz-NeG" kind="show" id="GcG-kw-55s"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1100,6 +1101,74 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oag-Se-FzC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2760.8000000000002" y="35.532233883058474"/>
+        </scene>
+        <!--Addto Pack Table View Controller-->
+        <scene sceneID="XuF-Ip-3LG">
+            <objects>
+                <tableViewController id="keB-dz-NeG" customClass="AddtoPackTableViewController" customModule="WUPHF" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TOc-jE-hVA" customClass="TableView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contact" rowHeight="67" id="1wp-A6-pEf" customClass="AddToPackTableViewCell" customModule="WUPHF" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="67"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1wp-A6-pEf" id="vf8-EB-DMc" customClass="AddToPackTableViewCell" customModule="WUPHF" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="66.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chris Ayoub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gm4-8S-ROU">
+                                            <rect key="frame" x="16" y="13" width="102.5" height="23"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="chris.ayoubtexas@gmail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kt-MH-2fO">
+                                            <rect key="frame" x="16" y="37" width="188" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsL-i7-uvW">
+                                            <rect key="frame" x="330" y="21" width="22" height="22"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="22" id="XFs-rf-8ud"/>
+                                            </constraints>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <state key="normal">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="addBTn:" destination="1wp-A6-pEf" eventType="touchUpInside" id="1L3-SZ-GqE"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="LsL-i7-uvW" secondAttribute="trailing" constant="7" id="7b6-uK-p2j"/>
+                                        <constraint firstItem="LsL-i7-uvW" firstAttribute="top" secondItem="vf8-EB-DMc" secondAttribute="topMargin" constant="10" id="PWi-vo-6Rj"/>
+                                        <constraint firstItem="Gm4-8S-ROU" firstAttribute="leading" secondItem="vf8-EB-DMc" secondAttribute="leadingMargin" id="SiY-iA-b8n"/>
+                                        <constraint firstItem="9kt-MH-2fO" firstAttribute="leading" secondItem="vf8-EB-DMc" secondAttribute="leadingMargin" id="U0k-dY-t1g"/>
+                                        <constraint firstItem="9kt-MH-2fO" firstAttribute="top" secondItem="Gm4-8S-ROU" secondAttribute="bottom" constant="1" id="Zfp-Tm-lWt"/>
+                                        <constraint firstItem="Gm4-8S-ROU" firstAttribute="top" secondItem="vf8-EB-DMc" secondAttribute="topMargin" constant="2" id="awR-sJ-Llc"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="email" destination="9kt-MH-2fO" id="sCk-Pb-QZ2"/>
+                                    <outlet property="name" destination="Gm4-8S-ROU" id="u1w-9H-pjk"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="keB-dz-NeG" id="AOW-KQ-r2x"/>
+                            <outlet property="delegate" destination="keB-dz-NeG" id="HHz-Af-Mf6"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XRZ-dw-gYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3696" y="59"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="vKm-Cw-eY9">
@@ -1114,6 +1183,7 @@
                     <connections>
                         <segue destination="qVp-1H-8bg" kind="relationship" relationship="viewControllers" id="S93-Cm-LiF"/>
                         <segue destination="gxh-mq-UFw" kind="relationship" relationship="viewControllers" id="Tui-lz-8ID"/>
+                        <segue destination="1ou-eA-Gkq" kind="relationship" relationship="viewControllers" id="051-Kn-3rv"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQ5-xi-Xjd" userLabel="First Responder" sceneMemberID="firstResponder"/>

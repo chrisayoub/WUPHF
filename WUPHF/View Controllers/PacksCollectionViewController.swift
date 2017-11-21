@@ -41,21 +41,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
        */
      //   packs.append(Pack(name: "Test4", image: imageTest!, members: users))
        // packs.append(Pack(name: "Test5", image: imageTest!, members: users))*/
-        
-        var packs = UserDefaults.standard.dictionary(forKey: "packs")
-        if packs == nil {
-            packs = Dictionary()
-            UserDefaults.standard.set(packs, forKey: "packs")
-        }
-        var tempPacks: [String] = []
-        if let packList = packs![String(describing: Common.loggedInUser!.id)]{
-            tempPacks = packList as! [String]
-        }
-        for p in tempPacks{
-            displayPacks.append(toPack(str: p))
-        }
-        UserDefaults.standard.synchronize()
-
+        getPacks()
+       
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
@@ -128,18 +115,38 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                
             })
         }
-        func addPack(pack pack: Pack){
+        func addPack(pack: Pack){
             let strPack = pack.toString()
             var packs = UserDefaults.standard.dictionary(forKey: "packs")
             var newPacks: [String] = []
             newPacks.append(strPack)
-            for p in packs!{
-                newPacks.append(p.value as! String)
+            for p in displayPacks{
+                newPacks.append(p.toString())
             }
             
             packs![String(describing: Common.loggedInUser!.id)] = newPacks
             UserDefaults.standard.set(packs, forKey: "packs")
             UserDefaults.standard.synchronize()
+            getPacks()
+        }
+        func getPacks(){
+            if !displayPacks.isEmpty{
+                displayPacks.removeAll(keepingCapacity: false)
+            }
+            var packs = UserDefaults.standard.dictionary(forKey: "packs")
+            if packs == nil {
+                packs = Dictionary()
+                UserDefaults.standard.set(packs, forKey: "packs")
+            }
+            var tempPacks: [String] = []
+            if let packList = packs![String(describing: Common.loggedInUser!.id)]{
+                tempPacks = packList as! [String]
+            }
+            for p in tempPacks {
+                displayPacks.append(toPack(str: p))
+            }
+            UserDefaults.standard.synchronize()
+
         }
     
         //What to do if the image picker cancels.
@@ -156,8 +163,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
 
         override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // #warning Incomplete implementation, return the number of items
-            print(packs.count)
-            return packs.count
+            print(displayPacks.count)
+            return displayPacks.count
         }
 
         override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
