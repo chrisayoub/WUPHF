@@ -3,6 +3,7 @@ from twilio.twiml.voice_response import VoiceResponse
 import uuid
 import boto3
 import os
+import time
 
 # Your Account SID from twilio.com/console
 account_sid = "ACbc7cd7e6450d6d882a3d2161c0c2c676"
@@ -15,6 +16,8 @@ from_number = '+15126451842'
 bucket = 'wuphf-for-ios'
 
 def makeCall(msg, senderName, destNumber):
+	# Delay this thread
+	time.sleep(8)
 	# Create the XML from the message
 	resp = VoiceResponse()
 	resp.say("Hello! This is an automated call from Woof!")
@@ -50,4 +53,5 @@ def makeCall(msg, senderName, destNumber):
 	call = client.calls.create(to=destNumber,    # to your cell phone
 							   from_=from_number, # from your Twilio phone number
 	 						   url=url)
+
 

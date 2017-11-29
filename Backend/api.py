@@ -351,7 +351,7 @@ class WUPHF(Resource):
 			except:
 				print('Could not SMS')
 			try:
-				callThread = Thread(target = placeCall, args = (msg, senderName, friend.phoneNumber))
+				callThread = Thread(target = makeCall, args = (msg, senderName, friend.phoneNumber))
 				callThread.start()
 			except:
 				print('Could not call')
