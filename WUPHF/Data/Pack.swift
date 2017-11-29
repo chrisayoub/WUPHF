@@ -12,12 +12,31 @@ import UIKit
 class Pack {
     
     private var _name: String
-    private var _image: UIImage
+    private var _imageName: String
     private var _members: [Int]
     
     init(name: String, image: UIImage, members: [Int]) {
         _name = name
-        _image = image
+        
+        let imageName = UUID().uuidString
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = documentDirectory.appendingPathComponent(imageName)
+            if let imageData = UIImagePNGRepresentation(image) {
+                try imageData.write(to: fileURL)
+            }
+        } catch {
+            print(error)
+        }
+        
+        _imageName = imageName
+        _members = members
+    }
+    
+    init(name: String, imageName: String, members: [Int]) {
+        _name = name
+        _imageName = imageName
         _members = members
     }
     
@@ -26,9 +45,9 @@ class Pack {
         set(data) { _name = data }
     }
     
-    var image: UIImage {
-        get { return _image }
-        set(data) { _image = data }
+    var imageName: String {
+        get { return _imageName }
+        set(data) { _imageName = data }
     }
     
     var members: [Int] {
@@ -40,9 +59,7 @@ class Pack {
         var s: String = ""
         s.append(_name)
         s.append("\n")
-        let imageData = UIImagePNGRepresentation(_image)
-        let strImage: String = (imageData?.base64EncodedString())!
-        s.append(strImage)
+        s.append(_imageName)
         s.append("\n")
         
         for id in _members {

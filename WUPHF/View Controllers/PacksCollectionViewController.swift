@@ -87,6 +87,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                         return
                     }
                 }
+
                 self.addPack(pack: Pack(name: newName!, image: newImage!, members: []))
                 self.collectionView?.reloadData()
             })
@@ -147,8 +148,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     func toPack(str: String) -> Pack {
         let strArr = str.components(separatedBy: "\n")
         let name: String = strArr[0]
-        let dataDecoded: Data = NSData(base64Encoded: strArr[1], options: Data.Base64DecodingOptions.ignoreUnknownCharacters)! as Data
-        let image: UIImage! = UIImage(data: dataDecoded)
+        let imageName: String = strArr[1]
         
         var memIDs: [Int] = []
         let membersSplit = strArr[2].components(separatedBy: ",")
@@ -158,7 +158,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             }
         }
         
-        return Pack(name: name, image: image, members: memIDs)
+        return Pack(name: name, imageName: imageName, members: memIDs)
     }
     
     // MARK: UICollectionViewDataSource
@@ -175,7 +175,18 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellid", for: indexPath) as! PackCollectionViewCell
     
         let pack = displayPacks[indexPath.row]
-        cell.config(messageText: pack.name, messageImage: pack.image, users: pack.members)
+        var image: UIImage = #imageLiteral(resourceName: "Packs")
+        
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = documentDirectory.appendingPathComponent(pack.imageName)
+            image = UIImage(contentsOfFile: fileURL.path)!
+        } catch {
+            print(error)
+        }
+        
+        cell.config(messageText: pack.name, messageImage: image, users: pack.members)
         cell.parentVC = self
         return cell
     }
@@ -199,3 +210,4 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         }
     }
 }
+
