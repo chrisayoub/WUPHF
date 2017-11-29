@@ -15,6 +15,3 @@ def sendSms(msg, destNumber):
 	    from_=from_number,
 	    body=msg)
 
-####### Test code
-
-# sendSms(msg="This is a test.", destNumber="5122508340")

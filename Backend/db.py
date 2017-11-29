@@ -111,17 +111,3 @@ class Bark(Base, JsonifyClass):
 class DB():
 	session = Session()
 	Base.metadata.create_all(engine)
-
-##### Test code
-
-# def test():
-# 	database = DB()
-# 	session = database.session
-# 	ed_user = User(email='ed@email.com', firstName='Ed', lastName='Jones', phoneNumber='555-852-4953')
-# 	ed_user.email = 'new@email.com'
-# 	session.add(ed_user)
-# 	for instance in session.query(User).order_by(User.id):
-# 		print(instance.email, instance.phoneNumber)
-# 	session.commit()
-
-# test()
