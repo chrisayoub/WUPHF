@@ -1,6 +1,7 @@
 from db import DB, User, Pack, FacebookAccount, TwitterAccount, Message, Bark
 from sqlalchemy import or_
 from flask import Flask, request
+from flask import make_response
 from flask_restful import Resource, Api
 from phone import sendSms
 from emailApi import sendEmail
@@ -379,10 +380,10 @@ class S3(Resource):
 	def post(self):
 		url = request.args['url']
 		text = urllib.request.urlopen(url).read()
-		response = flask.make_response(str(text))
+		response = make_response(str(text))
 		response.headers['content-type'] = 'application/xml'
 		return response
-		
+
 api.add_resource(S3, "/s3")
 
 # Generate messages from user message
