@@ -12,6 +12,8 @@ auth_token  = "3feefb15b80ad8bbcf285ff464691835"
 # Phone number we send from
 from_number = '+15126451842'
 
+bark = 'https://wuphf-for-ios.s3.amazonaws.com/bark.mp3'
+
 # S3 bucket
 bucket = 'wuphf-for-ios'
 
@@ -21,6 +23,7 @@ def makeCall(msg, senderName, destNumber):
 	# Create the XML from the message
 	resp = VoiceResponse()
 	resp.say("Hello! This is an automated call from Woof!")
+	resp.play(bark)
 	resp.pause(length=1)
 	resp.say("This message is sent from: " + senderName + ".")
 	resp.pause(length=1)
@@ -28,7 +31,9 @@ def makeCall(msg, senderName, destNumber):
 	resp.pause(length=1)
 	resp.say(msg)
 	resp.pause(length=1)
-	resp.say("This call was powered by Woof! Goodbye")
+	resp.say("This call was powered by Woof!")
+	resp.play(bark)
+	resp.say("Goodbye")
 	xml = str(resp)
 
 	# Write to file
