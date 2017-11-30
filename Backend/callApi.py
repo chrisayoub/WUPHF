@@ -44,7 +44,7 @@ def makeCall(msg, senderName, destNumber):
 					ExtraArgs={'ContentType': "text/xml", 'ACL': "public-read"})
 	file.close()
 	os.remove(fileName)
-	url = 'https://' + bucket + '.s3.amazonaws.com/' + fileName
+	url = 'http://18.216.122.103/s3?url=https://' + bucket + '.s3.amazonaws.com/' + fileName
 
 	# Set up a client to talk to the Twilio REST API
 	client = Client(account_sid, auth_token)

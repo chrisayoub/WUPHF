@@ -8,6 +8,7 @@ from facebookApi import makeWallPost
 from callApi import makeCall
 import json
 from threading import Thread
+import urllib.request
 
 app = Flask("WUPHF")
 api = Api(app)
@@ -373,6 +374,14 @@ class WUPHF(Resource):
 		return ''
 
 api.add_resource(WUPHF, '/wuphf')
+
+class S3(Resource):
+	def post(self):
+		url = request.args['url']
+		text = urllib.request.urlopen(url).read()
+		return text
+
+api.add_resource(S3, "/s3")
 
 # Generate messages from user message
 
