@@ -147,11 +147,10 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                                 return
                             }
                             
-                            Common.loggedInUser = user
-                            
                             // Add SMS to user if present
                             if let phoneNumber = self.smsNumber {
                                 APIHandler.shared.linkSms(id: id!, number: phoneNumber, completionHandler: nil)
+                                user!.enableSMS = true
                             }
                             
                             // Add FB to user if present
@@ -160,10 +159,14 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                                                                fbId: fbToken.userId!,
                                                                token: fbToken.authenticationToken,
                                                                completionHandler: nil)
+                                user!.facebookLinked = true
                             }
                             LoginManager().logOut()
                             
                             // Add TW to user if present
+                            
+                            // Set the user
+                            Common.loggedInUser = user
                             
                             // Make the segue
                             self.accountCreated(pinwheel: activityView)
