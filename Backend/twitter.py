@@ -35,4 +35,4 @@ def sendMessage(msg, senderUser, targetUser):
 
 # api = tweepy.API(auth)
 
-# api.send_direct_message(user_id=19638927, text='This is a test message')
+# api.send_direct_message(user_id=123123123, text='This is a test message')

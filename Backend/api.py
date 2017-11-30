@@ -1,11 +1,15 @@
 from db import DB, User, Pack, FacebookAccount, TwitterAccount, Message, Bark
 from sqlalchemy import or_
 from flask import Flask, request
+from flask import make_response
 from flask_restful import Resource, Api
 from phone import sendSms
 from emailApi import sendEmail
 from facebookApi import makeWallPost
+from callApi import makeCall
 import json
+from threading import Thread
+import urllib.request
 
 app = Flask("WUPHF")
 api = Api(app)
@@ -336,21 +340,29 @@ class WUPHF(Resource):
 		# wuphfforios
 		subject = 'WUPHF from ' + senderName
 		try:
-			sendEmail(text=text, targetEmail=friend.email, subject=subject)
+			emailThread = Thread(target = sendEmail, args = (text, friend.email, subject))
+			emailThread.start()
 		except:
 			print('Could not email')
 
 		# Send SMS
 		if friend.enableSMS:
 			try:
-				sendSms(text, friend.phoneNumber)
+				smsThread = Thread(target = sendSms, args = (text, friend.phoneNumber))
+				smsThread.start()
 			except:
 				print('Could not SMS')
+			try:
+				callThread = Thread(target = makeCall, args = (msg, senderName, friend.phoneNumber))
+				callThread.start()
+			except:
+				print('Could not call')
 
 		# Send Facebook
 		if user.facebookAccount != None and friend.facebookAccount != None:
 			try:
-				makeWallPost(user.facebookAccount, friend.facebookAccount, text)
+				fbThread = Thread(target = makeWallPost, args = (user.facebookAccount, friend.facebookAccount, text))
+				fbThread.start()
 			except:
 				print('Could not Facebook')
 
@@ -362,17 +374,17 @@ class WUPHF(Resource):
 		# Get info about a specific WUPHF
 		return ''
 
-class Bark(Resource):
-	def post(self):
-		# Send a bark to the given pack
-		return ''
-
-	def get(self):
-		# Get info about a specific Bark
-		return ''
-
 api.add_resource(WUPHF, '/wuphf')
-api.add_resource(Bark, '/bark')
+
+class S3(Resource):
+	def post(self):
+		url = request.args['url']
+		text = urllib.request.urlopen(url).read().decode('utf-8')
+		response = make_response(str(text))
+		response.headers['Content-Type'] = 'application/xml'
+		return response
+
+api.add_resource(S3, "/s3")
 
 # Generate messages from user message
 
@@ -389,57 +401,6 @@ def wrapBark(msg, senderName, location):
 	result += " -- Sent from location " + mapUrl
 	result += " -- Powered by WUPHF"
 	return result
-
-# Feed
-
-class Feed(Resource):
-	def get(self):
-		# Get 20 feed events for given user ID
-		id = request.form['id']
-		return ''
-
-api.add_resource(Feed, '/feed')
-
-# Pack
-
-class GetPacks(Resource):
-	def get(self):
-		# Get packs for user with given ID
-		userId = request.form['userId']
-		packs = session.query(Pack).filter_by(members.any(User == userId)).all()
-		return packs
-
-class CreatePack(Resource):
-	def post(self):
-		return ''
-
-class UpdatePack(Resource):
-	def post(self):
-		return ''
-
-class DeletePack(Resource):
-	def post(self):
-		return ''
-
-class GetPackInfo(Resource):
-	def get(self):
-		return ''
-
-class AddMemberToPack(Resource):
-	def post(self):
-		return ''
-
-class RemoveMemberFromPack(Resource):
-	def post(self):
-		return ''
-
-api.add_resource(GetPacks, '/pack/get')
-api.add_resource(CreatePack, '/pack/create')
-api.add_resource(UpdatePack, '/pack/update')
-api.add_resource(DeletePack, '/pack/delete')
-api.add_resource(GetPackInfo, '/pack/info')
-api.add_resource(AddMemberToPack, '/pack/addMember')
-api.add_resource(RemoveMemberFromPack, '/pack/removeMember')
 
 if __name__ == '__main__':
 	app.run(debug=True, host='0.0.0.0', port=80)
