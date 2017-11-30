@@ -379,7 +379,7 @@ api.add_resource(WUPHF, '/wuphf')
 class S3(Resource):
 	def post(self):
 		url = request.args['url']
-		text = urllib.request.urlopen(url).read()
+		text = urllib.request.urlopen(url).read().decode('utf-8')
 		response = make_response(str(text))
 		response.headers['Content-Type'] = 'application/xml'
 		return response
