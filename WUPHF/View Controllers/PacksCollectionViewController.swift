@@ -18,6 +18,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     
     var displayPacks: [Pack] = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -196,7 +197,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowPack" {
             // Get the table view row that was tapped.
-            if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell){
+            if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell) {
                 let vc = segue.destination as! PackMembersTableViewController
                 // Pass the selected data model object to the destination view controller.
                 vc.pack = displayPacks[indexPaths.row]
@@ -206,6 +207,8 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 let backItem = UIBarButtonItem()
                 backItem.title = "Back"
                 navigationItem.backBarButtonItem = backItem
+                // Set delegate
+                vc.delegate = sender as! PackCollectionViewCell
             }
         }
     }

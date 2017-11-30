@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PackCollectionViewCell: UICollectionViewCell {
+class PackCollectionViewCell: UICollectionViewCell, SetPackMembers {
     
     @IBOutlet weak var packName: UILabel!
     @IBOutlet weak var packImage: UIImageView!
@@ -21,8 +21,6 @@ class PackCollectionViewCell: UICollectionViewCell {
     }
 
     func config(messageText: String, messageImage: UIImage, users: [Int]) {
-        // packImage.layer.cornerRadius = packImage.frame.height/2
-        // packImage.layer.masksToBounds = true
         packName.text = messageText
         packName.bringSubview(toFront: self)
         packImage.image = messageImage
@@ -52,5 +50,9 @@ class PackCollectionViewCell: UICollectionViewCell {
         
         alertController.addAction(doneAction)
         parentVC!.present(alertController, animated: true, completion: nil)
+    }
+    
+    func setPackMembers(members: [Int]) {
+        self.members = members
     }
 }

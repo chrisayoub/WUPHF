@@ -12,6 +12,7 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
     
     var pack: Pack!
     var users: [User] = []
+    var delegate: SetPackMembers?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +39,19 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
     }
     
     func getUsers() {
+        users = []
         for i in 0 ..< pack.members.count {
             APIHandler.shared.getUser(id: pack.members[i]) { (user) in
                 if let userGood = user {
                     self.users.append(userGood)
                 }
                 if i == self.pack.members.count - 1 {
+                    // Update root members for Bark
+                    var members: [Int] = []
+                    for user in self.users {
+                        members.append(user.id)
+                    }
+                    self.delegate!.setPackMembers(members: members)
                     // Load data in table after done
                     self.tableView.reloadData()
                 }
@@ -94,4 +102,8 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
         result.performsFirstActionWithFullSwipe = false
         return result
     }
+}
+
+protocol SetPackMembers {
+    func setPackMembers(members: [Int])
 }
