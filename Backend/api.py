@@ -380,9 +380,7 @@ class S3(Resource):
 	def post(self):
 		url = request.args['url']
 		text = urllib.request.urlopen(url).read()
-		response = make_response(str(text))
-		response.headers['content-type'] = 'application/xml'
-		return response
+		return str(text), 200, {'Content-Type': 'application/xml'}
 
 api.add_resource(S3, "/s3")
 
