@@ -91,6 +91,7 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
                                                 self.pack.members.remove(at: indexPath.item)
                                                 self.users.remove(at: indexPath.item)
                                                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                                                self.delegate!.setPackMembers(members: self.pack.members)
                                                 // Update persistence async
                                                 self.pack.writePack()
                                                 success(true)
