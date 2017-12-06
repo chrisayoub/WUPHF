@@ -66,7 +66,7 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
             if let index = self.tableView.indexPath(for: sender as! PackMembersTableViewCell) {
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
-                vc.target = self.users[index.item]
+                vc.targetIds = [self.users[index.item].id]
             }
         }
         else if segue.identifier == "AddToPack" {

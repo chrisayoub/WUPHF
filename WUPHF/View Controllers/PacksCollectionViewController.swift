@@ -17,7 +17,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     lazy var createPackImage: UIImageView? = nil
     
     var displayPacks: [Pack] = []
-    
+    var cells: [PackCollectionViewCell] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +39,6 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        
-        // If we wish to customize cell size
-//        var cellSize = CGSize()
-//        cellSize.width = 50.0
-//        cellSize.height = 75.0
-//
-//        (self.collectionView!.collectionViewLayout as! UICollectionViewFlowLayout).itemSize = cellSize
     }
     
     @IBAction func createPackAlert(_ Sender: AnyObject) {
@@ -90,6 +83,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 }
 
                 self.addPack(pack: Pack(name: newName!, image: newImage!, members: []))
+                self.cells = []
                 self.collectionView?.reloadData()
             })
             
@@ -189,6 +183,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         
         cell.config(messageText: pack.name, messageImage: image, users: pack.members)
         cell.parentVC = self
+        cells.append(cell)
         return cell
     }
     
@@ -210,7 +205,37 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
                 // Set delegate
                 vc.delegate = sender as! PackCollectionViewCell
             }
+        } else if segue.identifier == "SendBark" {
+            if let btn = sender as? UIButton, let view = btn.superview?.superview {
+                if let indexPath = self.collectionView?.indexPath(for: view as! UICollectionViewCell) {
+                    let members = getPackMembersForIndexPath(index: indexPath)
+                    // Get target VC
+                    let tempController = segue.destination as? UINavigationController
+                    let vc = tempController?.topViewController as! SendWUPHFViewController
+                    vc.targetIds = members
+                    vc.navigationItem.title = "Send Bark"
+                }
+            }
         }
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "SendBark" {
+            if let btn = sender as? UIButton, let view = btn.superview?.superview {
+                if let indexPath = self.collectionView?.indexPath(for: view as! UICollectionViewCell) {
+                    if getPackMembersForIndexPath(index: indexPath).count == 0 {
+                        Common.alertPopUp(warning: "Cannot send a Bark to an empty Pack.", vc: self)
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
+    func getPackMembersForIndexPath(index: IndexPath) -> [Int] {
+        let cellVc = cells[index.row]
+        return cellVc.members
     }
 }
 

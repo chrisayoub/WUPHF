@@ -27,31 +27,6 @@ class PackCollectionViewCell: UICollectionViewCell, SetPackMembers {
         members = users
     }
     
-    @IBAction func sendBark(_ sender: Any) {
-        let us = Common.loggedInUser!.id
-        
-        let alertController = UIAlertController(title: "Enter your message", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        
-        var textEntry: UITextField?
-        alertController.addTextField(configurationHandler: { (textField : UITextField) -> Void in
-            textEntry = textField
-        })
-        
-        let doneAction = UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: { (sender : UIAlertAction) -> Void in
-            if let text = textEntry!.text {
-                for id in self.members {
-                    APIHandler.shared.sendWUPHF(userId: us, friendId: id,
-                                                message: text,
-                                                completionHandler: nil)
-                }
-            }
-            Common.alertPopUp(warning: "Bark successful!", vc: self.parentVC!)
-        })
-        
-        alertController.addAction(doneAction)
-        parentVC!.present(alertController, animated: true, completion: nil)
-    }
-    
     func setPackMembers(members: [Int]) {
         self.members = members
     }

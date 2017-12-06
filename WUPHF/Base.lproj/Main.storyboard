@@ -870,7 +870,7 @@
                                                 <color key="titleColor" red="0.97555515807746496" green="1" blue="0.18443420287235923" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="sendBark:" destination="9e4-1f-acN" eventType="touchUpInside" id="gcN-f3-LGP"/>
+                                                <segue destination="0ae-qI-G8U" kind="show" identifier="SendBark" id="058-O0-vch"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XN1-gZ-PpW">
@@ -1429,7 +1429,7 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="4qe-ur-NBn"/>
+        <segue reference="058-O0-vch"/>
         <segue reference="PpI-i7-HYy"/>
         <segue reference="ayo-xT-YL9"/>
         <segue reference="Mas-ne-dUX"/>

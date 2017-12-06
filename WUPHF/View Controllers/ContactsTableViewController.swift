@@ -112,7 +112,7 @@ class ContactsTableViewController: UITableViewController {
             if let indexPath = self.tableView.indexPath(for: sender as! ContactTableViewCell){
                 let tempController = segue.destination as? UINavigationController
                 let vc = tempController?.topViewController as! SendWUPHFViewController
-                vc.target = contacts[indexPath.row - 1]
+                vc.targetIds = [contacts[indexPath.row - 1].id]
             }
         }
     }

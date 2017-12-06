@@ -13,7 +13,7 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
     private var messages: [String] = []
     private var wuphfInProgess = false
     
-    var target: User?
+    var targetIds: [Int] = []
 
     @IBOutlet weak var txtField: UITextView!
     @IBOutlet weak var table: UITableView!
@@ -42,9 +42,6 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         UserDefaults.standard.synchronize()
-
-        // Do any additional setup after loading the view.
-        
     }
 
     @IBAction func sendBtn(_ sender: Any) {
@@ -52,16 +49,30 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         self.wuphfInProgess = true
-        APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
-            friendId: target!.id, message: txtField.text) { (success) in
-                if success {
-                    Common.alertPopUp(warning: "WUPHF Successful!", vc: self, completion: { (action) in
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                } else {
-                    Common.alertPopUp(warning: "WUPHF Failed!", vc: self, completion: nil)
+
+        var totalSuccess = true
+        for i in 0 ..< targetIds.count {
+            APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
+                                        friendId: targetIds[i],
+                                        message: txtField.text)
+            { (success) in
+                if !success {
+                    totalSuccess = false
                 }
-                self.wuphfInProgess = false
+                // Display message on last iteration
+                if i == self.targetIds.count - 1 {
+                    // Get action from navigation item title
+                    let action = (self.navigationItem.title?.split(separator: " ")[1])!
+                    if totalSuccess {
+                        Common.alertPopUp(warning: "\(action) successful!", vc: self, completion: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                    } else {
+                        Common.alertPopUp(warning: "\(action) failed!", vc: self, completion: nil)
+                    }
+                    self.wuphfInProgess = false
+                }
+            }
         }
     }
     
@@ -87,15 +98,5 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
         txtField.text = messages[indexPath.item]
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
