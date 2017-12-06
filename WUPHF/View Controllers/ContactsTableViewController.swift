@@ -32,28 +32,17 @@ class ContactsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
-            // TODO: https://stackoverflow.com/questions/26129428/badge-view-in-uitableviewcell
-            
-//            var accesoryBadge = UILabel()
-//            var string = "2"
-//            accesoryBadge.text = string
-//            accesoryBadge.backgroundColor = .red
-//            accesoryBadge.textColor = .white
-//            accesoryBadge.font = UIFont.systemFont(ofSize: 14)
-//            accesoryBadge.textAlignment = .center
-//            accesoryBadge.sizeToFit()
-//
-//            var frame = accesoryBadge.frame
-//            frame.size.height += (CGFloat) (0.4 * 14)
-//            frame.size.width = frame.size.height
-//            accesoryBadge.frame = frame
-//
-//            accesoryBadge.layer.cornerRadius = frame.size.height / 2.0
-//            accesoryBadge.clipsToBounds = true
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "pendingContactRequests", for: indexPath)
             
-//            cell.accessoryView = accesoryBadge
+            // Adding badge for number of pending requests
+            cell.accessoryView = nil
+            APIHandler.shared.getFriendRequests(id: Common.loggedInUser!.id, completionHandler: { (users) in
+                let num = users.count
+                if num > 0 {
+                    let accView = self.getBadge(text: "\(num)")
+                    cell.accessoryView = accView
+                }
+            })
             
             return cell
         }
@@ -91,6 +80,26 @@ class ContactsTableViewController: UITableViewController {
         if indexPath.item > 0 {
             selectedUser = contacts[indexPath.item - 1]
         }
+    }
+    
+    // https://stackoverflow.com/questions/26129428/badge-view-in-uitableviewcell
+    func getBadge(text: String) -> UIView {
+        let accesoryBadge = UILabel()
+        accesoryBadge.text = text
+        accesoryBadge.backgroundColor = .red
+        accesoryBadge.textColor = .white
+        accesoryBadge.font = UIFont.systemFont(ofSize: 14)
+        accesoryBadge.textAlignment = .center
+        accesoryBadge.sizeToFit()
+        
+        var frame = accesoryBadge.frame
+        frame.size.height += (CGFloat) (0.4 * 14)
+        frame.size.width = frame.size.height
+        accesoryBadge.frame = frame
+        
+        accesoryBadge.layer.cornerRadius = frame.size.height / 2.0
+        accesoryBadge.clipsToBounds = true
+        return accesoryBadge
     }
     
     // MARK: - Navigation

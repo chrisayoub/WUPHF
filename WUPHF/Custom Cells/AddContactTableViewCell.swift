@@ -29,7 +29,14 @@ class AddContactTableViewCell: UITableViewCell {
         email.text = user.email
         if user.requested {
             setRequested()
+        } else {
+            setNotRequested()
         }
+    }
+    
+    func setNotRequested() {
+        addButton.isHidden = false
+        requested.isHidden = true
     }
     
     func setRequested() {
