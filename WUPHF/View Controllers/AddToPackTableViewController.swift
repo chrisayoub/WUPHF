@@ -56,4 +56,3 @@ class AddtoPackTableViewController: UITableViewController, AddUserToPack {
 protocol UpdatePackList {
     func updateListAndGoBack()
 }
-

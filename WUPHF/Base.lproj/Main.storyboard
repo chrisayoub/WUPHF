@@ -855,7 +855,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;my pack name&gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jb9-6a-ZfV">
-                                            <rect key="frame" x="0.0" y="18" width="137" height="13"/>
+                                            <rect key="frame" x="0.0" y="10.5" width="137" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -873,22 +873,22 @@
                                                 <segue destination="0ae-qI-G8U" kind="show" identifier="SendBark" id="058-O0-vch"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XN1-gZ-PpW">
-                                            <rect key="frame" x="0.0" y="39" width="137" height="128"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XN1-gZ-PpW">
+                                            <rect key="frame" x="0.0" y="39" width="137" height="134"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
                                     <constraint firstItem="ZMt-0m-f00" firstAttribute="top" secondItem="Jb9-6a-ZfV" secondAttribute="bottom" constant="152" id="3EJ-oq-eFd"/>
+                                    <constraint firstItem="XN1-gZ-PpW" firstAttribute="top" secondItem="Jb9-6a-ZfV" secondAttribute="bottom" constant="8" id="7zb-SG-sPa"/>
                                     <constraint firstItem="Jb9-6a-ZfV" firstAttribute="trailing" secondItem="XN1-gZ-PpW" secondAttribute="trailing" id="HQN-zU-2sP"/>
-                                    <constraint firstItem="ZMt-0m-f00" firstAttribute="top" secondItem="XN1-gZ-PpW" secondAttribute="bottom" constant="16" id="RJA-BG-CeX"/>
+                                    <constraint firstItem="ZMt-0m-f00" firstAttribute="top" secondItem="XN1-gZ-PpW" secondAttribute="bottom" constant="10" id="RJA-BG-CeX"/>
                                     <constraint firstItem="Jb9-6a-ZfV" firstAttribute="leading" secondItem="XN1-gZ-PpW" secondAttribute="leading" id="Rdf-bH-uGq"/>
                                     <constraint firstAttribute="trailing" secondItem="Jb9-6a-ZfV" secondAttribute="trailing" id="YbZ-pp-8kP"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="ZMt-0m-f00" secondAttribute="bottom" constant="-8" id="ZY3-Xx-5tX"/>
-                                    <constraint firstItem="XN1-gZ-PpW" firstAttribute="top" secondItem="Jb9-6a-ZfV" secondAttribute="bottom" constant="8" symbolic="YES" id="djA-X6-5Qy"/>
+                                    <constraint firstItem="Jb9-6a-ZfV" firstAttribute="top" secondItem="9e4-1f-acN" secondAttribute="top" constant="10.5" id="f0P-bw-c9S"/>
                                     <constraint firstItem="Jb9-6a-ZfV" firstAttribute="leading" secondItem="9e4-1f-acN" secondAttribute="leading" id="ukE-KS-18n"/>
                                     <constraint firstItem="Jb9-6a-ZfV" firstAttribute="centerX" secondItem="ZMt-0m-f00" secondAttribute="centerX" id="vlN-65-Is7"/>
-                                    <constraint firstItem="Jb9-6a-ZfV" firstAttribute="top" secondItem="9e4-1f-acN" secondAttribute="topMargin" constant="10" id="z0f-nr-VRE"/>
                                 </constraints>
                                 <size key="customSize" width="137" height="213"/>
                                 <connections>
@@ -904,6 +904,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="My Packs" id="Zxp-nZ-gLZ">
+                        <barButtonItem key="backBarButtonItem" title="Packs" id="j4Q-oe-OK8"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="PVA-D2-5ql">
                             <connections>
                                 <action selector="createPackAlert:" destination="C8k-8M-eSn" id="cqT-QR-WBa"/>

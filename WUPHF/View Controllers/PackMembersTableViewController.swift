@@ -60,8 +60,6 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
     }
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "SendWuphf" {
             if let index = self.tableView.indexPath(for: sender as! PackMembersTableViewCell) {
                 let tempController = segue.destination as? UINavigationController

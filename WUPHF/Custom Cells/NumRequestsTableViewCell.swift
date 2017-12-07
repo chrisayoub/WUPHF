@@ -9,6 +9,7 @@
 import UIKit
 
 class NumRequestsTableViewCell: UITableViewCell {
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         if let label = self.accessoryView as? UILabel {

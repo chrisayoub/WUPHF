@@ -18,6 +18,7 @@ class PackCollectionViewCell: UICollectionViewCell, SetPackMembers {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        packName.text = ""
     }
 
     func config(messageText: String, messageImage: UIImage, users: [Int]) {

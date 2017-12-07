@@ -194,14 +194,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             // Get the table view row that was tapped.
             if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell) {
                 let vc = segue.destination as! PackMembersTableViewController
-                // Pass the selected data model object to the destination view controller.
                 vc.pack = displayPacks[indexPaths.row]
-                // Set the navigation bar back button text.
-                // If you don't do this, the back button text is this screens title text.
-                // If this screen didn't have any nav bar title text, the back button text would be 'Back', by default.
-                let backItem = UIBarButtonItem()
-                backItem.title = "Back"
-                navigationItem.backBarButtonItem = backItem
                 // Set delegate
                 vc.delegate = sender as! PackCollectionViewCell
             }
