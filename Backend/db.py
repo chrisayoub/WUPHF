@@ -81,7 +81,7 @@ class TwitterAccount(Base, JsonifyClass):
 	__tablename__ = 'twitter'
 	id = Column(Integer, primary_key=True)
 	userId = Column(Integer, ForeignKey('user.id'))
-	twitterId = Column(Integer)
+	twitterId = Column(Text)
 	oauth_token = Column(Text)
 	oauth_token_secret = Column(Text)
 
