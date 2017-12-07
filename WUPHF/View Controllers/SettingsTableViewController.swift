@@ -12,8 +12,6 @@ class SettingsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "logout" {
             Common.loggedInUser = nil
-            let vc = self.parent!.parent as! UITabBarController
-            vc.tabBar.isHidden = true
         }
     }
 }

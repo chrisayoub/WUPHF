@@ -26,6 +26,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     private var facebookLoginButton: LoginButton?
     private var fbAccessToken: AccessToken?
     
+    private var twitterLoginButton: TWTRLogInButton?
+    private var twitterSession: TWTRSession?
+    
     var smsNumber: String?
     
     override func viewDidLoad() {
@@ -40,31 +43,26 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
         
         // Facebook
         LoginManager().logOut()
-        facebookLoginButton = LoginButton(readPermissions: [ .publicProfile ])
+        facebookLoginButton = LoginButton(publishPermissions: [ .publishActions ])
         facebookLoginButton!.frame = facebookButton.frame
         view.addSubview(facebookLoginButton!)
         
         // Twitter
-//        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
-//            if (session != nil) {
-//                print("signed in as \(session!.userName)")
-//
-//                // Sign out
-////
-////                let store = Twitter.sharedInstance().sessionStore
-////
-////                if let userID = store.session()?.userID {
-////                    store.logOutUserID(userID)
-////                }
-//
-//
-//            } else {
-//                print("Error!")
-//            }
-//        })
-//        twLogInButton.frame = twitterButton.frame
-//        self.view.addSubview(twLogInButton)
-        twitterButton.isHidden = true
+        // Sign out
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+        }
+        // Create button
+        twitterLoginButton = TWTRLogInButton(logInCompletion: { session, error in
+            if let login = session {
+                // We are now logged into Twitter!
+                self.twitterSession = login
+                self.twitterLoginButton!.isHidden = true
+            }
+        })
+        twitterLoginButton!.frame = twitterButton.frame
+        self.view.addSubview(twitterLoginButton!)
         
         // For the 8 plus
         if UIScreen.main.bounds.size.height == 736.0 {
@@ -72,9 +70,9 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
             fbCenter.x += 35
             facebookLoginButton!.center = fbCenter
             
-//            var twCenter = twitterButton.center
-//            twCenter.x += 37
-//            twLogInButton.center = twCenter
+            var twCenter = twitterButton.center
+            twCenter.x += 35
+            twitterLoginButton!.center = twCenter
         }
     }
     
@@ -164,6 +162,18 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
                             LoginManager().logOut()
                             
                             // Add TW to user if present
+                            if let twSession = self.twitterSession {
+                                APIHandler.shared.linkTwitter(id: id!,
+                                                              twId: twSession.userID,
+                                                              oauth: twSession.authToken,
+                                                              secret: twSession.authTokenSecret,
+                                                              completionHandler: nil)
+                                user!.twitterLinked = true
+                            }
+                            let store = Twitter.sharedInstance().sessionStore
+                            if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
+                                store.logOutUserID(userID)
+                            }
                             
                             // Set the user
                             Common.loggedInUser = user
@@ -209,6 +219,15 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     }
     
     @IBAction func unlinkTwitter(_ sender: Any) {
+        // Log out
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+        }
+        // Enable button
+        twitterLoginButton!.isHidden = false
+        // Clear session
+        twitterSession = nil
     }
     
     // MARK: - Navigation

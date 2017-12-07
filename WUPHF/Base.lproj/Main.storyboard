@@ -575,7 +575,7 @@
                                 <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSw-jg-WDI">
-                                <rect key="frame" x="162" y="431" width="183" height="33"/>
+                                <rect key="frame" x="166" y="431" width="179" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Unlink">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -627,7 +627,7 @@
                             <constraint firstItem="4Qh-4R-1ge" firstAttribute="leading" secondItem="bTT-4O-Mei" secondAttribute="leading" constant="30" id="sDF-rW-ttC"/>
                             <constraint firstItem="bTT-4O-Mei" firstAttribute="trailing" secondItem="4Qh-4R-1ge" secondAttribute="trailing" constant="30" id="tFa-sv-aGb"/>
                             <constraint firstItem="bTT-4O-Mei" firstAttribute="trailing" secondItem="Vi4-GR-aAq" secondAttribute="trailing" constant="30" id="uMu-px-syH"/>
-                            <constraint firstItem="lSw-jg-WDI" firstAttribute="leading" secondItem="7gr-Ln-4kT" secondAttribute="trailing" constant="79" id="vyq-PR-7Ee"/>
+                            <constraint firstItem="lSw-jg-WDI" firstAttribute="leading" secondItem="7gr-Ln-4kT" secondAttribute="trailing" constant="83" id="vyq-PR-7Ee"/>
                             <constraint firstItem="bTT-4O-Mei" firstAttribute="trailing" secondItem="6Na-oi-z2L" secondAttribute="trailing" constant="30" id="yJp-QL-kwe"/>
                             <constraint firstItem="OdZ-h9-WeM" firstAttribute="top" secondItem="RYB-6b-qx9" secondAttribute="bottom" constant="37" id="zYd-Wa-gIM"/>
                         </constraints>
@@ -743,7 +743,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="presentation" identifier="logout" id="bfb-ix-fsB"/>
+                                            <segue destination="gxV-ZC-Iyh" kind="presentation" identifier="logout" id="CfU-ZM-MU4"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1430,8 +1430,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="058-O0-vch"/>
+        <segue reference="CfU-ZM-MU4"/>
         <segue reference="PpI-i7-HYy"/>
         <segue reference="ayo-xT-YL9"/>
-        <segue reference="Mas-ne-dUX"/>
     </inferredMetricsTieBreakers>
 </document>
