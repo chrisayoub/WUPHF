@@ -172,21 +172,29 @@
 		8341A7781F8AEECF00497C0C /* WUPHF */ = {
 			isa = PBXGroup;
 			children = (
+				837CE0F71FD92F1900B8D0F6 /* Shared */,
 				8395EE571FB9835A005E95EE /* Custom Cells */,
 				830198B41FA90DF900A05206 /* View Controllers */,
 				830198B31FA90DEF00A05206 /* Network */,
 				830198B21FA90DE000A05206 /* Data */,
-				8341A7791F8AEECF00497C0C /* AppDelegate.swift */,
 				8341A77D1F8AEECF00497C0C /* Main.storyboard */,
 				8341A7831F8AEECF00497C0C /* Assets.xcassets */,
 				8341A7851F8AEECF00497C0C /* LaunchScreen.storyboard */,
 				8341A7881F8AEECF00497C0C /* Info.plist */,
 				8341A7801F8AEECF00497C0C /* WUPHF.xcdatamodeld */,
 				83EFCF2E1FA83C0500B16B97 /* App.plist */,
-				4466B3E41FA8050B00ED1310 /* Common.swift */,
-				830198B71FA9235D00A05206 /* KeyboardReturn.swift */,
 			);
 			path = WUPHF;
+			sourceTree = "<group>";
+		};
+		837CE0F71FD92F1900B8D0F6 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4466B3E41FA8050B00ED1310 /* Common.swift */,
+				830198B71FA9235D00A05206 /* KeyboardReturn.swift */,
+				8341A7791F8AEECF00497C0C /* AppDelegate.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		8395EE571FB9835A005E95EE /* Custom Cells */ = {

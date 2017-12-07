@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 class LoginViewController: UIViewController {
     
@@ -53,7 +54,24 @@ class LoginViewController: UIViewController {
             } else {
                 // Save the user
                 Common.loggedInUser = user
-                // Go to next screen
+                
+                // Ask to save Touch ID
+//                let loginStr = LAContext().biometryType == .typeTouchID ? "Touch ID" : "Face ID"
+//                let message = "Login success! Do you want to enable " + loginStr + " for this account?"
+//                let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
+//
+//                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+//                    // Go to next screen
+//                    self.performSegue(withIdentifier: "login", sender: self)
+//                }))
+//
+//                alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
+//                    // Go to next screen
+//                    self.performSegue(withIdentifier: "login", sender: self)
+//                }))
+//
+//                self.present(alert, animated: true, completion: nil)
+                
                 self.performSegue(withIdentifier: "login", sender: self)
             }
             loading.stopAnimating()

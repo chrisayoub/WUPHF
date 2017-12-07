@@ -34,6 +34,7 @@ class Common {
     
     static func getLoadingAnimation(view: UIView) -> UIActivityIndicatorView {
         let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityView.color = .black
         activityView.center = view.center
         view.addSubview(activityView)
         return activityView
