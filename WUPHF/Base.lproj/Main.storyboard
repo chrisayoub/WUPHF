@@ -307,6 +307,7 @@
                                         <constraint firstItem="q3g-h9-cpM" firstAttribute="top" secondItem="3Ta-aC-hZg" secondAttribute="topMargin" id="yhK-gt-wg4"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="name" destination="q3g-h9-cpM" id="GXP-YA-mRB"/>
                                     <segue destination="0ae-qI-G8U" kind="show" identifier="SendWuphf" id="dcN-2D-9lm"/>
@@ -399,6 +400,7 @@
                                                 <constraint firstItem="A4E-Z6-00C" firstAttribute="top" secondItem="xHs-gU-zkf" secondAttribute="topMargin" constant="10" id="xXW-Un-o81"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.20392156859999999" green="0.1450980392" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="addButton" destination="A4E-Z6-00C" id="9H3-yY-ezV"/>
                                             <outlet property="email" destination="yTO-3v-hcl" id="cMl-12-BRV"/>
@@ -1430,7 +1432,7 @@
         <image name="Settings" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="058-O0-vch"/>
+        <segue reference="dcN-2D-9lm"/>
         <segue reference="CfU-ZM-MU4"/>
         <segue reference="PpI-i7-HYy"/>
         <segue reference="ayo-xT-YL9"/>
