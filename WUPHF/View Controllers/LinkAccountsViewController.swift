@@ -18,6 +18,7 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     @IBOutlet weak var switchSms: UISwitch!
     
     private var facebookLoginButton: LoginButton?
+    private var twitterLoginButton: TWTRLogInButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,26 +37,35 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
         }
         
         // Twitter
-//        let twLogInButton = TWTRLogInButton(logInCompletion: { session, error in
-//            if (session != nil) {
-//                print("signed in as \(session!.userName)")
-//
-//                // Sign out
-//                //
-//                //                let store = Twitter.sharedInstance().sessionStore
-//                //
-//                //                if let userID = store.session()?.userID {
-//                //                    store.logOutUserID(userID)
-//                //                }
-//
-//
-//            } else {
-//                print("Error!")
-//            }
-//        })
-//        twLogInButton.frame = twitterBtn.frame
-//        self.view.addSubview(twLogInButton)
+        // Logout
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+        }
+        // Setup login button
+        twitterLoginButton = TWTRLogInButton(logInCompletion: { session, error in
+            if (session != nil) {
+                // We are now logged into Twitter!
+                
+                // Hide button
+                self.twitterLoginButton?.isHidden = true
+                // Update user
+                Common.loggedInUser?.twitterLinked = true;
+                // Send to server
+                APIHandler.shared.linkTwitter(id: Common.loggedInUser!.id,
+                                              twId: (session?.userID)!,
+                                              oauth: (session?.authToken)!,
+                                              secret: (session?.authTokenSecret)!,
+                                              completionHandler: nil)
+            }
+        })
+        twitterLoginButton!.frame = twitterBtn.frame
+        self.view.addSubview(twitterLoginButton!)
         twitterBtn.isHidden = true
+        
+        if (Common.loggedInUser!.twitterLinked) {
+            twitterLoginButton!.isHidden = true
+        }
         
         // For the 8 plus
         if UIScreen.main.bounds.size.height == 736.0 {
@@ -63,16 +73,10 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
             fbCenter.x += 35
             facebookLoginButton!.center = fbCenter
             
-//            var twCenter = twitterBtn.center
-//            twCenter.x += 37
-//            twLogInButton.center = twCenter
+            var twCenter = twitterBtn.center
+            twCenter.x += 37
+            twitterLoginButton!.center = twCenter
         }
-    }
-
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -125,7 +129,16 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
     }
     
     @IBAction func unlinkTwitter(_ sender: Any) {
-        
+        // Enable Twitter login button
+        let store = Twitter.sharedInstance().sessionStore
+        if let userID = store.session()?.userID {
+            store.logOutUserID(userID)
+        }
+        twitterLoginButton!.isHidden = false
+        // Unlink
+        Common.loggedInUser!.twitterLinked = false
+        // Send to server
+        APIHandler.shared.unlinkTwitter(id: Common.loggedInUser!.id, completionHandler: nil)
     }
     
     // MARK: - Navigation

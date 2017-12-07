@@ -168,6 +168,39 @@ class APIHandler {
         }
     }
     
+    func linkTwitter(id: Int, twId: String, oauth: String, secret: String, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+            "twId": twId,
+            "oauth": oauth,
+            "secret": secret
+        ]
+        
+        Alamofire.request("\(server)/twitter/link", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure( _):
+                completionHandler?(false)
+            }
+        }
+    }
+    
+    func unlinkTwitter(id: Int, completionHandler: ((_ success: Bool) -> Void)?) {
+        let parameters: Parameters = [
+            "id": id,
+            ]
+        
+        Alamofire.request("\(server)/twitter/unlink", method: .post, parameters: parameters).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                completionHandler?(true)
+            case .failure( _):
+                completionHandler?(false)
+            }
+        }
+    }
+    
     // MARK: Friend requests
     
     func searchUsers(id: Int, query: String, completionHandler: @escaping ((_ users: [User]) -> Void)) {
@@ -263,6 +296,7 @@ class APIHandler {
     }
     
     // MARK: WUPHF sending
+    
     func sendWUPHF(userId: Int, friendId: Int, message: String, completionHandler: ((_ success: Bool) -> Void)?) {
         let parameters: Parameters = [
             "userId": userId,

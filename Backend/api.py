@@ -270,13 +270,33 @@ api.add_resource(UnlinkFacebookAccount, '/facebook/unlink')
 class LinkTwitterAccount(Resource):
 	def post(self):
 		# Link TW account for given user ID
-		# Need oauth_token and oauth_token_secret
-		return ''
+		id = request.form['id']
+		twId = request.form['twId']
+		oauth = request.form['oauth']
+		secret = request.form['secret']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		tw = TwitterAccount(userId=id, twitterId=twId, oauth_token=oauth, oauth_token_secret=secret)
+		session.add(tw)
+		session.commit()
+		return {'success' : True}
 
 class UnlinkTwitterAccount(Resource):
 	def post(self):
 		# Unlink TW account for given user ID
-		return ''
+		id = request.form['id']
+		users = session.query(User).filter_by(id=id).all()
+		if len(users) == 0:
+			return {'success' : False}, 422
+		user = users[0]
+		tw = user.twitterAccount
+		if tw == None:
+			return {'success' : False}, 422
+		session.delete(tw)
+		session.commit()
+		return {'success' : True}
 
 api.add_resource(LinkTwitterAccount, '/twitter/link')
 api.add_resource(UnlinkTwitterAccount, '/twitter/unlink')
