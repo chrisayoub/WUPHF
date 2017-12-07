@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Pack.swift
 //  WUPHF
 //
 //  Created by Matthew Savignano on 11/19/17.
@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class Pack {
     
     private var _name: String
     private var _imageName: String
     private var _members: [Int]
+    private var _entity: NSManagedObject?
     
     init(name: String, image: UIImage, members: [Int]) {
         _name = name
@@ -34,10 +36,11 @@ class Pack {
         _members = members
     }
     
-    init(name: String, imageName: String, members: [Int]) {
+    init(name: String, imageName: String, members: [Int], entity: NSManagedObject) {
         _name = name
         _imageName = imageName
         _members = members
+        _entity = entity
     }
     
     var name: String {
@@ -55,40 +58,31 @@ class Pack {
         set(data) { _members = data }
     }
     
-    func toString() -> String {
-        var s: String = ""
-        s.append(_name)
-        s.append("\n")
-        s.append(_imageName)
-        s.append("\n")
-        
-        for id in _members {
-            s.append("\(id)")
-        }
-        
-        return s
+    var entity: NSManagedObject? {
+        get { return _entity }
+        set(data) { _entity = data }
     }
     
     func writePack() {
-        DispatchQueue.global().async {
-            var packs = UserDefaults.standard.dictionary(forKey: "packs")
-            let packsList = packs![String(describing: Common.loggedInUser!.id)] as! [String]
-            var newPacksList: [String] = []
-            
-            // Update new pack with member
-            for packStr in packsList {
-                let strArr = packStr.components(separatedBy: "\n")
-                let name: String = strArr[0]
-                if name == self.name {
-                    newPacksList.append(self.toString())
-                } else {
-                    newPacksList.append(packStr)
-                }
-            }
-            
-            packs![String(describing: Common.loggedInUser!.id)] = newPacksList
-            UserDefaults.standard.set(packs, forKey: "packs")
-            UserDefaults.standard.synchronize()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        guard let persist = appDelegate.getPersistentContainer() else {
+            return
+        }
+        let managedContext = persist.viewContext
+
+        guard let e = entity else {
+            return
+        }
+        e.setValue(name, forKeyPath: "name")
+        e.setValue(imageName, forKeyPath: "imageName")
+        e.setValue(members, forKeyPath: "members")
+
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
         }
     }
 }

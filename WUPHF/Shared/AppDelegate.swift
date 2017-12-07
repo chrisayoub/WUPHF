@@ -15,6 +15,7 @@ import SafariServices
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var userContainers: Dictionary<String, NSPersistentContainer> = Dictionary()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         Twitter.sharedInstance().start(withConsumerKey:"dE7W4G2gjrFS16oyDatS1Ujhh", consumerSecret:"jNS8daivgRdIjBFSCzkUvU9DotUz4SdhOxwGcDdrGOoZtEILnT")
@@ -45,6 +46,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        self.saveContext()
+    }
+    
+    // MARK: - Core Data stack
+    
+    func getPersistentContainer() -> NSPersistentContainer? {
+        var storeName = "WUPHF"
+        if let id = Common.loggedInUser?.id {
+            storeName += "-\(id)"
+        } else {
+            return nil
+        }
+        
+        if userContainers[storeName] != nil {
+            return userContainers[storeName]
+        }
+        
+        guard let mom = NSManagedObjectModel.mergedModel(from: nil) else {
+            fatalError("Could not load model")
+        }
+        let container = NSPersistentContainer(name: storeName, managedObjectModel: mom)
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        userContainers[storeName] = container
+        return container
+    }
+    
+    // MARK: - Core Data Saving support
+    
+    func saveContext () {
+        guard let context = getPersistentContainer()?.viewContext else {
+            return
+        }
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
     }
 }
-

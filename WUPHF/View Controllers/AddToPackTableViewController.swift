@@ -45,12 +45,11 @@ class AddtoPackTableViewController: UITableViewController, AddUserToPack {
     
     func addUserToPack(user: User, pack: Pack) {
         pack.members.append(user.id)
-        // Update persistence async
+        // Update persistence
         pack.writePack()
         // Go back
         delegate?.updateListAndGoBack()
     }
-    
 }
 
 protocol UpdatePackList {

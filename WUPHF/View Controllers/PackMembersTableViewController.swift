@@ -12,7 +12,6 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
     
     var pack: Pack!
     var users: [User] = []
-    var delegate: SetPackMembers?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,19 +38,15 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
     }
     
     func getUsers() {
-        users = []
+        self.users.removeAll()
+        var totalFinish = 0
         for i in 0 ..< pack.members.count {
             APIHandler.shared.getUser(id: pack.members[i]) { (user) in
                 if let userGood = user {
                     self.users.append(userGood)
                 }
-                if i == self.pack.members.count - 1 {
-                    // Update root members for Bark
-                    var members: [Int] = []
-                    for user in self.users {
-                        members.append(user.id)
-                    }
-                    self.delegate!.setPackMembers(members: members)
+                totalFinish += 1
+                if totalFinish == self.pack.members.count {
                     // Load data in table after done
                     self.tableView.reloadData()
                 }
@@ -89,8 +84,7 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
                                                 self.pack.members.remove(at: indexPath.item)
                                                 self.users.remove(at: indexPath.item)
                                                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                                                self.delegate!.setPackMembers(members: self.pack.members)
-                                                // Update persistence async
+                                                // Update persistence
                                                 self.pack.writePack()
                                                 success(true)
         })
@@ -101,8 +95,4 @@ class PackMembersTableViewController: UITableViewController, UpdatePackList {
         result.performsFirstActionWithFullSwipe = false
         return result
     }
-}
-
-protocol SetPackMembers {
-    func setPackMembers(members: [Int])
 }

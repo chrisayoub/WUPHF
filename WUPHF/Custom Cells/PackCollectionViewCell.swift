@@ -8,27 +8,21 @@
 
 import UIKit
 
-class PackCollectionViewCell: UICollectionViewCell, SetPackMembers {
+class PackCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var packName: UILabel!
     @IBOutlet weak var packImage: UIImageView!
     
-    var members: [Int] = []
-    var parentVC: UIViewController?
+    var pack: Pack?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         packName.text = ""
     }
 
-    func config(messageText: String, messageImage: UIImage, users: [Int]) {
-        packName.text = messageText
+    func config(pack: Pack, messageImage: UIImage) {
+        packName.text = pack.name
         packName.bringSubview(toFront: self)
         packImage.image = messageImage
-        members = users
-    }
-    
-    func setPackMembers(members: [Int]) {
-        self.members = members
     }
 }

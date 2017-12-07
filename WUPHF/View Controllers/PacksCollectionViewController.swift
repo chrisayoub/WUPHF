@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class PacksCollectionViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -22,23 +23,18 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let load = Common.getLoadingAnimation(view: self.view)
-        
-        DispatchQueue.global().async {
-            DispatchQueue.main.sync {
-                // Loading animation
-                load.startAnimating()
-            }
-            // Populate pack listing, then refresh
-            self.getPacks()
-            DispatchQueue.main.sync {
-                self.collectionView?.reloadData()
-                load.stopAnimating()
-            }
-        }
-        
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Load the packs
+        let load = Common.getLoadingAnimation(view: self.view)
+        load.startAnimating()
+        self.getPacks()
+        self.collectionView?.reloadData()
+        load.stopAnimating()
     }
     
     @IBAction func createPackAlert(_ Sender: AnyObject) {
@@ -100,21 +96,30 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     // MARK: Pack loading
     
     func addPack(pack: Pack) {
-        DispatchQueue.global().async {
-            // Store the data, async so we return quick
-            let strPack = pack.toString()
-            var packs = UserDefaults.standard.dictionary(forKey: "packs")
-            var packsList: [String] = []
-            if let tempPacks = packs![String(describing: Common.loggedInUser!.id)] as? [String] {
-                packsList = tempPacks
-            }
-            packsList.append(strPack)
-            packs![String(describing: Common.loggedInUser!.id)] = packsList
-            UserDefaults.standard.set(packs, forKey: "packs")
-            UserDefaults.standard.synchronize()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
         }
-        // Add to currently stored array
-        displayPacks.append(pack)
+        guard let persist = appDelegate.getPersistentContainer() else {
+            return
+        }
+        let managedContext = persist.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "PackEntity",
+                                                in: managedContext)!
+        let packEntity = NSManagedObject(entity: entity,
+                                         insertInto: managedContext)
+        
+        packEntity.setValue(pack.name, forKeyPath: "name")
+        packEntity.setValue(pack.imageName, forKeyPath: "imageName")
+        packEntity.setValue(pack.members, forKeyPath: "members")
+        do {
+            try managedContext.save()
+            // Add to currently stored array
+            displayPacks.append(pack)
+            // Save entity in Pack
+            pack.entity = packEntity
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
     }
     
     func getPacks() {
@@ -122,38 +127,27 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         if !displayPacks.isEmpty {
             displayPacks = []
         }
-        // Get packs from user defaults
-        var packs = UserDefaults.standard.dictionary(forKey: "packs")
-        if packs == nil {
-            packs = Dictionary()
-            packs![String(describing: Common.loggedInUser!.id)] = []
-            UserDefaults.standard.set(packs, forKey: "packs")
+        // Load from Core Data
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
         }
-        var tempPacks: [String] = []
-        if let packList = packs![String(describing: Common.loggedInUser!.id)] {
-            tempPacks = packList as! [String]
+        guard let persist = appDelegate.getPersistentContainer() else {
+            return
         }
-        for p in tempPacks {
-            displayPacks.append(toPack(str: p))
-        }
-        UserDefaults.standard.synchronize()
-    }
-    
-    // Parses string into a Pack object
-    func toPack(str: String) -> Pack {
-        let strArr = str.components(separatedBy: "\n")
-        let name: String = strArr[0]
-        let imageName: String = strArr[1]
-        
-        var memIDs: [Int] = []
-        let membersSplit = strArr[2].components(separatedBy: ",")
-        for id in membersSplit {
-            if id != "" {
-                memIDs.append(Int(id)!)
+        let managedContext = persist.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "PackEntity")
+        do {
+            let entities = try managedContext.fetch(fetchRequest)
+            for e in entities {
+                let name = e.value(forKey: "name") as! String
+                let imageName = e.value(forKey: "imageName") as! String
+                let members: [Int] = e.value(forKey: "members") as! [Int]
+                let pack = Pack(name: name, imageName: imageName, members: members, entity: e)
+                displayPacks.append(pack)
             }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
-        return Pack(name: name, imageName: imageName, members: memIDs)
     }
     
     // MARK: UICollectionViewDataSource
@@ -181,8 +175,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             print(error)
         }
         
-        cell.config(messageText: pack.name, messageImage: image, users: pack.members)
-        cell.parentVC = self
+        cell.config(pack: pack, messageImage: image)
         cells.append(cell)
         return cell
     }
@@ -195,13 +188,11 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             if let indexPaths = self.collectionView?.indexPath(for: sender as! UICollectionViewCell) {
                 let vc = segue.destination as! PackMembersTableViewController
                 vc.pack = displayPacks[indexPaths.row]
-                // Set delegate
-                vc.delegate = sender as! PackCollectionViewCell
             }
         } else if segue.identifier == "SendBark" {
             if let btn = sender as? UIButton, let view = btn.superview?.superview {
                 if let indexPath = self.collectionView?.indexPath(for: view as! UICollectionViewCell) {
-                    let members = getPackMembersForIndexPath(index: indexPath)
+                    let members = displayPacks[indexPath.row].members
                     // Get target VC
                     let tempController = segue.destination as? UINavigationController
                     let vc = tempController?.topViewController as! SendWUPHFViewController
@@ -216,7 +207,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         if identifier == "SendBark" {
             if let btn = sender as? UIButton, let view = btn.superview?.superview {
                 if let indexPath = self.collectionView?.indexPath(for: view as! UICollectionViewCell) {
-                    if getPackMembersForIndexPath(index: indexPath).count == 0 {
+                    if displayPacks[indexPath.row].members.count == 0 {
                         Common.alertPopUp(warning: "Cannot send a Bark to an empty Pack.", vc: self)
                         return false
                     }
@@ -224,11 +215,6 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             }
         }
         return true
-    }
-    
-    func getPackMembersForIndexPath(index: IndexPath) -> [Int] {
-        let cellVc = cells[index.row]
-        return cellVc.members
     }
 }
 
