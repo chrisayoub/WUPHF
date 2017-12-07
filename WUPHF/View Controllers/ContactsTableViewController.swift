@@ -13,10 +13,26 @@ class ContactsTableViewController: UITableViewController {
     private var contacts: [User] = []
     private var selectedUser: User?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Drag to reload
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(refreshContacts(_:)),
+                          for: .valueChanged)
+        refresh.tintColor = .white
+        self.refreshControl = refresh
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshContacts()
+    }
+    
+    @objc func refreshContacts(_ sender: Any? = nil) {
         APIHandler.shared.getFriends(id: Common.loggedInUser!.id) { (users) in
             self.contacts = users
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
 
@@ -35,12 +51,19 @@ class ContactsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "pendingContactRequests", for: indexPath)
             
             // Adding badge for number of pending requests
-            cell.accessoryView = nil
             APIHandler.shared.getFriendRequests(id: Common.loggedInUser!.id, completionHandler: { (users) in
                 let num = users.count
                 if num > 0 {
                     let accView = self.getBadge(text: "\(num)")
-                    cell.accessoryView = accView
+                    if let label = cell.accessoryView as? UILabel {
+                        if label.text != "\(num)" {
+                            cell.accessoryView = accView
+                        }
+                    } else {
+                        cell.accessoryView = accView
+                    }
+                } else {
+                    cell.accessoryView = nil
                 }
             })
             
@@ -83,7 +106,7 @@ class ContactsTableViewController: UITableViewController {
     }
     
     // https://stackoverflow.com/questions/26129428/badge-view-in-uitableviewcell
-    func getBadge(text: String) -> UIView {
+    func getBadge(text: String) -> UILabel {
         let accesoryBadge = UILabel()
         accesoryBadge.text = text
         accesoryBadge.backgroundColor = .red
@@ -116,5 +139,4 @@ class ContactsTableViewController: UITableViewController {
             }
         }
     }
-
 }

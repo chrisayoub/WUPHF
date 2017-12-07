@@ -14,9 +14,20 @@ class PendingRequestsTableViewController: UITableViewController, ModifyRequestDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshRequests()
+        // Drag to reload
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(refreshRequests(_:)),
+                          for: .valueChanged)
+        refresh.tintColor = .white
+        self.refreshControl = refresh
+    }
+
+    @objc func refreshRequests(_ sender: Any? = nil) {
         APIHandler.shared.getFriendRequests(id: Common.loggedInUser!.id) { (users) in
             self.users = users
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
 
