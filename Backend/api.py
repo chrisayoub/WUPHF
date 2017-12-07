@@ -6,6 +6,7 @@ from flask_restful import Resource, Api
 from phone import sendSms
 from emailApi import sendEmail
 from facebookApi import makeWallPost
+from twitterApi import sendTwitter
 from callApi import makeCall
 import json
 from threading import Thread
@@ -387,6 +388,12 @@ class WUPHF(Resource):
 				print('Could not Facebook')
 
 		# Send Twitter
+		if user.twitterAccount != None and friend.twitterAccount != None:
+			try:
+				twThread = Thread(target = sendTwitter, args = (user.twitterAccount, friend.twitterAccount, text))
+				twThread.start()
+			except:
+				print('Could not Twitter')
 
 		return {'success' : True}
 

@@ -61,7 +61,6 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
         })
         twitterLoginButton!.frame = twitterBtn.frame
         self.view.addSubview(twitterLoginButton!)
-        twitterBtn.isHidden = true
         
         if (Common.loggedInUser!.twitterLinked) {
             twitterLoginButton!.isHidden = true
@@ -74,7 +73,7 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
             facebookLoginButton!.center = fbCenter
             
             var twCenter = twitterBtn.center
-            twCenter.x += 37
+            twCenter.x += 35
             twitterLoginButton!.center = twCenter
         }
     }
@@ -150,5 +149,4 @@ class LinkAccountsViewController: UIViewController, ModalViewControllerDelegate 
              destVC.delegate = self
          }
      }
-
 }
