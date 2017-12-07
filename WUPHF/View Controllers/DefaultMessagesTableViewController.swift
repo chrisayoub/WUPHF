@@ -16,16 +16,7 @@ class DefaultMessagesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var messages = UserDefaults.standard.dictionary(forKey: "defaultMessages")
-        if messages == nil {
-            messages = Dictionary()
-            UserDefaults.standard.set(messages, forKey: "defaultMessages")
-        }
-        if let msgList = messages![String(describing: Common.loggedInUser!.id)] {
-            self.messages = msgList as! [String]
-        }
-        UserDefaults.standard.synchronize()
-        
+        self.messages = Common.getDefaultMessages()
         self.tableView.rowHeight = 48.0;
     }
 
@@ -54,16 +45,13 @@ class DefaultMessagesTableViewController: UITableViewController {
 
     override func willMove(toParentViewController parent: UIViewController?) {
         if parent == nil {
-            var messages = UserDefaults.standard.dictionary(forKey: "defaultMessages")
             var newMessages: [String] = []
             for cell in cells {
                 if let msg = cell.getText(), !msg.isEmpty {
                     newMessages.append(msg)
                 }
             }
-            messages![String(describing: Common.loggedInUser!.id)] = newMessages
-            UserDefaults.standard.set(messages, forKey: "defaultMessages")
-            UserDefaults.standard.synchronize()
+            Common.setDefaultMessages(newMessages: newMessages)
         }
     }
 }

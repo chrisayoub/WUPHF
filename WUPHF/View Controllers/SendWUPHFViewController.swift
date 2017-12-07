@@ -27,21 +27,12 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
         table.layer.cornerRadius = 15.0
         txtField.layer.cornerRadius = 15.0
         
-        var messages = UserDefaults.standard.dictionary(forKey: "defaultMessages")
-        if messages == nil {
-            messages = Dictionary()
-            UserDefaults.standard.set(messages, forKey: "defaultMessages")
+        self.messages = Common.getDefaultMessages()
+        if self.messages.count > 0 {
+            txtField.text = self.messages[0]
+        } else {
+            txtField.text = ""
         }
-        if let msgList = messages![String(describing: Common.loggedInUser!.id)] {
-            self.messages = msgList as! [String]
-            table.reloadData()
-            if(self.messages.count > 0){
-                txtField.text = self.messages[0]
-            } else {
-                txtField.text = ""
-            }
-        }
-        UserDefaults.standard.synchronize()
     }
 
     @IBAction func sendBtn(_ sender: Any) {
@@ -98,5 +89,4 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
         txtField.text = messages[indexPath.item]
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
 }

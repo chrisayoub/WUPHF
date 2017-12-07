@@ -48,4 +48,24 @@ class Common {
         let result = phoneTest.evaluate(with: testStr) || phoneAltTest.evaluate(with: testStr)
         return result
     }
+    
+    static func getDefaultMessages() -> [String] {
+        var messages = UserDefaults.standard.dictionary(forKey: "defaultMessages")
+        if messages == nil {
+            messages = Dictionary()
+            UserDefaults.standard.set(messages, forKey: "defaultMessages")
+            UserDefaults.standard.synchronize()
+        }
+        if let msgList = messages![String(describing: Common.loggedInUser!.id)] {
+            return msgList as! [String]
+        }
+        return []
+    }
+    
+    static func setDefaultMessages(newMessages: [String]) {
+        var messages = UserDefaults.standard.dictionary(forKey: "defaultMessages")
+        messages![String(describing: Common.loggedInUser!.id)] = newMessages
+        UserDefaults.standard.set(messages, forKey: "defaultMessages")
+        UserDefaults.standard.synchronize()
+    }
 }
