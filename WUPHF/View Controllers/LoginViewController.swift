@@ -19,10 +19,13 @@ class LoginViewController: UIViewController {
         email.delegate = KeyboardReturn.shared
         password.delegate = KeyboardReturn.shared
         
-        // Prompt for local auth, if linked
-        if let id = Common.getLocalAuthAccountId() {
-            // Get user from server before auth
+        if getAuthString() == nil {
+            // Unlink account if no local auth
+            Common.setLocalAuthAccountId(id: nil)
+        } else if let id = Common.getLocalAuthAccountId() {
+            // Local auth available, and linked!
             APIHandler.shared.getUser(id: id, completionHandler: { (user) in
+                // Get user from server before auth
                 if user != nil {
                     self.email.text = user!.email
                     self.doLocalAuth(user: user!)
@@ -142,9 +145,6 @@ class LoginViewController: UIViewController {
             } else if type == .typeTouchID {
                 result = "Touch ID"
             }
-        } else {
-            // Clear saved account ID, if any
-            Common.setLocalAuthAccountId(id: nil)
         }
         context.invalidate()
         return result
