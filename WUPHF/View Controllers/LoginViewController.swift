@@ -117,7 +117,7 @@ class LoginViewController: UIViewController {
     
     func doLocalAuth(user: User) {
         let context = LAContext()
-        let myLocalizedReasonString = "Login with \(user.email) or press Cancel."
+        let myLocalizedReasonString = "Login with \(user.email)"
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
                                    localizedReason: myLocalizedReasonString)
