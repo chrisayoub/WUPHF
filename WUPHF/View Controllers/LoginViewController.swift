@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
                 }
                 
                 // Ask to save Touch ID for the current, different user
-                let message = "Login successful! Do you want to save this account with " + authStr + "?"
+                let message = "Login successful! Do you want to pair this account with " + authStr + "?"
                 let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
 
                 alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
