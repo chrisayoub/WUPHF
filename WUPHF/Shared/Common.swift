@@ -68,4 +68,17 @@ class Common {
         UserDefaults.standard.set(messages, forKey: "defaultMessages")
         UserDefaults.standard.synchronize()
     }
+    
+    static func getLocalAuthAccountId() -> Int? {
+        return UserDefaults.standard.value(forKey: "localAuth") as? Int
+    }
+    
+    static func setLocalAuthAccountId(id: Int?) {
+        if let val = id {
+            UserDefaults.standard.set(val, forKey: "localAuth")
+        } else {
+            UserDefaults.standard.removeObject(forKey: "localAuth")
+        }
+        UserDefaults.standard.synchronize()
+    }
 }

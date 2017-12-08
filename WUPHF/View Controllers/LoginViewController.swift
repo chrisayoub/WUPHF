@@ -18,9 +18,22 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         email.delegate = KeyboardReturn.shared
         password.delegate = KeyboardReturn.shared
+        
+        // Prompt for local auth, if linked
+        if let id = Common.getLocalAuthAccountId() {
+            // Get user from server before auth
+            APIHandler.shared.getUser(id: id, completionHandler: { (user) in
+                if user != nil {
+                    self.email.text = user!.email
+                    self.doLocalAuth(user: user!)
+                }
+            })
+        }
     }
     
     @IBAction func loginBtn(_ sender: Any) {
+        self.view.endEditing(true)
+        
         guard let mail = email.text, mail != "" else {
             Common.alertPopUp(warning: "Please enter your email.", vc: self)
             return
@@ -41,7 +54,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        if (keyPass != pass) {
+        if keyPass != pass {
             Common.alertPopUp(warning: "Password does not match.", vc: self)
             return
         }
@@ -50,29 +63,39 @@ class LoginViewController: UIViewController {
         loading.startAnimating()
         APIHandler.shared.getUserByEmail(email: mail, completionHandler: { user in
             if user == nil {
-                Common.alertPopUp(warning: "Account does not exist.", vc: self)
+                Common.alertPopUp(warning: "Account does not exist on server.", vc: self)
             } else {
                 // Save the user
                 Common.loggedInUser = user
                 
-                // Ask to save Touch ID
-//                let loginStr = LAContext().biometryType == .typeTouchID ? "Touch ID" : "Face ID"
-//                let message = "Login success! Do you want to enable " + loginStr + " for this account?"
-//                let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
-//
-//                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-//                    // Go to next screen
-//                    self.performSegue(withIdentifier: "login", sender: self)
-//                }))
-//
-//                alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
-//                    // Go to next screen
-//                    self.performSegue(withIdentifier: "login", sender: self)
-//                }))
-//
-//                self.present(alert, animated: true, completion: nil)
+                // Check for Local Auth
+                guard let authStr = self.getAuthString() else {
+                    self.doSegue()
+                    return
+                }
+
+                // Check if we already have Touch ID linked for an account
+                // This is where the linked user is logging in via password
+                if Common.getLocalAuthAccountId() == user!.id {
+                    self.doSegue()
+                    return
+                }
                 
-                self.performSegue(withIdentifier: "login", sender: self)
+                // Ask to save Touch ID for the current, different user
+                let message = "Login successful! Do you want to save this account with " + authStr + "?"
+                let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
+
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                    // Save the account as linked to Touch ID
+                    Common.setLocalAuthAccountId(id: user!.id)
+                    self.doSegue()
+                }))
+
+                alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
+                    self.doSegue()
+                }))
+
+                self.present(alert, animated: true, completion: nil)
             }
             loading.stopAnimating()
         })
@@ -80,5 +103,50 @@ class LoginViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    func doSegue() {
+        // Go to next screen
+        self.performSegue(withIdentifier: "login", sender: self)
+    }
+    
+    // MARK: Local auth functions
+    
+    func doLocalAuth(user: User) {
+        let context = LAContext()
+        let myLocalizedReasonString = "Login to \(user.email) or press Cancel."
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                   localizedReason: myLocalizedReasonString)
+            { success, evaluateError in
+                if success {
+                    // User authenticated successfully, get info from server
+                    Common.loggedInUser = user
+                    self.doSegue()
+                }
+                // Ignore failure to login, can retry on own
+            }
+        } else {
+            // Clear saved account ID, if any
+            Common.setLocalAuthAccountId(id: nil)
+        }
+    }
+    
+    func getAuthString() -> String? {
+        let context = LAContext()
+        var result: String?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            let type = context.biometryType
+            if type == .typeFaceID {
+                result = "Face ID"
+            } else if type == .typeTouchID {
+                result = "Touch ID"
+            }
+        } else {
+            // Clear saved account ID, if any
+            Common.setLocalAuthAccountId(id: nil)
+        }
+        context.invalidate()
+        return result
     }
 }
