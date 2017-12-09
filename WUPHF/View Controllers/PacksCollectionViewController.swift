@@ -59,7 +59,7 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
     // MARK: Image picker
   
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage
+        let newImage = info[UIImagePickerControllerEditedImage] as? UIImage
         
         self.dismiss(animated: true, completion: {
             let alertController = UIAlertController(title: "Name your pack", message: "", preferredStyle: UIAlertControllerStyle.alert)
