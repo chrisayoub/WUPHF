@@ -126,9 +126,12 @@ class LoginViewController: UIViewController {
                                    localizedReason: myLocalizedReasonString)
             { success, evaluateError in
                 if success {
-                    // User authenticated successfully, get info from server
-                    Common.loggedInUser = user
-                    self.doSegue()
+                    // Do on UI thread
+                    DispatchQueue.main.sync {
+                        // User authenticated successfully, get info from server
+                        Common.loggedInUser = user
+                        self.doSegue()
+                    }
                 }
                 // Ignore failure to login, can retry on own
             }
