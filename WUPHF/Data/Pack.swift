@@ -85,4 +85,35 @@ class Pack {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+    
+    func deletePack() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        guard let persist = appDelegate.getPersistentContainer() else {
+            return
+        }
+        let managedContext = persist.viewContext
+        
+        guard let e = entity else {
+            return
+        }
+        managedContext.delete(e)
+        
+        // Delete image
+        let fileManager = FileManager.default
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let fileURL = documentDirectory.appendingPathComponent(imageName)
+            try fileManager.removeItem(at: fileURL)
+        } catch {
+            print(error)
+        }
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
 }

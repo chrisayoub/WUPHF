@@ -25,6 +25,10 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
         
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        // Gesture recognizer
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        gesture.delaysTouchesBegan = true
+        self.collectionView?.addGestureRecognizer(gesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -215,6 +219,31 @@ class PacksCollectionViewController: UICollectionViewController, UIImagePickerCo
             }
         }
         return true
+    }
+    
+    // Handles deleting of packs
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .began {
+            return
+        }
+        
+        let p = gesture.location(in: self.collectionView)
+        if let indexPath = self.collectionView?.indexPathForItem(at: p) {
+            let pack = displayPacks[indexPath.item]
+            
+            let message = "Delete \"" + pack.name + "\"?"
+            let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+                self.displayPacks.remove(at: indexPath.item)
+                self.collectionView?.reloadData()
+                pack.deletePack()
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 
