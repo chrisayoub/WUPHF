@@ -140,9 +140,9 @@ class LoginViewController: UIViewController {
         var result: String?
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
             let type = context.biometryType
-            if type == .typeFaceID {
+            if type == .faceID {
                 result = "Face ID"
-            } else if type == .typeTouchID {
+            } else if type == .touchID {
                 result = "Touch ID"
             }
         }
