@@ -13,13 +13,14 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
     
     private var messages: [String] = []
     private var wuphfInProgess = false
-    var locationManager = CLLocationManager()
+    private var locationManager: CLLocationManager?
     
-    @IBOutlet weak var includeLocation: UISwitch!
     var targetIds: [Int] = []
-
+    
     @IBOutlet weak var txtField: UITextView!
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var includeLocationLbl: UILabel!
+    @IBOutlet weak var includeLocation: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +31,18 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
         table.layer.cornerRadius = 15.0
         txtField.layer.cornerRadius = 15.0
         
-        self.messages = Common.getDefaultMessages()
-        if self.messages.count > 0 {
-            txtField.text = self.messages[0]
+        // Set default messages
+        txtField.text = ""
+        messages = Common.getDefaultMessages()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            // Set up location
+            locationManager = CLLocationManager()
+            locationManager!.delegate = self
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.requestWhenInUseAuthorization()
         } else {
-            txtField.text = ""
+            hideLocation()
         }
     }
 
@@ -43,20 +51,22 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         self.wuphfInProgess = true
-        var userLat = ""
-        var userLong = ""
+        
         var myLocGMap = ""
-        if(includeLocation.isOn){
-            determineMyCurrentLocation()
-            userLat = String(format: "%f", (locationManager.location?.coordinate.latitude)!)
-            userLong = String(format: "%f", (locationManager.location?.coordinate.longitude)!)
-            myLocGMap = " -- https://www.google.com/maps/place/\(userLat),\(userLong)"
-            locationManager.stopUpdatingLocation()
+        //http://swiftdeveloperblog.com/code-examples/determine-users-current-location-example-in-swift/
+        if !includeLocation.isHidden, includeLocation.isOn {
+            if let mgr = locationManager {
+                mgr.startUpdatingLocation()
+                let userLat = String(format: "%f", (mgr.location?.coordinate.latitude)!)
+                let userLong = String(format: "%f", (mgr.location?.coordinate.longitude)!)
+                myLocGMap = " -- Location: https://www.google.com/maps/place/\(userLat),\(userLong)"
+                mgr.stopUpdatingLocation()
+            }
         }
         let finalMsg = txtField.text + myLocGMap
+        
         var totalSuccess = true
         for i in 0 ..< targetIds.count {
-            print(finalMsg)
             APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
                                         friendId: targetIds[i],
                                         message: finalMsg)
@@ -103,32 +113,22 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
         txtField.text = messages[indexPath.item]
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    //http://swiftdeveloperblog.com/code-examples/determine-users-current-location-example-in-swift/
-    func determineMyCurrentLocation() {
-        //locationManager = CLLocationManager()
-        locationManager.delegate = self as? CLLocationManagerDelegate
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.startUpdatingLocation()
-            //locationManager.startUpdatingHeading()
+    
+    func showLocation() {
+        includeLocation.isHidden = false
+        includeLocationLbl.isHidden = false
+    }
+    
+    func hideLocation() {
+        includeLocation.isHidden = true
+        includeLocationLbl.isHidden = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status != .authorizedWhenInUse {
+            hideLocation()
+        } else {
+            showLocation()
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let userLocation:CLLocation = locations[0] as CLLocation
-        
-        // Call stopUpdatingLocation() to stop listening for location updates,
-        // other wise this function will be called every time when user location changes.
-        
-        //manager.stopUpdatingLocation()
-        
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
-    {
-        print("Error \(error)")
     }
 }

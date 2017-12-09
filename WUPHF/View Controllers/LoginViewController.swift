@@ -14,12 +14,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    private var authStr: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         email.delegate = KeyboardReturn.shared
         password.delegate = KeyboardReturn.shared
         
-        if getAuthString() == nil {
+        authStr = Common.getAuthString()
+        if authStr == nil {
             // Unlink account if no local auth
             Common.setLocalAuthAccountId(id: nil)
         } else if let id = Common.getLocalAuthAccountId() {
@@ -72,7 +75,7 @@ class LoginViewController: UIViewController {
                 Common.loggedInUser = user
                 
                 // Check for Local Auth
-                guard let authStr = self.getAuthString() else {
+                guard self.authStr != nil else {
                     self.doSegue()
                     return
                 }
@@ -85,7 +88,7 @@ class LoginViewController: UIViewController {
                 }
                 
                 // Ask to save Touch ID for the current, different user
-                let message = "Login successful! Do you want to pair this account with " + authStr + "?"
+                let message = "Login successful! Do you want to pair this account with " + self.authStr! + "?"
                 let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
 
                 alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
@@ -133,20 +136,5 @@ class LoginViewController: UIViewController {
             // Clear saved account ID, if any
             Common.setLocalAuthAccountId(id: nil)
         }
-    }
-    
-    func getAuthString() -> String? {
-        let context = LAContext()
-        var result: String?
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-            let type = context.biometryType
-            if type == .faceID {
-                result = "Face ID"
-            } else if type == .touchID {
-                result = "Touch ID"
-            }
-        }
-        context.invalidate()
-        return result
     }
 }

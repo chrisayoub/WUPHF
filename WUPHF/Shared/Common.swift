@@ -9,6 +9,7 @@
 import UIKit
 import KeychainSwift
 import Security
+import LocalAuthentication
 
 class Common {
     
@@ -80,5 +81,20 @@ class Common {
             UserDefaults.standard.removeObject(forKey: "localAuth")
         }
         UserDefaults.standard.synchronize()
+    }
+    
+    static func getAuthString() -> String? {
+        let context = LAContext()
+        var result: String?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            let type = context.biometryType
+            if type == .faceID {
+                result = "Face ID"
+            } else if type == .touchID {
+                result = "Touch ID"
+            }
+        }
+        context.invalidate()
+        return result
     }
 }

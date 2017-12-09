@@ -193,9 +193,29 @@ class CreateAccountViewController: UIViewController, ModalViewControllerDelegate
     }
     
     // Segues past account creation, stopping the activity indicator
-    fileprivate func accountCreated(pinwheel: UIActivityIndicatorView?) {
+    func accountCreated(pinwheel: UIActivityIndicatorView?) {
         pinwheel?.stopAnimating()
-        self.performSegue(withIdentifier: "accountCreated", sender: self)
+        
+        // Ask to save Touch ID for the new user
+        guard let authStr = Common.getAuthString() else {
+            self.performSegue(withIdentifier: "accountCreated", sender: self)
+            return
+        }
+        
+        let message = "Account created! Do you want to pair this account with " + authStr + "?"
+        let alert = UIAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+            // Save the account as linked to Touch ID
+            Common.setLocalAuthAccountId(id: Common.loggedInUser!.id)
+            self.performSegue(withIdentifier: "accountCreated", sender: self)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "accountCreated", sender: self)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
