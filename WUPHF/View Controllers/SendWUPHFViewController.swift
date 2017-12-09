@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
-class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
     private var messages: [String] = []
     private var wuphfInProgess = false
+    var locationManager = CLLocationManager()
     
+    @IBOutlet weak var includeLocation: UISwitch!
     var targetIds: [Int] = []
 
     @IBOutlet weak var txtField: UITextView!
@@ -40,12 +43,23 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
             return
         }
         self.wuphfInProgess = true
-
+        var userLat = ""
+        var userLong = ""
+        var myLocGMap = ""
+        if(includeLocation.isOn){
+            determineMyCurrentLocation()
+            userLat = String(format: "%f", (locationManager.location?.coordinate.latitude)!)
+            userLong = String(format: "%f", (locationManager.location?.coordinate.longitude)!)
+            myLocGMap = " -- https://www.google.com/maps/place/\(userLat),\(userLong)"
+            locationManager.stopUpdatingLocation()
+        }
+        let finalMsg = txtField.text + myLocGMap
         var totalSuccess = true
         for i in 0 ..< targetIds.count {
+            print(finalMsg)
             APIHandler.shared.sendWUPHF(userId: Common.loggedInUser!.id,
                                         friendId: targetIds[i],
-                                        message: txtField.text)
+                                        message: finalMsg)
             { (success) in
                 if !success {
                     totalSuccess = false
@@ -88,5 +102,33 @@ class SendWUPHFViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         txtField.text = messages[indexPath.item]
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    //http://swiftdeveloperblog.com/code-examples/determine-users-current-location-example-in-swift/
+    func determineMyCurrentLocation() {
+        //locationManager = CLLocationManager()
+        locationManager.delegate = self as? CLLocationManagerDelegate
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+            //locationManager.startUpdatingHeading()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation:CLLocation = locations[0] as CLLocation
+        
+        // Call stopUpdatingLocation() to stop listening for location updates,
+        // other wise this function will be called every time when user location changes.
+        
+        //manager.stopUpdatingLocation()
+        
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        print("Error \(error)")
     }
 }
