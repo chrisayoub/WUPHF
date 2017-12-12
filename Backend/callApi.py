@@ -25,9 +25,8 @@ def makeCall(msg, senderName, destNumber):
 	if 'Location: https://www.google.com/maps/place/' in msg:
 		split = msg.split(' -- ')
 		newMsg = ''
-		for i in range(len(split) - 2):
+		for i in range(len(split) - 1):
 			newMsg += split[i] + ' -- '
-		newMsg += split[-1]
 		msg = newMsg
 	# Create the XML from the message
 	resp = VoiceResponse()
