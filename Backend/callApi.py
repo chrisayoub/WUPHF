@@ -12,6 +12,7 @@ auth_token  = "3feefb15b80ad8bbcf285ff464691835"
 # Phone number we send from
 from_number = '+15126451842'
 
+# Sound effect for bark
 bark = 'https://wuphf-for-ios.s3.amazonaws.com/bark.mp3'
 
 # S3 bucket
@@ -20,6 +21,14 @@ bucket = 'wuphf-for-ios'
 def makeCall(msg, senderName, destNumber):
 	# Delay this thread
 	time.sleep(8)
+	# Remove location from call script
+	if 'Location: https://www.google.com/maps/place/' in msg:
+		split = msg.split(' -- ')
+		newMsg = ''
+		for i in range(len(split) - 2):
+			newMsg += split[i] + ' -- '
+		newMsg += split[-1]
+		msg = newMsg
 	# Create the XML from the message
 	resp = VoiceResponse()
 	resp.say("Hello! This is an automated call from Woof!")
@@ -58,5 +67,3 @@ def makeCall(msg, senderName, destNumber):
 	call = client.calls.create(to=destNumber,    # to your cell phone
 							   from_=from_number, # from your Twilio phone number
 	 						   url=url)
-
-
