@@ -1,8 +1,8 @@
 import tweepy
 from db import User, TwitterAccount
 
-consumer_key = 'dE7W4G2gjrFS16oyDatS1Ujhh'
-consumer_secret = 'jNS8daivgRdIjBFSCzkUvU9DotUz4SdhOxwGcDdrGOoZtEILnT'
+consumer_key = ''
+consumer_secret = ''
 
 def sendTwitter(senderAccount, targetAccount, msg):
 	# Get values
