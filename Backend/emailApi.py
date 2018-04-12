@@ -3,8 +3,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-MY_ADDRESS = 'wuphfios@gmail.com'
-PASSWORD = 'wuphfforios'
+MY_ADDRESS = ''
+PASSWORD = ''
 
 # https://medium.freecodecamp.org/send-emails-using-code-4fcea9df63f
 def sendEmail(text, targetEmail, subject):
